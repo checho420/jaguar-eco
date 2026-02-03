@@ -1,0 +1,452 @@
+[
+    {
+        "id": 1,
+        "nombre": "High-Efficiency Solar Panel 400W",
+        "marca": "SunPower",
+        "categoria": "Solar Panels",
+        "precio": 299.99,
+        "stock": 50,
+        "descripcion": "Premium monocrystalline solar panel with 22% efficiency. Ideal for residential rooftops and off-grid setups.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Free Shipping",
+        "nuevo": true,
+        "mas_vendido": true
+    },
+    {
+        "id": 2,
+        "nombre": "Hybrid Solar Inverter 5kW",
+        "marca": "VoltMaster",
+        "categoria": "Inverters",
+        "precio": 850.00,
+        "stock": 30,
+        "descripcion": "Intelligent hybrid inverter compatible with lithium batteries. Pure sine wave output for sensitive electronics.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1565514020176-dbf22778c8a3?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 3,
+        "nombre": "Solar Portable Generator 1000Wh",
+        "marca": "EcoFlow",
+        "categoria": "Generators",
+        "precio": 999.00,
+        "stock": 25,
+        "descripcion": "Portable power station for camping and emergency backup. Can be charged via solar panels, AC wall outlet, or car port.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1628135899203-d64828114c09?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Bundle Deal",
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 4,
+        "nombre": "Deep Cycle Gel Battery 200Ah",
+        "marca": "PowerCell",
+        "categoria": "Batteries",
+        "precio": 320.50,
+        "stock": 100,
+        "descripcion": "Maintenance-free gel battery designed for solar energy storage. Long cycle life and high discharge performance.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1616423668238-d36c34a2e519?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": false
+    },
+    {
+        "id": 5,
+        "nombre": "Solar Garden Light Pack",
+        "marca": "LumiSolar",
+        "categoria": "Lighting",
+        "precio": 45.99,
+        "stock": 200,
+        "descripcion": "Set of 6 stainless steel solar path lights. Weather-resistant and automatic dusk-to-dawn operation.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1499578124509-1611b77778c8?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Buy 2 Get 1",
+        "nuevo": true,
+        "mas_vendido": true
+    },
+    {
+        "id": 6,
+        "nombre": "Foldable Solar Charger 28W",
+        "marca": "SunTrek",
+        "categoria": "Accessories",
+        "precio": 69.95,
+        "stock": 150,
+        "descripcion": "Compact and lightweight solar charger with dual USB ports. Perfect for hiking, backpacking, and travel.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1605218427306-6a43b0182ce6?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 7,
+        "nombre": "Solar Water Pump System",
+        "marca": "AquaSolar",
+        "categoria": "Agriculture",
+        "precio": 450.00,
+        "stock": 15,
+        "descripcion": "Submersible solar pump for irrigation, livestock watering, and fountains. Runs directly from solar panels.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1522967652758-5d25244ddf36?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "10% Off",
+        "nuevo": false,
+        "mas_vendido": false
+    },
+    {
+        "id": 8,
+        "nombre": "MPPT Charge Controller 60A",
+        "marca": "SmartSolar",
+        "categoria": "Controllers",
+        "precio": 185.00,
+        "stock": 60,
+        "descripcion": "Advanced MPPT technology for maximum energy harvest. Bluetooth enabled for monitoring via smartphone app.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1555664424-778a1e5e1b48?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 9,
+        "nombre": "Solar Street Light 100W",
+        "marca": "UrbanRay",
+        "categoria": "Lighting",
+        "precio": 120.00,
+        "stock": 80,
+        "descripcion": "All-in-one solar street light with motion sensor. High-brightness LEDs and durable aluminum housing.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1557993427-024345d9472d?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": false
+    },
+    {
+        "id": 10,
+        "nombre": "Bifacial Solar Panel 550W",
+        "marca": "SunPower",
+        "categoria": "Solar Panels",
+        "precio": 380.00,
+        "stock": 40,
+        "descripcion": "High-output bifacial module that captures sunlight from both sides. Maximizes generation on reflective surfaces.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1545208942-e0c33257a0e2?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "New Arrival",
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 11,
+        "nombre": "Solar Attic Fan",
+        "marca": "VentSol",
+        "categoria": "Ventilation",
+        "precio": 199.00,
+        "stock": 55,
+        "descripcion": "Solar-powered attic ventilator reduces heat buildup and moisture. Quiet operation and easy installation.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1454790130638-b7c6c44933a0?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 12,
+        "nombre": "Lithium Iron Phosphate Battery 100Ah",
+        "marca": "LiFePower",
+        "categoria": "Batteries",
+        "precio": 450.00,
+        "stock": 75,
+        "descripcion": "Deep cycle LiFePO4 battery with built-in BMS. Lightweight, safe, and 10+ year lifespan.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1605943962635-43bf620d4402?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Free cable kit",
+        "nuevo": true,
+        "mas_vendido": true
+    },
+    {
+        "id": 13,
+        "nombre": "Solar Camping Lantern",
+        "marca": "BrightCamp",
+        "categoria": "Accessories",
+        "precio": 24.99,
+        "stock": 300,
+        "descripcion": "Collapsible solar lantern with USB charging port. 3 lighting modes for versatility outdoors.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1508964942454-1a56651d54ac?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Buy 1 Get 1 50% Off",
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 14,
+        "nombre": "Solar Mounting Rails Kit",
+        "marca": "RoofMount",
+        "categoria": "Installation",
+        "precio": 89.00,
+        "stock": 100,
+        "descripcion": "Aluminum mounting rail system for secure solar panel installation on pitched roofs.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1605152276897-4f618f831968?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": false
+    },
+    {
+        "id": 15,
+        "nombre": "Flexible Solar Panel 100W",
+        "marca": "FlexSun",
+        "categoria": "Solar Panels",
+        "precio": 149.00,
+        "stock": 60,
+        "descripcion": "Ultra-thin and lightweight flexible panel. Ideal for RVs, boats, and curved surfaces.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1594818379496-da1e345b0ded?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 16,
+        "nombre": "Smart Home Energy Monitor",
+        "marca": "EcoSense",
+        "categoria": "Smart Home",
+        "precio": 129.99,
+        "stock": 120,
+        "descripcion": "Real-time energy monitoring system. Connects to your breaker panel and app.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1558402529-d2638a7023e9?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 17,
+        "nombre": "Solar Security Camera",
+        "marca": "SecureSun",
+        "categoria": "Security",
+        "precio": 89.99,
+        "stock": 200,
+        "descripcion": "Wireless security camera with built-in solar panel and night vision.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1587815254199-a9a30485d117?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Bundle Deal",
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 18,
+        "nombre": "Portable Solar Power Bank 20000mAh",
+        "marca": "SunCharge",
+        "categoria": "Accessories",
+        "precio": 39.99,
+        "stock": 500,
+        "descripcion": "Rugged solar power bank with wireless charging and flashlight.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "2 for $70",
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 19,
+        "nombre": "Solar Powered Bluetooth Speaker",
+        "marca": "SoundWave",
+        "categoria": "Audio",
+        "precio": 59.99,
+        "stock": 150,
+        "descripcion": "Waterproof bluetooth speaker with solar charging. 20 hours battery life.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 20,
+        "nombre": "Smart Thermostat Hub",
+        "marca": "NestEco",
+        "categoria": "Smart Home",
+        "precio": 199.99,
+        "stock": 80,
+        "descripcion": "AI-powered thermostat that optimizes your heating and cooling for solar usage.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1563456070688-46487e914594?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Free Install",
+        "nuevo": true,
+        "mas_vendido": true
+    },
+    {
+        "id": 21,
+        "nombre": "Solar Pool Ionizer",
+        "marca": "ClearBlue",
+        "categoria": "Maintenance",
+        "precio": 95.00,
+        "stock": 40,
+        "descripcion": "Reduces chlorine usage by 85%. Uses solar power to generate ions.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": false
+    },
+    {
+        "id": 22,
+        "nombre": "Micro-Inverter System",
+        "marca": "Enphase",
+        "categoria": "Inverters",
+        "precio": 150.00,
+        "stock": 100,
+        "descripcion": "Module-level power electronics for shade tolerance and safety.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 23,
+        "nombre": "Solar Cable 10AWG (50ft)",
+        "marca": "WirePro",
+        "categoria": "Installation",
+        "precio": 35.00,
+        "stock": 300,
+        "descripcion": "UV-resistant PV wire with MC4 connectors pre-crimped.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 24,
+        "nombre": "Wind Turbine 400W Hybrid",
+        "marca": "AeroGen",
+        "categoria": "Generators",
+        "precio": 350.00,
+        "stock": 20,
+        "descripcion": "Complement your solar system with wind power. Low start-up speed.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Free Controller",
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 25,
+        "nombre": "Solar Calculator",
+        "marca": "OfficeEco",
+        "categoria": "Electronics",
+        "precio": 15.99,
+        "stock": 1000,
+        "descripcion": "Classic solar desk calculator made from recycled plastics.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1587145820266-a5951eebebb1?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 26,
+        "nombre": "Solar Backpack with Hydration",
+        "marca": "HikeSol",
+        "categoria": "Accessories",
+        "precio": 85.00,
+        "stock": 60,
+        "descripcion": "7L Solar charger backpack with 2L hydration bladder included.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 27,
+        "nombre": "Solar Fairy Lights",
+        "marca": "DecorLight",
+        "categoria": "Lighting",
+        "precio": 19.99,
+        "stock": 400,
+        "descripcion": "Warm white LED fairy lights for patio and garden decoration.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1516216628259-29681f9f9575?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Buy 1 Get 1",
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 28,
+        "nombre": "EV Charger Level 2",
+        "marca": "DriveGreen",
+        "categoria": "Smart Home",
+        "precio": 599.00,
+        "stock": 25,
+        "descripcion": "Fast charging station for electric vehicles. Wi-Fi enabled.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": true,
+        "mas_vendido": false
+    },
+    {
+        "id": 29,
+        "nombre": "Solar Radio & Flashlight",
+        "marca": "EmergencyKit",
+        "categoria": "Electronics",
+        "precio": 45.00,
+        "stock": 100,
+        "descripcion": "Emergency NOAA weather radio with hand crank and solar charging.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1585860367375-7489eee696c2?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": null,
+        "nuevo": false,
+        "mas_vendido": true
+    },
+    {
+        "id": 30,
+        "nombre": "Solar Cooker Oven",
+        "marca": "SunChef",
+        "categoria": "Accessories",
+        "precio": 120.00,
+        "stock": 35,
+        "descripcion": "Portable solar oven reaching 300°F. Cook meals with just sunlight.",
+        "imagenes": [
+            "https://images.unsplash.com/photo-1533749005934-22b64731835d?auto=format&fit=crop&w=800&q=80"
+        ],
+        "promocion": "Cookbook included",
+        "nuevo": true,
+        "mas_vendido": false
+    }
+]
