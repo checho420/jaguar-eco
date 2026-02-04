@@ -45,17 +45,13 @@ const Navbar = () => {
             ? "fixed top-0 w-full z-50 bg-transparent border-b border-transparent transition-all duration-300"
             : "sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transition-all duration-300";
 
-    const textClasses = isHome && !scrolled
+    // Dynamic Color Logic
+    const isBannerArea = isHome && !pastBanner;
+    const jaguarColorClass = isBannerArea ? "text-white" : "text-jaguar-gold";
+    const textClasses = isBannerArea
         ? "text-white hover:text-green-400"
-        : "text-gray-800 dark:text-gray-100 hover:text-green-600 dark:hover:text-green-400";
-
-    const logoClasses = isHome && !scrolled
-        ? "text-white"
-        : "text-gray-900 dark:text-white";
-
-    const jaguarColorClass = isHome
-        ? (pastBanner ? "text-blue-600 dark:text-blue-400" : "text-white")
-        : "text-blue-600 dark:text-blue-400";
+        : "text-jaguar-black dark:text-jaguar-cream hover:text-green-600 dark:hover:text-green-400";
+    const iconColorStyle = isBannerArea ? { color: '#FFFFFF' } : {};
 
     // Menu Drawer Variants
     const menuVariants = {
@@ -111,18 +107,34 @@ const Navbar = () => {
                     {/* Logo */}
                     <Link to="/" className="z-50 relative">
                         <motion.div
-                            className={`text-3xl font-bold tracking-tight font-serif flex items-center`}
-                            whileHover={{ scale: 1.05 }}
+                            className="text-3xl md:text-4xl font-black tracking-tighter flex items-center group"
+                            whileHover={{ scale: 1.15 }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ type: "spring", stiffness: 400, damping: 17 }}
                         >
-                            <span className={jaguarColorClass}>Jaguar</span>
                             <motion.span
-                                className="text-green-500 italic ml-1 inline-block"
-                                animate={{ rotate: [0, 0, 0] }}
+                                className="font-jaguar relative inline-block"
+                                style={{ color: isBannerArea ? '#FFFFFF' : '#C68E3F' }}
                                 whileHover={{
-                                    rotate: [0, -10, 10, -5, 5, 0],
-                                    transition: { duration: 0.5 }
+                                    color: '#C68E3F',
+                                    y: -4,
+                                    skewX: -5,
+                                    textShadow: "5px 5px 15px rgba(0,0,0,0.3), 0 0 15px rgba(198, 142, 63, 0.3)"
+                                }}
+                                transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
+                            >
+                                Jaguar
+                            </motion.span><motion.span
+                                className="text-green-500 font-eco font-extrabold italic inline-block"
+                                initial={{ rotate: 0 }}
+                                whileHover={{
+                                    rotate: [0, -15, 15, -10, 10, 0],
+                                    scale: 1.2,
+                                    color: "#4ade80",
+                                }}
+                                transition={{
+                                    rotate: { duration: 0.6, ease: "easeInOut" },
+                                    scale: { type: "spring", stiffness: 300 }
                                 }}
                             >
                                 Eco
@@ -146,6 +158,7 @@ const Navbar = () => {
                             whileHover={{ scale: 1.2, rotate: -15 }}
                             whileTap={{ scale: 0.9 }}
                             onClick={toggleTheme}
+                            style={iconColorStyle}
                             className={`${textClasses} text-2xl focus:outline-none transition-colors hidden md:block`}
                         >
                             <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} />
@@ -205,7 +218,7 @@ const Navbar = () => {
 
                         {/* Mobile/Hamburger Menu Toggle */}
                         <motion.button
-                            whileHover={{ scale: 1.1 }}
+                            whileHover={{ scale: 1.1, color: "#C68E3F" }}
                             whileTap={{ scale: 0.9 }}
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             className={`${textClasses} text-3xl focus:outline-none`}
