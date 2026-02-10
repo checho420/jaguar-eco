@@ -6,36 +6,36 @@ import { faEdit, faTrash, faPlus, faSearch, faFilter } from '@fortawesome/free-s
 const ProductList = () => {
     const { products, loading } = useProducts();
     const [searchTerm, setSearchTerm] = useState('');
-    const [filterCategory, setFilterCategory] = useState('All');
+    const [filterCategory, setFilterCategory] = useState('Todos');
 
     // Get unique categories
-    const categories = ['All', ...new Set(products.map(p => p.categoria))];
+    const categories = ['Todos', ...new Set(products.map(p => p.categoria))];
 
     // Filter Logic
     const filteredProducts = products.filter(product => {
         const matchesSearch = product.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
             product.marca.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = filterCategory === 'All' || product.categoria === filterCategory;
+        const matchesCategory = filterCategory === 'Todos' || product.categoria === filterCategory;
         return matchesSearch && matchesCategory;
     });
 
-    const handleEdit = (id) => alert(`Edit Module for ID: ${id} coming soon!`);
+    const handleEdit = (id) => alert(`¡Módulo de edición para el ID: ${id} llegará pronto!`);
     const handleDelete = (id) => {
-        if (window.confirm('Are you sure you want to delete this product?')) {
-            alert('Delete API call would happen here.');
+        if (window.confirm('¿Estás seguro de que deseas eliminar este producto?')) {
+            alert('La llamada a la API de eliminación ocurriría aquí.');
         }
     };
 
-    if (loading) return <div className="p-10 text-center">Loading Inventory...</div>;
+    if (loading) return <div className="p-10 text-center">Cargando Inventario...</div>;
 
     return (
         <div className="space-y-6">
             {/* Header & Controls */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Product Inventory</h1>
+                <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Inventario de Productos</h1>
                 <button className="bg-green-600 text-white px-6 py-2.5 rounded-xl hover:bg-green-700 flex items-center gap-2 shadow-lg hover:shadow-green-500/30 transition-all">
                     <FontAwesomeIcon icon={faPlus} />
-                    Add Product
+                    Añadir Producto
                 </button>
             </div>
 
@@ -45,7 +45,7 @@ const ProductList = () => {
                     <FontAwesomeIcon icon={faSearch} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
                         type="text"
-                        placeholder="Search products, brands..."
+                        placeholder="Buscar productos, marcas..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-700 border-none outline-none dark:text-white focus:ring-2 focus:ring-green-500 transition-all"
@@ -72,12 +72,12 @@ const ProductList = () => {
                     <table className="w-full text-left">
                         <thead className="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 text-xs uppercase tracking-wider">
                             <tr>
-                                <th className="p-5 font-semibold">Product info</th>
-                                <th className="p-5 font-semibold">Category</th>
-                                <th className="p-5 font-semibold">Price</th>
+                                <th className="p-5 font-semibold">Info del Producto</th>
+                                <th className="p-5 font-semibold">Categoría</th>
+                                <th className="p-5 font-semibold">Precio</th>
                                 <th className="p-5 font-semibold">Stock</th>
-                                <th className="p-5 font-semibold">Status</th>
-                                <th className="p-5 font-semibold text-right">Actions</th>
+                                <th className="p-5 font-semibold">Estado</th>
+                                <th className="p-5 font-semibold text-right">Acciones</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-100 dark:divide-gray-700 text-sm">
@@ -113,9 +113,9 @@ const ProductList = () => {
                                     </td>
                                     <td className="p-5">
                                         {product.stock < 10 ? (
-                                            <span className="text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded text-xs font-bold">Low Stock</span>
+                                            <span className="text-red-600 bg-red-50 dark:bg-red-900/20 px-2 py-1 rounded text-xs font-bold">Stock Bajo</span>
                                         ) : (
-                                            <span className="text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded text-xs font-bold">Active</span>
+                                            <span className="text-green-600 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded text-xs font-bold">Activo</span>
                                         )}
                                     </td>
                                     <td className="p-5 text-right">
@@ -135,7 +135,7 @@ const ProductList = () => {
                 </div>
                 {/* Pagination (Mock) */}
                 <div className="p-4 border-t border-gray-100 dark:border-gray-700 text-center text-xs text-gray-500">
-                    Showing {filteredProducts.length} items
+                    Mostrando {filteredProducts.length} artículos
                 </div>
             </div>
         </div>

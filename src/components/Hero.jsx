@@ -199,7 +199,7 @@ const Hero = () => {
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
                 >
                     <motion.span
-                        className="font-jaguar text-white relative inline-block"
+                        className="font-sans font-bold text-white relative inline-block uppercase tracking-tighter"
                         whileHover={{
                             color: '#C68E3F',
                             y: -8,
@@ -211,7 +211,7 @@ const Hero = () => {
                         Jaguar
                     </motion.span>
                     <motion.span
-                        className="text-green-500 font-eco font-extrabold italic inline-block"
+                        className="text-green-500 font-sans font-black italic inline-block tracking-tighter"
                         initial={{ rotate: 0 }}
                         whileHover={{
                             rotate: [0, -15, 15, -10, 10, 0],

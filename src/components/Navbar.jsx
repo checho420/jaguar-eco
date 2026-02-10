@@ -94,10 +94,10 @@ const Navbar = () => {
     };
 
     const navItems = [
-        { label: 'Home', path: '/' },
-        { label: 'Catalog', path: '/catalog' },
-        { label: 'Bestsellers', path: '/bestsellers' },
-        { label: 'Sale', path: '/sale' }
+        { label: 'Inicio', path: '/' },
+        { label: 'Catálogo', path: '/catalog' },
+        { label: 'Más Vendidos', path: '/bestsellers' },
+        { label: 'Ofertas', path: '/sale' }
     ];
 
     return (
@@ -113,7 +113,7 @@ const Navbar = () => {
                             transition={{ type: "spring", stiffness: 400, damping: 17 }}
                         >
                             <motion.span
-                                className="font-jaguar relative inline-block"
+                                className="font-sans font-bold relative inline-block uppercase"
                                 style={{ color: isBannerArea ? '#FFFFFF' : '#C68E3F' }}
                                 whileHover={{
                                     color: '#C68E3F',
@@ -125,7 +125,7 @@ const Navbar = () => {
                             >
                                 Jaguar
                             </motion.span><motion.span
-                                className="text-green-500 font-eco font-extrabold italic inline-block"
+                                className="text-green-500 font-sans font-black italic inline-block"
                                 initial={{ rotate: 0 }}
                                 whileHover={{
                                     rotate: [0, -15, 15, -10, 10, 0],
@@ -199,7 +199,7 @@ const Navbar = () => {
                                         whileHover={{ scale: 1.2, rotate: 10 }}
                                         onClick={() => { logout(); navigate('/'); }}
                                         className={`${textClasses} text-2xl hover:text-red-500`}
-                                        title="Logout"
+                                        title="Cerrar Sesión"
                                     >
                                         <FontAwesomeIcon icon={faSignOutAlt} />
                                     </motion.button>
@@ -210,6 +210,7 @@ const Navbar = () => {
                                     whileTap={{ scale: 0.9 }}
                                     onClick={() => setIsLoginOpen(true)}
                                     className={`${textClasses} text-2xl transition-colors`}
+                                    title="Entrar"
                                 >
                                     <FontAwesomeIcon icon={faUser} />
                                 </motion.button>
@@ -265,7 +266,7 @@ const Navbar = () => {
                                         <motion.div key={item.path} variants={itemVariants}>
                                             <Link
                                                 to={item.path}
-                                                className="group relative inline-block text-4xl font-serif font-bold text-gray-800 dark:text-white py-4 overflow-hidden"
+                                                className="group relative inline-block text-4xl font-sans font-black text-gray-800 dark:text-white py-4 overflow-hidden tracking-tighter"
                                             >
                                                 <span className="relative z-10 transition-colors duration-300 group-hover:text-green-500">
                                                     {item.label}
@@ -291,7 +292,7 @@ const Navbar = () => {
                                         <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
                                             <FontAwesomeIcon icon={faUser} />
                                         </div>
-                                        <span>{isAuthenticated ? 'My Profile' : 'Sign In'}</span>
+                                        <span>{isAuthenticated ? 'Mi Perfil' : 'Entrar'}</span>
                                     </motion.button>
 
                                     <motion.button
@@ -302,7 +303,7 @@ const Navbar = () => {
                                         <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
                                             <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} />
                                         </div>
-                                        <span>{theme === 'light' ? 'Nights Mode' : 'Days Mode'}</span>
+                                        <span>{theme === 'light' ? 'Modo Noche' : 'Modo Día'}</span>
                                     </motion.button>
                                 </motion.div>
                             </div>
@@ -312,7 +313,7 @@ const Navbar = () => {
                                 className="text-left text-sm text-gray-400 tracking-widest uppercase font-medium"
                             >
                                 <p>© 2026</p>
-                                <p className="text-gray-900 dark:text-white mt-1">Jaguar Eco Architecture</p>
+                                <p className="text-gray-900 dark:text-white mt-1">Arquitectura Jaguar Eco</p>
                             </motion.div>
                         </motion.div>
                     </>

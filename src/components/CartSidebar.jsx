@@ -30,7 +30,7 @@ const CartSidebar = () => {
                         className="fixed inset-y-0 right-0 w-full md:w-96 bg-white dark:bg-gray-900 shadow-xl z-50 flex flex-col"
                     >
                         <div className="p-6 flex justify-between items-center border-b border-gray-200 dark:border-gray-800">
-                            <h2 className="text-xl font-bold text-gray-800 dark:text-white">Shopping Cart</h2>
+                            <h2 className="text-xl font-bold text-gray-800 dark:text-white">Carrito de Compras</h2>
                             <button onClick={toggleCart} className="text-gray-500 hover:text-red-500">
                                 <FontAwesomeIcon icon={faTimes} size="lg" />
                             </button>
@@ -38,7 +38,7 @@ const CartSidebar = () => {
 
                         <div className="flex-grow overflow-y-auto p-6 space-y-6">
                             {cart.length === 0 ? (
-                                <div className="text-center text-gray-500 mt-10">Your cart is empty.</div>
+                                <div className="text-center text-gray-500 mt-10">Tu carrito está vacío.</div>
                             ) : (
                                 cart.map(item => (
                                     <div key={item.id} className="flex gap-4">
@@ -69,7 +69,7 @@ const CartSidebar = () => {
                                     <span className="text-2xl font-bold text-gray-900 dark:text-white">${total.toFixed(2)}</span>
                                 </div>
                                 <Link to="/checkout" onClick={toggleCart} className="block w-full text-center bg-green-600 text-white py-3 rounded-full font-bold hover:bg-green-700 transition-colors shadow-lg">
-                                    Checkout
+                                    Finalizar Compra
                                 </Link>
                             </div>
                         )}
