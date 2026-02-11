@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTag, faDollarSign, faShoppingBag, faUsers, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 import { useAdmin } from '../../context/AdminContext';
 import { useProducts } from '../../context/ProductContext';
+import { formatCurrency, formatNumber } from '../../utils/formatters';
 
 const Dashboard = () => {
     const { metrics, recentOrders, orders, loading: adminLoading } = useAdmin();
@@ -58,7 +59,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <KPICard
                     title="Ingresos del día"
-                    value={`$${(metrics.totalRevenue / 30).toFixed(2)}`} // Mock daily
+                    value={formatCurrency(metrics.totalRevenue / 30)} // Mock daily
                     icon={faDollarSign}
                     color="green"
                     trend="+12.5%"
@@ -116,7 +117,7 @@ const Dashboard = () => {
                                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
                                 <Tooltip
                                     contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}
-                                    formatter={(value) => [`$${value}`, 'Ingresos']}
+                                    formatter={(value) => [formatCurrency(value), 'Ingresos']}
                                 />
                                 <Area type="monotone" dataKey="current" name="Semana Actual" stroke="#10B981" strokeWidth={3} fillOpacity={1} fill="url(#colorCurrent)" />
                                 <Area type="monotone" dataKey="previous" name="Semana Anterior" stroke="#6B7280" strokeWidth={3} strokeDasharray="5 5" fillOpacity={1} fill="url(#colorPrev)" />
@@ -180,8 +181,8 @@ const Dashboard = () => {
                                             <span className="font-medium text-gray-800 dark:text-gray-200 line-clamp-1 max-w-[150px]">{product.nombre}</span>
                                         </td>
                                         <td className="py-4 px-2 text-gray-500">{product.categoria}</td>
-                                        <td className="py-4 px-2 text-right font-semibold text-gray-700 dark:text-gray-300 py-2">${product.precio}</td>
-                                        <td className="py-4 px-2 text-right text-green-500 font-bold">{product.sold || 0}</td>
+                                        <td className="py-4 px-2 text-right font-semibold text-gray-700 dark:text-gray-300 py-2">{formatCurrency(product.precio)}</td>
+                                        <td className="py-4 px-2 text-right text-green-500 font-bold">{formatNumber(product.sold || 0)}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -209,11 +210,11 @@ const Dashboard = () => {
                                         <td className="py-4 px-2 font-medium text-gray-800 dark:text-gray-200">{order.id}</td>
                                         <td className="py-4 px-2 text-gray-500">{order.date}</td>
                                         <td className="py-4 px-2 text-gray-600 dark:text-gray-300">{order.customerName}</td>
-                                        <td className="py-4 px-2 font-bold text-gray-800 dark:text-white">${order.total}</td>
+                                        <td className="py-4 px-2 font-bold text-gray-800 dark:text-white">{formatCurrency(order.total)}</td>
                                         <td className="py-4 px-2 text-center">
                                             <span className={`px-2 py-1 rounded-full text-xs font-bold ${order.status === 'entregado' ? 'bg-green-100 text-green-600 dark:bg-green-900/30' :
-                                                    order.status === 'pendiente' ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30' :
-                                                        'bg-red-100 text-red-600 dark:bg-red-900/30'
+                                                order.status === 'pendiente' ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30' :
+                                                    'bg-red-100 text-red-600 dark:bg-red-900/30'
                                                 }`}>
                                                 {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                                             </span>

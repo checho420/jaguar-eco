@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faShoppingCart, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
+import { formatCurrency } from '../utils/formatters';
 
 const BestsellerCarousel = ({ products }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -114,7 +115,7 @@ const BestsellerCarousel = ({ products }) => {
 
                                         <div className="flex items-center justify-between mt-6">
                                             <span className="text-2xl font-black text-gray-900 dark:text-white">
-                                                ${product.precio}
+                                                {formatCurrency(product.precio)}
                                             </span>
                                             <div className="flex gap-2">
                                                 <Link

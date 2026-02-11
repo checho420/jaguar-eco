@@ -11,22 +11,46 @@ export const AdminProvider = ({ children }) => {
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Initial Load
     useEffect(() => {
-        const fetchData = async () => {
+        const initData = () => {
             setLoading(true);
             try {
-                // Mock API delay
-                await new Promise(resolve => setTimeout(resolve, 500));
+                const savedOrders = localStorage.getItem('jaguar_orders');
+                const savedCustomers = localStorage.getItem('jaguar_customers');
+
+                if (savedOrders) {
+                    setOrders(JSON.parse(savedOrders));
+                } else {
+                    setOrders(ordersData);
+                    localStorage.setItem('jaguar_orders', JSON.stringify(ordersData));
+                }
+
+                if (savedCustomers) {
+                    setCustomers(JSON.parse(savedCustomers));
+                } else {
+                    setCustomers(customersData);
+                    localStorage.setItem('jaguar_customers', JSON.stringify(customersData));
+                }
+            } catch (error) {
+                console.error("Error initializing admin data:", error);
                 setOrders(ordersData);
                 setCustomers(customersData);
-            } catch (error) {
-                console.error("Error fetching admin data:", error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchData();
+        initData();
     }, []);
+
+    // Persistence Effects
+    useEffect(() => {
+        if (!loading) localStorage.setItem('jaguar_orders', JSON.stringify(orders));
+    }, [orders, loading]);
+
+    useEffect(() => {
+        if (!loading) localStorage.setItem('jaguar_customers', JSON.stringify(customers));
+    }, [customers, loading]);
 
     // Derived Metrics
     const totalOrders = orders.length;

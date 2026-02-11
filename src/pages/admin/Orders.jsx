@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAdmin } from '../../context/AdminContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilter, faEye, faCheckCircle, faTimesCircle, faClock } from '@fortawesome/free-solid-svg-icons';
+import { formatCurrency } from '../../utils/formatters';
 
 const Orders = () => {
     const { orders, loading } = useAdmin();
@@ -32,8 +33,8 @@ const Orders = () => {
                             key={status}
                             onClick={() => setStatusFilter(status)}
                             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${statusFilter === status
-                                    ? 'bg-green-600 text-white shadow-lg shadow-green-500/30'
-                                    : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                                ? 'bg-green-600 text-white shadow-lg shadow-green-500/30'
+                                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
                                 }`}
                         >
                             {status}
@@ -74,8 +75,8 @@ const Orders = () => {
                                     <td className="p-5 font-medium text-gray-700 dark:text-gray-300">{order.customerName}</td>
                                     <td className="p-5">
                                         <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold border ${order.status === 'entregado' ? 'bg-green-50 text-green-600 border-green-100' :
-                                                order.status === 'pendiente' ? 'bg-yellow-50 text-yellow-600 border-yellow-100' :
-                                                    'bg-red-50 text-red-600 border-red-100'
+                                            order.status === 'pendiente' ? 'bg-yellow-50 text-yellow-600 border-yellow-100' :
+                                                'bg-red-50 text-red-600 border-red-100'
                                             }`}>
                                             {order.status === 'entregado' && <FontAwesomeIcon icon={faCheckCircle} />}
                                             {order.status === 'pendiente' && <FontAwesomeIcon icon={faClock} />}
@@ -83,7 +84,7 @@ const Orders = () => {
                                             {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
                                         </span>
                                     </td>
-                                    <td className="p-5 font-bold text-gray-800 dark:text-white">${order.total}</td>
+                                    <td className="p-5 font-bold text-gray-800 dark:text-white">{formatCurrency(order.total)}</td>
                                     <td className="p-5 text-right">
                                         <button
                                             onClick={() => setSelectedOrder(order)}
@@ -118,7 +119,7 @@ const Orders = () => {
                                 <div>
                                     <p className="text-xs text-gray-500 uppercase">Estado</p>
                                     <p className={`font-bold ${selectedOrder.status === 'entregado' ? 'text-green-500' :
-                                            selectedOrder.status === 'pendiente' ? 'text-yellow-500' : 'text-red-500'
+                                        selectedOrder.status === 'pendiente' ? 'text-yellow-500' : 'text-red-500'
                                         }`}>
                                         {selectedOrder.status.toUpperCase()}
                                     </p>
@@ -129,7 +130,7 @@ const Orders = () => {
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-500 uppercase">Total</p>
-                                    <p className="font-bold text-xl text-green-600">${selectedOrder.total}</p>
+                                    <p className="font-bold text-xl text-green-600">{formatCurrency(selectedOrder.total)}</p>
                                 </div>
                             </div>
 

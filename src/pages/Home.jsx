@@ -11,11 +11,12 @@ const Home = () => {
     const { products, loading } = useProducts();
 
     // Filter sections
-    const featuredProducts = products.filter(p => p.mas_vendido).slice(0, 4);
-    console.log("Featured Products", featuredProducts); // Debug
+    const featuredProducts = products.filter(p => p.mas_vendido && !p.disabled).slice(0, 4);
+
     // Randomize the "Novedades" section to show a fresh selection on each load
     const newProducts = React.useMemo(() => {
-        return [...products]
+        return products
+            .filter(p => !p.disabled)
             .sort(() => Math.random() - 0.5)
             .slice(0, 6);
     }, [products]);

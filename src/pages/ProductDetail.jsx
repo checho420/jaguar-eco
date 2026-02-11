@@ -14,6 +14,7 @@ import {
     faShieldAlt,
     faTruck
 } from '@fortawesome/free-solid-svg-icons';
+import { formatCurrency, formatNumber } from '../utils/formatters';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '../components/ProductCard';
@@ -32,12 +33,14 @@ const ProductDetail = () => {
     useEffect(() => {
         if (!loading) {
             const found = getProductById(id);
-            if (found) {
+            if (found && !found.disabled) {
                 setProduct(found);
                 const related = getProductsByCategory(found.categoria)
-                    .filter(p => p.id !== found.id)
+                    .filter(p => p.id !== found.id && !p.disabled)
                     .slice(0, 4);
                 setRelatedProducts(related);
+            } else {
+                setProduct(null);
             }
         }
     }, [id, loading, getProductById, getProductsByCategory]);
@@ -205,12 +208,12 @@ const ProductDetail = () => {
                                 <div className="flex items-baseline gap-2 mb-1">
                                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">USD</span>
                                     <span className="text-5xl font-black text-gray-900 dark:text-white tracking-tighter italic">
-                                        ${product.precio}
+                                        {formatCurrency(product.precio)}
                                     </span>
                                 </div>
                                 {product.promocion && (
                                     <span className="text-sm text-gray-400 line-through font-bold tracking-tight opacity-60">
-                                        ${(product.precio * 1.28).toFixed(2)}
+                                        {formatCurrency(product.precio * 1.28)}
                                     </span>
                                 )}
                             </div>
@@ -306,7 +309,7 @@ const ProductDetail = () => {
                                             El alto rendimiento se une al diseño sostenible. El {product.nombre} representa la cima de la ingeniería ecológica.
                                         </p>
                                         <p className="text-lg">
-                                            {product.descripcion}. Diseñado para quienes exigen eficiencia sin compromisos estéticos, este dispositivo incorpora materiales de primera calidad y componentes modulares de vanguardia.
+                                            {product.descripcion || 'Sin descripción detallada disponible.'}. Diseñado para quienes exigen eficiencia sin compromisos estéticos, este dispositivo incorpora materiales de primera calidad y componentes modulares de vanguardia.
                                         </p>
                                         <p>
                                             Cada unidad es rigurosamente probada para cumplir con nuestra iniciativa "Residuo Cero", asegurando que hasta el 98% de los componentes sean reciclables al final de su vida útil. Jaguar Eco no es solo una elección, es un compromiso con el futuro.
@@ -315,7 +318,7 @@ const ProductDetail = () => {
                                 )}
                                 {activeTab === 'especificaciones' && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                        {[...mockCharacteristics, ...mockCharacteristics].map((spec, i) => (
+                                        {(product.especificaciones && product.especificaciones.length > 0 ? product.especificaciones : [...mockCharacteristics, ...mockCharacteristics]).map((spec, i) => (
                                             <div key={i} className="p-6 rounded-3xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 space-y-2">
                                                 <p className="text-[9px] font-black uppercase tracking-widest text-green-500">{spec.label}</p>
                                                 <p className="text-lg font-black italic text-gray-900 dark:text-white">{spec.value}</p>
@@ -324,17 +327,44 @@ const ProductDetail = () => {
                                     </div>
                                 )}
                                 {activeTab === 'reseñas' && (
-                                    <div className="bg-gray-50 dark:bg-white/5 rounded-[40px] p-12 border-2 border-dotted border-gray-200 dark:border-white/10 text-center flex flex-col items-center">
-                                        <div className="flex gap-1 text-gray-200 dark:text-white/10 text-3xl mb-6">
-                                            <FontAwesomeIcon icon={faStar} />
-                                            <FontAwesomeIcon icon={faStar} />
-                                            <FontAwesomeIcon icon={faStar} />
-                                            <FontAwesomeIcon icon={faStar} />
-                                            <FontAwesomeIcon icon={faStar} />
-                                        </div>
-                                        <h4 className="text-xl font-black italic text-gray-900 dark:text-white mb-2 uppercase">Sin reseñas aún</h4>
-                                        <p className="mb-8">Sé el primero en compartir tu experiencia con este producto.</p>
-                                        <button className="bg-white dark:bg-black text-[10px] font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl border-2 border-gray-100 dark:border-white/10 hover:border-green-500 transition-all">Escribir Reseña</button>
+                                    <div className="space-y-8">
+                                        {product.reseñas && product.reseñas.length > 0 ? (
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                {product.reseñas.map((review, i) => (
+                                                    <div key={i} className="bg-gray-50 dark:bg-white/5 rounded-[32px] p-8 border border-gray-100 dark:border-white/5 shadow-sm">
+                                                        <div className="flex justify-between items-start mb-4">
+                                                            <div>
+                                                                <p className="font-black italic text-gray-900 dark:text-white uppercase tracking-tighter">{review.usuario}</p>
+                                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{review.fecha}</p>
+                                                            </div>
+                                                            <div className="flex gap-1 text-orange-400 text-xs">
+                                                                {[...Array(5)].map((_, starIdx) => (
+                                                                    <FontAwesomeIcon
+                                                                        key={starIdx}
+                                                                        icon={faStar}
+                                                                        className={starIdx < review.rating ? 'text-orange-400' : 'text-gray-200 dark:text-white/10'}
+                                                                    />
+                                                                ))}
+                                                            </div>
+                                                        </div>
+                                                        <p className="text-sm italic leading-relaxed text-gray-600 dark:text-gray-300">"{review.comentario}"</p>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div className="bg-gray-50 dark:bg-white/5 rounded-[40px] p-12 border-2 border-dotted border-gray-200 dark:border-white/10 text-center flex flex-col items-center">
+                                                <div className="flex gap-1 text-gray-200 dark:text-white/10 text-3xl mb-6">
+                                                    <FontAwesomeIcon icon={faStar} />
+                                                    <FontAwesomeIcon icon={faStar} />
+                                                    <FontAwesomeIcon icon={faStar} />
+                                                    <FontAwesomeIcon icon={faStar} />
+                                                    <FontAwesomeIcon icon={faStar} />
+                                                </div>
+                                                <h4 className="text-xl font-black italic text-gray-900 dark:text-white mb-2 uppercase">Sin reseñas aún</h4>
+                                                <p className="mb-8">Sé el primero en compartir tu experiencia con este producto.</p>
+                                                <button className="bg-white dark:bg-black text-[10px] font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl border-2 border-gray-100 dark:border-white/10 hover:border-green-500 transition-all">Escribir Reseña</button>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </motion.div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { useCart } from '../context/CartContext';
 import { useProducts } from '../context/ProductContext';
 import { Link, useNavigate } from 'react-router-dom';
+import { formatCurrency } from '../utils/formatters';
 
 const Checkout = () => {
     const { cart, total, clearCart } = useCart();
@@ -11,7 +12,7 @@ const Checkout = () => {
     const handleConfirmOrder = async (e) => {
         e.preventDefault();
 
-        if (window.confirm(`¿Confirmar pedido por un total de $${total.toFixed(2)}?`)) {
+        if (window.confirm(`¿Confirmar pedido por un total de ${formatCurrency(total)}?`)) {
             try {
                 // Process each item to update stock and sold count
                 for (const item of cart) {
@@ -111,7 +112,7 @@ const Checkout = () => {
                                         <p className="text-sm font-medium text-gray-800 dark:text-white line-clamp-2">{item.nombre}</p>
                                         <div className="flex justify-between items-center mt-1">
                                             <span className="text-xs text-gray-500">Cant: {item.quantity}</span>
-                                            <span className="text-sm font-bold text-gray-700 dark:text-gray-200">${(item.precio * item.quantity).toFixed(2)}</span>
+                                            <span className="text-sm font-bold text-gray-700 dark:text-gray-200">{formatCurrency(item.precio * item.quantity)}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +122,7 @@ const Checkout = () => {
                         <div className="border-t border-gray-100 dark:border-gray-700 pt-4 space-y-2 mb-6">
                             <div className="flex justify-between text-gray-500 text-sm">
                                 <span>Subtotal</span>
-                                <span>${total.toFixed(2)}</span>
+                                <span>{formatCurrency(total)}</span>
                             </div>
                             <div className="flex justify-between text-gray-500 text-sm">
                                 <span>Envío</span>
@@ -129,7 +130,7 @@ const Checkout = () => {
                             </div>
                             <div className="flex justify-between items-center pt-2 border-t border-gray-100 dark:border-gray-700 mt-2">
                                 <span className="font-bold text-lg dark:text-white">Total a Pagar</span>
-                                <span className="font-bold text-2xl text-green-600">${total.toFixed(2)}</span>
+                                <span className="font-bold text-2xl text-green-600">{formatCurrency(total)}</span>
                             </div>
                         </div>
 

@@ -6,6 +6,7 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { formatCurrency } from '../utils/formatters';
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
@@ -14,7 +15,7 @@ const ProductCard = ({ product }) => {
     const [isHovered, setIsHovered] = useState(false);
 
     const discount = product.promocion ? 15 : 0;
-    const originalPrice = discount > 0 ? (product.precio * 1.15).toFixed(2) : null;
+    const originalPrice = discount > 0 ? (product.precio * 1.15) : null;
     const whatsappUrl = `https://wa.me/1234567890?text=Hola, estoy interesado en: ${product.nombre}`;
 
     return (
@@ -137,10 +138,10 @@ const ProductCard = ({ product }) => {
                         </div>
                         <div className="flex items-baseline gap-2">
                             <span className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
-                                ${product.precio}
+                                {formatCurrency(product.precio)}
                             </span>
                             {originalPrice && (
-                                <span className="text-sm text-gray-400 line-through font-medium tracking-tight">${originalPrice}</span>
+                                <span className="text-sm text-gray-400 line-through font-medium tracking-tight">{formatCurrency(originalPrice)}</span>
                             )}
                         </div>
                     </div>
