@@ -15,29 +15,38 @@ const Customers = () => {
     if (loading) return <div className="p-10 text-center animate-pulse">Cargando Clientes...</div>;
 
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Gestión de Clientes</h1>
+        <div className="space-y-8 animate-fade-in-up">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+                <div>
+                    <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase">
+                        Gestión de <span className="text-[#0abab5]">Clientes</span>
+                    </h1>
+                    <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">
+                        Base de Datos: <span className="text-gray-900 dark:text-white">{customers.length} Usuarios activos</span>
+                    </p>
+                </div>
             </div>
 
-            {/* Filters */}
-            <div className="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row gap-4 justify-between">
-                <div className="relative w-full md:w-96">
-                    <FontAwesomeIcon icon={faSearch} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            {/* Filters Bar */}
+            <div className="bg-white/50 dark:bg-[#111217]/50 backdrop-blur-md p-4 rounded-[28px] shadow-sm border border-gray-100 dark:border-[#1e1f26] flex flex-col md:flex-row gap-4 justify-between">
+                <div className="relative flex-grow max-w-xl">
+                    <FontAwesomeIcon icon={faSearch} className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
                         type="text"
-                        placeholder="Buscar por nombre o email..."
+                        placeholder="Buscar por nombre o dirección de email..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-10 pr-4 py-2 rounded-lg bg-gray-50 dark:bg-gray-700 border-none outline-none dark:text-white focus:ring-2 focus:ring-green-500 transition-all"
+                        className="w-full pl-14 pr-6 py-4 rounded-2xl bg-white dark:bg-[#171821] border border-transparent focus:border-[#0abab5] outline-none dark:text-white transition-all font-black uppercase tracking-widest text-[10px] placeholder:text-gray-400"
                     />
                 </div>
-                <div className="flex gap-4 text-sm text-gray-500">
+                <div className="flex items-center gap-6 px-4">
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-green-500"></div> Activo
+                        <div className="w-2 h-2 rounded-full bg-[#0abab5] shadow-[0_0_10px_#0abab5]"></div>
+                        <span className="text-[9px] font-black uppercase tracking-widest text-gray-400">Regular</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div> VIP
+                        <div className="w-2 h-2 rounded-full bg-[#ff9500] shadow-[0_0_10px_#ff9500]"></div>
+                        <span className="text-[9px] font-black uppercase tracking-widest text-[#ff9500]">VIP System</span>
                     </div>
                 </div>
             </div>
@@ -45,36 +54,36 @@ const Customers = () => {
             {/* Customers Grid/List */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {filteredCustomers.map(customer => (
-                    <div key={customer.id} className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-lg transition-shadow duration-300 group relative overflow-hidden">
+                    <div key={customer.id} className="bg-white dark:bg-[#111217] p-8 rounded-[32px] shadow-sm border border-gray-100 dark:border-[#1e1f26] hover:scale-[1.02] transition-all duration-300 group relative overflow-hidden">
                         {/* Status Badge */}
-                        <div className={`absolute top-4 right-4 text-xs font-bold px-2 py-1 rounded-full uppercase tracking-wider ${customer.status === 'vip' ? 'bg-yellow-100 text-yellow-600' :
-                                customer.status === 'active' || customer.status === 'pro' ? 'bg-green-100 text-green-600' :
-                                    'bg-gray-100 text-gray-400'
+                        <div className={`absolute top-6 right-6 text-[8px] font-black px-3 py-1.5 rounded-lg uppercase tracking-widest ${customer.status === 'vip' ? 'bg-[#ff9500]/10 text-[#ff9500] border border-[#ff9500]/20' :
+                            customer.status === 'active' || customer.status === 'pro' ? 'bg-[#0abab5]/10 text-[#0abab5] border border-[#0abab5]/20' :
+                                'bg-gray-100 dark:bg-white/5 text-gray-400'
                             }`}>
                             {customer.status}
                         </div>
 
-                        <div className="flex items-center gap-4 mb-6">
-                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center text-white text-2xl font-bold shadow-lg shadow-green-500/30">
+                        <div className="flex items-center gap-6 mb-8">
+                            <div className={`w-20 h-20 rounded-[28px] bg-gradient-to-br flex items-center justify-center text-white text-3xl font-black shadow-2xl transition-transform group-hover:rotate-6 ${customer.status === 'vip' ? 'from-[#ff9500] to-[#ffcc00] shadow-[#ff9500]/30' : 'from-[#0abab5] to-[#4169e1] shadow-[#0abab5]/30'}`}>
                                 {customer.name.charAt(0)}
                             </div>
                             <div>
-                                <h3 className="font-bold text-lg text-gray-800 dark:text-white">{customer.name}</h3>
-                                <div className="text-gray-500 dark:text-gray-400 text-sm flex items-center gap-2">
-                                    <FontAwesomeIcon icon={faUser} className="text-xs" /> ID: {customer.id}
+                                <h3 className="font-black text-xl text-gray-900 dark:text-white tracking-tighter italic uppercase leading-tight">{customer.name}</h3>
+                                <div className="text-gray-400 text-[10px] font-black uppercase tracking-widest flex items-center gap-2 mt-2">
+                                    <FontAwesomeIcon icon={faUser} className="text-[#0abab5]" /> UID-{customer.id}
                                 </div>
                             </div>
                         </div>
 
-                        <div className="space-y-3 mb-6">
-                            <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300 text-sm">
-                                <div className="w-8 h-8 rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center justify-center text-gray-400">
+                        <div className="space-y-4 mb-8">
+                            <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400 text-xs font-black uppercase tracking-widest">
+                                <div className="w-10 h-10 rounded-2xl bg-gray-50 dark:bg-[#1a1b23] flex items-center justify-center text-gray-400 border border-transparent dark:border-[#1e1f26]">
                                     <FontAwesomeIcon icon={faEnvelope} />
                                 </div>
                                 <span className="truncate">{customer.email}</span>
                             </div>
-                            <div className="flex items-center gap-3 text-gray-600 dark:text-gray-300 text-sm">
-                                <div className="w-8 h-8 rounded-lg bg-gray-50 dark:bg-gray-700 flex items-center justify-center text-gray-400">
+                            <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400 text-xs font-black uppercase tracking-widest">
+                                <div className="w-10 h-10 rounded-2xl bg-gray-50 dark:bg-[#1a1b23] flex items-center justify-center text-gray-400 border border-transparent dark:border-[#1e1f26]">
                                     <FontAwesomeIcon icon={faPhone} />
                                 </div>
                                 <span>{customer.phone}</span>
@@ -82,31 +91,31 @@ const Customers = () => {
                         </div>
 
                         {/* Metrics */}
-                        <div className="grid grid-cols-3 gap-2 border-t border-gray-100 dark:border-gray-700 pt-4 text-center">
+                        <div className="grid grid-cols-3 gap-2 border-t border-gray-100 dark:border-[#1e1f26] pt-8 text-center">
                             <div>
-                                <p className="text-xs text-gray-400 uppercase tracking-tighter">Compras</p>
-                                <p className="font-bold text-gray-800 dark:text-white text-lg">{customer.purchaseCount}</p>
+                                <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest opacity-60">Compras</p>
+                                <p className="font-black text-gray-900 dark:text-white text-xl tracking-tighter italic">{customer.purchaseCount}</p>
                             </div>
                             <div>
-                                <p className="text-xs text-gray-400 uppercase tracking-tighter">Total</p>
-                                <p className="font-bold text-green-600 text-lg">${customer.totalSpent}</p>
+                                <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest opacity-60">Inversión</p>
+                                <p className="font-black text-[#0abab5] text-xl tracking-tighter italic">${customer.totalSpent}</p>
                             </div>
                             <div>
-                                <p className="text-xs text-gray-400 uppercase tracking-tighter">Ultima</p>
-                                <p className="font-bold text-gray-800 dark:text-white text-xs mt-1">{customer.lastPurchaseDate}</p>
+                                <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest opacity-60">Última</p>
+                                <p className="font-black text-gray-900 dark:text-white text-[10px] tracking-widest mt-2">{customer.lastPurchaseDate}</p>
                             </div>
                         </div>
 
                         {/* Engagement Metrics (Mock) */}
-                        <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-50 dark:border-gray-700/50">
-                            <div className="flex items-center gap-1 text-xs text-gray-400" title="Productos visitados (Mock)">
-                                <FontAwesomeIcon icon={faEye} /> 124
+                        <div className="flex justify-between items-center mt-6 pt-6 border-t border-gray-50 dark:border-[#1e1f26]/50">
+                            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#6b7c93]" title="Productos visitados (Mock)">
+                                <FontAwesomeIcon icon={faEye} className="text-[#0abab5]" /> 124
                             </div>
-                            <div className="flex items-center gap-1 text-xs text-red-400" title="Likes (Mock)">
-                                <FontAwesomeIcon icon={faHeart} /> 12
+                            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#6b7c93]" title="Likes (Mock)">
+                                <FontAwesomeIcon icon={faHeart} className="text-[#ff2d55]" /> 12
                             </div>
-                            <div className="flex items-center gap-1 text-xs text-blue-400" title="Frecuencia (Mock)">
-                                <FontAwesomeIcon icon={faHistory} /> Alta
+                            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#6b7c93]" title="Frecuencia (Mock)">
+                                <FontAwesomeIcon icon={faHistory} className="text-[#4169e1]" /> Alta
                             </div>
                         </div>
                     </div>

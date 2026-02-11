@@ -26,11 +26,19 @@ const Navbar = () => {
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 50);
-            // Consider past banner when we scroll past 80% of window height or similar
             setPastBanner(window.scrollY > window.innerHeight - 100);
         };
+
+        const handleAdminScroll = (e) => {
+            setScrolled(e.detail.scrollTop > 50);
+        };
+
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        window.addEventListener('admin-scroll', handleAdminScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('admin-scroll', handleAdminScroll);
+        };
     }, []);
 
     // Close menu on route change
@@ -39,11 +47,13 @@ const Navbar = () => {
     }, [location]);
 
     // Dynamic Classes
+    const isAdmin = location.pathname.startsWith('/admin');
+
     const navClasses = scrolled
-        ? "fixed top-0 w-full z-50 bg-white/10 dark:bg-black/20 backdrop-blur-md border-b border-gray-200/20 dark:border-gray-700/20 transition-all duration-300"
-        : isHome
-            ? "fixed top-0 w-full z-50 bg-transparent border-b border-transparent transition-all duration-300"
-            : "sticky top-0 z-50 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 transition-all duration-300";
+        ? "fixed top-0 w-full z-[100] bg-white/70 dark:bg-[#0d0e12]/60 backdrop-blur-md border-b border-gray-200/20 dark:border-[#1e1f26] transition-all duration-300 shadow-sm"
+        : (isHome || isAdmin)
+            ? "fixed top-0 w-full z-[100] bg-transparent border-b border-transparent transition-all duration-300"
+            : "sticky top-0 z-[100] bg-white dark:bg-[#0d0e12] border-b border-gray-100 dark:border-[#1e1f26] transition-all duration-300";
 
     // Dynamic Color Logic
     const isBannerArea = isHome && !pastBanner;
@@ -103,7 +113,7 @@ const Navbar = () => {
     return (
         <>
             <div className={navClasses}>
-                <div className="container mx-auto px-8 py-6 flex justify-between items-center bg-transparent">
+                <div className="container mx-auto px-6 py-6 flex justify-between items-center bg-transparent">
                     {/* Logo */}
                     <Link to="/" className="z-50 relative">
                         <motion.div
@@ -230,93 +240,101 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* Mobile Menu Drawer */}
+            {/* Menu Drawer & Backdrop */}
             <AnimatePresence>
                 {isMenuOpen && (
-                    <>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            onClick={() => setIsMenuOpen(false)}
-                            className="fixed inset-0 bg-black/40 backdrop-blur-md z-40"
-                        />
-                        <motion.div
-                            variants={menuVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
-                            className="fixed top-0 right-0 h-full w-full max-w-sm bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-[-20px_0_50px_rgba(0,0,0,0.1)] z-50 p-10 pt-24 flex flex-col justify-start"
-                        >
-                            {/* Close Button */}
-                            <div className="absolute top-8 right-8">
-                                <motion.button
-                                    whileHover={{ scale: 1.2, rotate: 90 }}
-                                    whileTap={{ scale: 0.9 }}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="text-gray-400 hover:text-red-500 text-3xl focus:outline-none transition-colors p-2"
-                                >
-                                    <FontAwesomeIcon icon={faTimes} />
-                                </motion.button>
-                            </div>
+                    <motion.div
+                        key="nav-backdrop"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setIsMenuOpen(false)}
+                        className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[200]"
+                    />
+                )}
+                {isMenuOpen && (
+                    <motion.div
+                        key="nav-drawer"
+                        variants={menuVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="fixed top-0 right-0 h-full w-full max-w-sm bg-white dark:bg-[#0d0e12] z-[210] p-10 pt-24 flex flex-col justify-start shadow-2xl"
+                    >
+                        {/* Close Button Inside Menu */}
+                        <div className="absolute top-8 right-8 z-[220]">
+                            <motion.button
+                                whileHover={{ scale: 1.2, rotate: 90 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    setIsMenuOpen(false);
+                                }}
+                                className="text-gray-400 hover:text-red-500 text-3xl focus:outline-none transition-colors p-2 cursor-pointer"
+                            >
+                                <FontAwesomeIcon icon={faTimes} />
+                            </motion.button>
+                        </div>
 
-                            <div className="flex-grow">
-                                <nav className="flex flex-col space-y-1">
-                                    {navItems.map((item) => (
-                                        <motion.div key={item.path} variants={itemVariants}>
-                                            <Link
-                                                to={item.path}
-                                                className="group relative inline-block text-4xl font-sans font-black text-gray-800 dark:text-white py-4 overflow-hidden tracking-tighter"
-                                            >
-                                                <span className="relative z-10 transition-colors duration-300 group-hover:text-green-500">
-                                                    {item.label}
-                                                </span>
-                                                <motion.span
-                                                    className="absolute bottom-4 left-0 w-0 h-1 bg-green-500 transition-all duration-300 group-hover:w-full"
-                                                    initial={false}
-                                                />
-                                            </Link>
-                                        </motion.div>
-                                    ))}
-                                </nav>
-
-                                <motion.div
-                                    variants={itemVariants}
-                                    className="mt-12 pt-12 border-t border-gray-100 dark:border-gray-800 space-y-8"
-                                >
-                                    <motion.button
-                                        whileHover={{ x: 10 }}
-                                        onClick={() => setIsLoginOpen(true)}
-                                        className="flex items-center gap-6 text-xl font-medium text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors"
-                                    >
-                                        <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
-                                            <FontAwesomeIcon icon={faUser} />
-                                        </div>
-                                        <span>{isAuthenticated ? 'Mi Perfil' : 'Entrar'}</span>
-                                    </motion.button>
-
-                                    <motion.button
-                                        whileHover={{ x: 10 }}
-                                        onClick={toggleTheme}
-                                        className="flex items-center gap-6 text-xl font-medium text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors"
-                                    >
-                                        <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
-                                            <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} />
-                                        </div>
-                                        <span>{theme === 'light' ? 'Modo Noche' : 'Modo Día'}</span>
-                                    </motion.button>
-                                </motion.div>
-                            </div>
+                        <div className="flex-grow">
+                            <nav className="flex flex-col space-y-1">
+                                {navItems.map((item) => (
+                                    <motion.div key={item.path} variants={itemVariants}>
+                                        <Link
+                                            to={item.path}
+                                            className="group relative inline-block text-4xl font-sans font-black text-gray-800 dark:text-white py-4 overflow-hidden tracking-tighter"
+                                        >
+                                            <span className="relative z-10 transition-colors duration-300 group-hover:text-green-500">
+                                                {item.label}
+                                            </span>
+                                            <motion.span
+                                                className="absolute bottom-4 left-0 w-0 h-1 bg-green-500 transition-all duration-300 group-hover:w-full"
+                                                initial={false}
+                                            />
+                                        </Link>
+                                    </motion.div>
+                                ))}
+                            </nav>
 
                             <motion.div
                                 variants={itemVariants}
-                                className="text-left text-sm text-gray-400 tracking-widest uppercase font-medium"
+                                className="mt-12 pt-12 border-t border-gray-100 dark:border-gray-800 space-y-8"
                             >
-                                <p>© 2026</p>
-                                <p className="text-gray-900 dark:text-white mt-1">Arquitectura Jaguar Eco</p>
+                                <motion.button
+                                    whileHover={{ x: 10 }}
+                                    onClick={() => {
+                                        setIsMenuOpen(false);
+                                        setIsLoginOpen(true);
+                                    }}
+                                    className="flex items-center gap-6 text-xl font-medium text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors"
+                                >
+                                    <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
+                                        <FontAwesomeIcon icon={faUser} />
+                                    </div>
+                                    <span>{isAuthenticated ? 'Mi Perfil' : 'Entrar'}</span>
+                                </motion.button>
+
+                                <motion.button
+                                    whileHover={{ x: 10 }}
+                                    onClick={toggleTheme}
+                                    className="flex items-center gap-6 text-xl font-medium text-gray-600 dark:text-gray-400 hover:text-green-500 dark:hover:text-green-400 transition-colors"
+                                >
+                                    <div className="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-800 flex items-center justify-center">
+                                        <FontAwesomeIcon icon={theme === 'light' ? faMoon : faSun} />
+                                    </div>
+                                    <span>{theme === 'light' ? 'Modo Noche' : 'Modo Día'}</span>
+                                </motion.button>
                             </motion.div>
+                        </div>
+
+                        <motion.div
+                            variants={itemVariants}
+                            className="text-left text-sm text-gray-400 tracking-widest uppercase font-medium"
+                        >
+                            <p>© 2026</p>
+                            <p className="text-gray-900 dark:text-white mt-1">Arquitectura Jaguar Eco</p>
                         </motion.div>
-                    </>
+                    </motion.div>
                 )}
             </AnimatePresence>
 

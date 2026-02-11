@@ -48,7 +48,7 @@ const ProductList = () => {
 
     if (loading) return (
         <div className="p-20 text-center flex flex-col items-center gap-4">
-            <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+            <div className="w-12 h-12 border-4 border-[#0abab5] border-t-transparent rounded-full animate-spin"></div>
             <p className="text-gray-500 font-bold animate-pulse uppercase tracking-widest text-xs">Sincronizando Inventario...</p>
         </div>
     );
@@ -59,63 +59,63 @@ const ProductList = () => {
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
                 <div>
                     <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase">
-                        Gestión de <span className="text-green-500">Productos</span>
+                        Gestión de <span className="text-[#0abab5]">Productos</span>
                     </h1>
-                    <p className="text-gray-500 text-sm font-medium mt-1 uppercase tracking-widest">
-                        Total: <span className="text-gray-900 dark:text-gray-200 font-bold">{products.length} Items</span>
+                    <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">
+                        Inventario: <span className="text-gray-900 dark:text-white">{products.length} Items registrados</span>
                     </p>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+                <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
                     {/* View Toggle */}
-                    <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-xl flex gap-1 shadow-inner border border-gray-200 dark:border-gray-700">
+                    <div className="bg-white dark:bg-[#171821] p-1.5 rounded-2xl flex gap-1 shadow-sm border border-gray-100 dark:border-[#1e1f26]">
                         <button
                             onClick={() => setViewMode('list')}
-                            className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 text-xs font-black uppercase tracking-tighter ${viewMode === 'list' ? 'bg-white dark:bg-gray-700 text-green-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
+                            className={`px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${viewMode === 'list' ? 'bg-[#0abab5] text-white shadow-lg shadow-[#0abab5]/20' : 'text-gray-400 hover:text-[#0abab5]'}`}
                         >
                             <FontAwesomeIcon icon={faList} /> Lista
                         </button>
                         <button
                             onClick={() => setViewMode('grid')}
-                            className={`px-4 py-2 rounded-lg transition-all flex items-center gap-2 text-xs font-black uppercase tracking-tighter ${viewMode === 'grid' ? 'bg-white dark:bg-gray-700 text-green-600 shadow-sm' : 'text-gray-400 hover:text-gray-600'}`}
+                            className={`px-5 py-2.5 rounded-xl transition-all flex items-center gap-2 text-[10px] font-black uppercase tracking-widest ${viewMode === 'grid' ? 'bg-[#0abab5] text-white shadow-lg shadow-[#0abab5]/20' : 'text-gray-400 hover:text-[#0abab5]'}`}
                         >
-                            <FontAwesomeIcon icon={faThLarge} /> Cards
+                            <FontAwesomeIcon icon={faThLarge} /> Grid
                         </button>
                     </div>
 
                     <button
                         onClick={handleAddNew}
-                        className="flex-grow lg:flex-grow-0 bg-green-600 text-white px-8 py-3 rounded-xl hover:bg-green-700 flex items-center justify-center gap-3 shadow-xl hover:shadow-green-500/30 transition-all transform active:scale-95 font-black uppercase tracking-widest text-xs"
+                        className="flex-grow lg:flex-grow-0 bg-[#0abab5] text-white px-8 py-4 rounded-2xl hover:bg-[#008b8b] flex items-center justify-center gap-3 shadow-xl shadow-[#0abab5]/20 transition-all transform active:scale-95 font-black uppercase tracking-widest text-[10px]"
                     >
                         <FontAwesomeIcon icon={faPlus} />
-                        Añadir Producto
+                        Nuevo Producto
                     </button>
                 </div>
             </div>
 
             {/* Filters Bar */}
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-md p-3 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col md:flex-row gap-4 justify-between">
+            <div className="bg-white/50 dark:bg-[#111217]/50 backdrop-blur-md p-4 rounded-[28px] shadow-sm border border-gray-100 dark:border-[#1e1f26] flex flex-col md:flex-row gap-4 justify-between">
                 <div className="relative flex-grow max-w-xl">
-                    <FontAwesomeIcon icon={faSearch} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                    <FontAwesomeIcon icon={faSearch} className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
                         type="text"
                         placeholder="Buscar por nombre, marca o modelo..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-12 pr-4 py-3 rounded-xl bg-white dark:bg-gray-900 border-2 border-transparent focus:border-green-500 outline-none dark:text-white transition-all font-medium text-sm placeholder:text-gray-400"
+                        className="w-full pl-14 pr-6 py-4 rounded-2xl bg-white dark:bg-[#171821] border border-transparent focus:border-[#0abab5] outline-none dark:text-white transition-all font-black uppercase tracking-widest text-[10px] placeholder:text-gray-400"
                     />
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <div className="px-4 py-3 bg-white dark:bg-gray-900 rounded-xl border border-gray-100 dark:border-gray-700 flex items-center gap-3 group">
-                        <FontAwesomeIcon icon={faFilter} className="text-gray-400 group-focus-within:text-green-500" />
+                    <div className="px-6 py-4 bg-white dark:bg-[#171821] rounded-2xl border border-transparent dark:border-transparent focus-within:border-[#0abab5] flex items-center gap-4 transition-all group">
+                        <FontAwesomeIcon icon={faFilter} className="text-gray-400 group-focus-within:text-[#0abab5]" />
                         <select
                             value={filterCategory}
                             onChange={(e) => setFilterCategory(e.target.value)}
-                            className="bg-transparent text-gray-700 dark:text-gray-200 outline-none cursor-pointer font-bold text-xs uppercase tracking-widest min-w-[140px]"
+                            className="bg-transparent text-gray-700 dark:text-gray-200 outline-none cursor-pointer font-black text-[10px] uppercase tracking-widest min-w-[160px]"
                         >
                             {categories.map(cat => (
-                                <option key={cat} value={cat}>{cat}</option>
+                                <option key={cat} value={cat} className="bg-white dark:bg-[#171821]">{cat}</option>
                             ))}
                         </select>
                     </div>
@@ -130,81 +130,76 @@ const ProductList = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="bg-white dark:bg-gray-800 rounded-[32px] shadow-2xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 overflow-hidden"
+                        className="bg-white dark:bg-[#111217] rounded-[32px] shadow-sm border border-gray-100 dark:border-[#1e1f26] overflow-hidden"
                     >
                         <div className="overflow-x-auto custom-scrollbar">
                             <table className="w-full text-left border-collapse">
-                                <thead className="bg-gray-50/50 dark:bg-gray-900/50 text-gray-400 text-[10px] font-black uppercase tracking-[0.2em]">
+                                <thead className="bg-gray-50/50 dark:bg-[#171821]/50 text-gray-400 text-[9px] font-black uppercase tracking-[0.2em] border-b border-gray-100 dark:border-[#1e1f26]">
                                     <tr>
-                                        <th className="p-6">Información</th>
-                                        <th className="p-6">Categoría</th>
-                                        <th className="p-6">Finanzas</th>
-                                        <th className="p-6">Inventario</th>
-                                        <th className="p-6 text-center">Estado</th>
-                                        <th className="p-6 text-right">Acciones</th>
+                                        <th className="p-8">Información Técnica</th>
+                                        <th className="p-8">Categoría</th>
+                                        <th className="p-8">Finanzas</th>
+                                        <th className="p-8">Inventario</th>
+                                        <th className="p-8 text-center">Estado</th>
+                                        <th className="p-8 text-right">Acciones</th>
                                     </tr>
                                 </thead>
-                                <tbody className="divide-y divide-gray-100 dark:divide-gray-700/50">
+                                <tbody className="divide-y divide-gray-100 dark:divide-[#1e1f26]/50">
                                     {filteredProducts.map(product => (
-                                        <tr key={product.id} className={`group transition-all ${product.disabled ? 'bg-gray-50/50 dark:bg-gray-900/20 opacity-60' : 'hover:bg-gray-50/80 dark:hover:bg-gray-700/30'}`}>
-                                            <td className="p-4">
-                                                <div className="flex items-center gap-4">
-                                                    <div className="h-16 w-16 md:h-20 md:w-20 rounded-2xl bg-white dark:bg-gray-900 p-1 border-2 border-gray-100 dark:border-gray-700 relative overflow-hidden flex-shrink-0 group-hover:scale-110 transition-transform shadow-sm">
+                                        <tr key={product.id} className={`group transition-all ${product.disabled ? 'bg-gray-50/50 dark:bg-gray-900/20 opacity-60' : 'hover:bg-gray-50/80 dark:hover:bg-white/5'}`}>
+                                            <td className="p-6">
+                                                <div className="flex items-center gap-6">
+                                                    <div className="h-20 w-20 rounded-[20px] bg-white dark:bg-[#0d0e12] p-2 border border-gray-100 dark:border-[#1e1f26] relative overflow-hidden flex-shrink-0 group-hover:scale-110 transition-transform shadow-sm">
                                                         <img src={product.imagenes[0]} alt="" className="w-full h-full object-contain rounded-xl" />
-                                                        {product.disabled && (
-                                                            <div className="absolute inset-0 bg-gray-900/40 backdrop-blur-[1px] flex items-center justify-center">
-                                                                <FontAwesomeIcon icon={faEyeSlash} className="text-white text-xs" />
-                                                            </div>
-                                                        )}
                                                     </div>
                                                     <div>
-                                                        <div className="font-black text-gray-900 dark:text-white text-lg tracking-tighter italic line-clamp-1 truncate">{product.nombre}</div>
-                                                        <div className="text-[10px] text-green-500 font-black uppercase tracking-[0.2em] mt-1">{product.marca}</div>
+                                                        <div className="font-black text-gray-900 dark:text-white text-lg tracking-tighter italic uppercase leading-none">{product.nombre}</div>
+                                                        <div className="text-[10px] text-[#0abab5] font-black uppercase tracking-[0.2em] mt-2 italic">{product.marca}</div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td className="p-4">
-                                                <span className="bg-gray-100 dark:bg-gray-700/50 text-gray-600 dark:text-gray-400 px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest border border-gray-200 dark:border-gray-600">
+                                            <td className="p-6">
+                                                <span className="bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest border border-gray-100 dark:border-transparent">
                                                     {product.categoria}
                                                 </span>
                                             </td>
-                                            <td className="p-4">
+                                            <td className="p-6">
                                                 <div className="flex flex-col">
                                                     <span className="text-2xl font-black text-gray-900 dark:text-white italic tracking-tighter">
                                                         {formatCurrency(product.precio)}
                                                     </span>
-                                                    {product.promocion && <span className="text-[9px] text-red-500 font-black uppercase tracking-tighter">Oferta Activa</span>}
+                                                    {product.promocion && <span className="text-[9px] text-[#ff2d55] font-black uppercase tracking-tighter mt-1">Oferta Activa</span>}
                                                 </div>
                                             </td>
-                                            <td className="p-4">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="h-2 w-16 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+                                            <td className="p-6">
+                                                <div className="flex items-center gap-4">
+                                                    <div className="h-1.5 w-20 bg-gray-100 dark:bg-white/5 rounded-full overflow-hidden">
                                                         <div
-                                                            className={`h-full transition-all duration-1000 ${product.stock < 10 ? 'bg-red-500' : 'bg-green-500'}`}
+                                                            className={`h-full transition-all duration-1000 ${product.stock < 10 ? 'bg-[#ff2d55]' : 'bg-[#0abab5]'}`}
                                                             style={{ width: `${Math.min(product.stock, 100)}%` }}
                                                         />
                                                     </div>
-                                                    <span className={`text-xs font-black ${product.stock < 10 ? 'text-red-500' : 'text-gray-600 dark:text-gray-400'}`}>{product.stock}</span>
+                                                    <span className={`text-[10px] font-black ${product.stock < 10 ? 'text-[#ff2d55] animate-pulse' : 'text-gray-400'}`}>{product.stock}</span>
                                                 </div>
                                             </td>
-                                            <td className="p-4 text-center">
+                                            <td className="p-6 text-center">
                                                 {product.disabled ? (
-                                                    <span className="inline-flex items-center gap-2 bg-gray-100 dark:bg-gray-700 text-gray-500 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-gray-200 dark:border-gray-600">
-                                                        Oculto
+                                                    <span className="inline-flex items-center gap-2 bg-gray-100 dark:bg-white/5 text-gray-500 px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest border border-gray-200 dark:border-transparent">
+                                                        Inactivo
                                                     </span>
                                                 ) : (
-                                                    <span className="inline-flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-600 px-3 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border border-green-100 dark:border-green-900/50">
-                                                        <div className="w-1.5 h-1.5 rounded-full bg-green-600 animate-pulse"></div> Activo
+                                                    <span className="inline-flex items-center gap-2 bg-[#0abab5]/10 text-[#0abab5] px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest border border-[#0abab5]/20">
+                                                        <div className="w-1.5 h-1.5 rounded-full bg-[#0abab5] animate-pulse"></div> Online
                                                     </span>
                                                 )}
                                             </td>
-                                            <td className="p-4 text-right">
-                                                <div className="flex justify-end gap-2 lg:opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-0 translate-x-4">
-                                                    <button onClick={() => handleEdit(product)} className="w-10 h-10 flex items-center justify-center bg-blue-50 dark:bg-blue-900/20 text-blue-600 hover:bg-blue-600 hover:text-white rounded-xl transition-all shadow-sm">
+                                            <td className="p-6 text-right">
+                                                <div className="flex justify-end gap-3 lg:opacity-0 group-hover:opacity-100 transition-all transform group-hover:translate-x-0 translate-x-4">
+                                                    <button onClick={() => handleEdit(product)} className="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-[#1a1b23] text-gray-600 dark:text-gray-400 hover:bg-[#4169e1] hover:text-white rounded-2xl transition-all shadow-sm border border-gray-100 dark:border-[#1e1f26]">
                                                         <FontAwesomeIcon icon={faEdit} />
                                                     </button>
                                                     {!product.disabled && (
-                                                        <button onClick={() => handleDelete(product.id)} className="w-10 h-10 flex items-center justify-center bg-red-50 dark:bg-red-900/20 text-red-600 hover:bg-red-600 hover:text-white rounded-xl transition-all shadow-sm">
+                                                        <button onClick={() => handleDelete(product.id)} className="w-12 h-12 flex items-center justify-center bg-gray-50 dark:bg-[#1a1b23] text-gray-600 dark:text-gray-400 hover:bg-[#ff2d55] hover:text-white rounded-2xl transition-all shadow-sm border border-gray-100 dark:border-[#1e1f26]">
                                                             <FontAwesomeIcon icon={faTrash} />
                                                         </button>
                                                     )}
@@ -222,46 +217,46 @@ const ProductList = () => {
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
                     >
                         {filteredProducts.map(product => (
-                            <div key={product.id} className={`group relative bg-white dark:bg-gray-800 rounded-[32px] p-5 shadow-xl shadow-gray-200/50 dark:shadow-none border border-gray-100 dark:border-gray-700 transition-all hover:scale-[1.02] hover:shadow-2xl ${product.disabled ? 'opacity-60 grayscale' : ''}`}>
+                            <div key={product.id} className={`group relative bg-white dark:bg-[#111217] rounded-[32px] p-6 shadow-sm border border-gray-100 dark:border-[#1e1f26] transition-all hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#0abab5]/10 ${product.disabled ? 'opacity-60 grayscale' : ''}`}>
                                 {/* Card Image */}
-                                <div className="relative h-64 rounded-2xl bg-gray-50 dark:bg-gray-900 overflow-hidden mb-5 border border-gray-100 dark:border-gray-700">
-                                    <img src={product.imagenes[0]} alt="" className="w-full h-full object-contain p-2 group-hover:scale-105 transition-transform duration-700" />
+                                <div className="relative h-64 rounded-[24px] bg-gray-50 dark:bg-[#0d0e12] overflow-hidden mb-6 border border-gray-100 dark:border-[#1e1f26]">
+                                    <img src={product.imagenes[0]} alt="" className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700" />
 
                                     {/* Quick Badges */}
-                                    <div className="absolute top-3 left-3 flex flex-col gap-1.5">
-                                        {product.nuevo && <span className="bg-green-500 text-white text-[8px] font-black px-2.5 py-1 rounded-lg shadow-lg uppercase tracking-widest">Nuevo</span>}
-                                        {product.promocion && <span className="bg-red-500 text-white text-[8px] font-black px-2.5 py-1 rounded-lg shadow-lg uppercase tracking-widest">Oferta</span>}
+                                    <div className="absolute top-4 left-4 flex flex-col gap-2">
+                                        {product.nuevo && <span className="bg-[#0abab5] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">Nuevo</span>}
+                                        {product.promocion && <span className="bg-[#ff2d55] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">Oferta</span>}
                                     </div>
 
                                     {/* Action Hover Overlay */}
-                                    <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
-                                        <button onClick={() => handleEdit(product)} className="w-12 h-12 bg-white text-gray-900 rounded-full flex items-center justify-center shadow-xl hover:bg-green-500 hover:text-white transition-all transform hover:scale-110">
+                                    <div className="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all flex items-center justify-center gap-4">
+                                        <button onClick={() => handleEdit(product)} className="w-14 h-14 bg-white text-gray-900 rounded-2xl flex items-center justify-center shadow-xl hover:bg-[#4169e1] hover:text-white transition-all transform hover:scale-110">
                                             <FontAwesomeIcon icon={faEdit} className="text-xl" />
                                         </button>
                                         {!product.disabled && (
-                                            <button onClick={() => handleDelete(product.id)} className="w-12 h-12 bg-white text-red-600 rounded-full flex items-center justify-center shadow-xl hover:bg-red-600 hover:text-white transition-all transform hover:scale-110">
+                                            <button onClick={() => handleDelete(product.id)} className="w-14 h-14 bg-white text-[#ff2d55] rounded-2xl flex items-center justify-center shadow-xl hover:bg-[#ff2d55] hover:text-white transition-all transform hover:scale-110">
                                                 <FontAwesomeIcon icon={faTrash} className="text-xl" />
                                             </button>
                                         )}
                                     </div>
                                 </div>
 
-                                <div className="space-y-4 px-2">
-                                    <div className="flex justify-between items-start gap-2">
-                                        <div>
-                                            <h3 className="font-black text-gray-900 dark:text-white text-lg tracking-tighter italic line-clamp-1 group-hover:text-green-500 transition-colors uppercase">{product.nombre}</h3>
-                                            <p className="text-[11px] text-gray-400 font-black uppercase tracking-[0.2em] mt-1">{product.marca}</p>
+                                <div className="space-y-5 px-1">
+                                    <div>
+                                        <h3 className="font-black text-gray-900 dark:text-white text-xl tracking-tighter italic uppercase group-hover:text-[#0abab5] transition-colors leading-tight line-clamp-2">{product.nombre}</h3>
+                                        <div className="flex justify-between items-center mt-3">
+                                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">{product.marca}</p>
+                                            <span className="text-[9px] font-black uppercase tracking-widest text-[#0abab5] px-2 py-1 bg-[#0abab5]/10 rounded-lg">{product.categoria}</span>
                                         </div>
                                     </div>
 
-                                    <div className="flex justify-between items-center pt-4 border-t border-gray-100 dark:border-gray-800 text-sm">
-                                        <div className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic py-1 truncate">{formatCurrency(product.precio)}</div>
+                                    <div className="flex justify-between items-end pt-5 border-t border-gray-100 dark:border-[#1e1f26]">
+                                        <div className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic leading-none">{formatCurrency(product.precio)}</div>
                                         <div className="flex flex-col items-end">
-                                            <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest whitespace-nowrap">{product.categoria}</span>
-                                            <span className={`text-[10px] font-black mt-1 ${product.stock < 10 ? 'text-red-500 animate-pulse' : 'text-gray-400'}`}>Stock: {product.stock}</span>
+                                            <span className={`text-[9px] font-black tracking-widest uppercase ${product.stock < 10 ? 'text-[#ff2d55] animate-pulse' : 'text-gray-400 opacity-60'}`}>Stock: {product.stock}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -417,30 +412,30 @@ const ProductModal = ({ product, onClose, onSave }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-fade-in">
             <div className="bg-white dark:bg-gray-900 w-full max-w-5xl rounded-[40px] shadow-2xl overflow-hidden animate-scale-in flex flex-col max-h-[90vh] border border-gray-100 dark:border-gray-800">
                 {/* Modal Header */}
-                <div className="p-8 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center bg-gray-50/50 dark:bg-gray-900/50">
+                <div className="p-10 border-b border-gray-100 dark:border-[#1e1f26] flex justify-between items-center bg-gray-50/50 dark:bg-[#111217]">
                     <div>
-                        <h2 className="text-2xl font-black text-gray-900 dark:text-white italic uppercase tracking-tight">
-                            {isEdit ? 'Editar' : 'Añadir'} <span className="text-green-500">Producto</span>
+                        <h2 className="text-3xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">
+                            {isEdit ? 'Editar' : 'Añadir'} <span className="text-[#0abab5]">Producto</span>
                         </h2>
-                        <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-1">ID: {product?.id || 'Nuevo'}</p>
+                        <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] mt-2">ID: {product?.id || 'Nuevo Sistema'}</p>
                     </div>
-                    <button onClick={onClose} className="w-12 h-12 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-2xl transition-all">
+                    <button onClick={onClose} className="w-14 h-14 flex items-center justify-center text-gray-400 hover:text-[#ff2d55] hover:bg-[#ff2d55]/5 rounded-[20px] transition-all border border-transparent hover:border-[#ff2d55]/20">
                         <FontAwesomeIcon icon={faTimes} className="text-xl" />
                     </button>
                 </div>
 
                 {/* Tab Navigation */}
-                <div className="flex px-8 bg-white dark:bg-gray-900 border-b border-gray-100 dark:border-gray-800 overflow-x-auto no-scrollbar">
+                <div className="flex px-10 bg-white dark:bg-[#111217] border-b border-gray-100 dark:border-[#1e1f26] overflow-x-auto custom-scrollbar">
                     {tabs.map(tab => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`py-4 px-6 text-[10px] font-black uppercase tracking-widest flex items-center gap-2 border-b-2 transition-all whitespace-nowrap ${activeTab === tab.id
-                                ? 'border-green-500 text-green-500 bg-green-50/10'
-                                : 'border-transparent text-gray-400 hover:text-gray-600 dark:hover:text-gray-200'
+                            className={`py-6 px-8 text-[10px] font-black uppercase tracking-widest flex items-center gap-3 border-b-2 transition-all whitespace-nowrap ${activeTab === tab.id
+                                ? 'border-[#0abab5] text-[#0abab5] bg-[#0abab5]/5'
+                                : 'border-transparent text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                 }`}
                         >
-                            <FontAwesomeIcon icon={tab.icon} className="text-xs" />
+                            <FontAwesomeIcon icon={tab.icon} className="text-sm" />
                             {tab.label}
                         </button>
                     ))}
@@ -496,14 +491,14 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Flags de Visibilidad</label>
                                         <div className="grid grid-cols-1 gap-3">
                                             {[
-                                                { name: 'promocion', label: 'En Promoción', color: 'red' },
-                                                { name: 'nuevo', label: 'Nuevo Producto', color: 'green' },
-                                                { name: 'mas_vendido', label: 'Más Vendido', color: 'orange' },
-                                                { name: 'disabled', label: 'Deshabilitado', color: 'gray' }
+                                                { name: 'promocion', label: 'En Promoción', color: '#ff2d55', bg: 'bg-[#ff2d55]/10', border: 'border-[#ff2d55]', text: 'text-[#ff2d55]' },
+                                                { name: 'nuevo', label: 'Nuevo Producto', color: '#0abab5', bg: 'bg-[#0abab5]/10', border: 'border-[#0abab5]', text: 'text-[#0abab5]' },
+                                                { name: 'mas_vendido', label: 'Más Vendido', color: '#ff9500', bg: 'bg-[#ff9500]/10', border: 'border-[#ff9500]', text: 'text-[#ff9500]' },
+                                                { name: 'disabled', label: 'Deshabilitado', color: '#6b7280', bg: 'bg-[#6b7280]/10', border: 'border-[#6b7280]', text: 'text-[#6b7c93]' }
                                             ].map(flag => (
-                                                <label key={flag.name} className={`flex items-center justify-between p-4 rounded-2xl border-2 cursor-pointer transition-all ${formData[flag.name] ? `border-${flag.color}-500 bg-${flag.color}-50/10` : 'border-gray-50 dark:border-gray-800 hover:border-gray-100'}`}>
-                                                    <span className={`text-[10px] font-black uppercase tracking-widest ${formData[flag.name] ? `text-${flag.color}-500` : 'text-gray-500'}`}>{flag.label}</span>
-                                                    <input type="checkbox" name={flag.name} checked={formData[flag.name]} onChange={handleChange} className="w-5 h-5 rounded-lg border-gray-300 text-green-500 focus:ring-green-500" />
+                                                <label key={flag.name} className={`flex items-center justify-between p-4 rounded-2xl border-2 cursor-pointer transition-all ${formData[flag.name] ? `${flag.border} ${flag.bg}` : 'border-gray-50 dark:border-gray-800 hover:border-gray-100'}`}>
+                                                    <span className={`text-[10px] font-black uppercase tracking-widest ${formData[flag.name] ? flag.text : 'text-gray-500'}`}>{flag.label}</span>
+                                                    <input type="checkbox" name={flag.name} checked={formData[flag.name]} onChange={handleChange} className="w-5 h-5 rounded-lg border-gray-300 text-[#0abab5] focus:ring-[#0abab5]" />
                                                 </label>
                                             ))}
                                         </div>
@@ -671,19 +666,19 @@ const ProductModal = ({ product, onClose, onSave }) => {
                 </form>
 
                 {/* Modal Footer */}
-                <div className="p-8 border-t border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 flex justify-between items-center">
-                    <div className="flex gap-2">
+                <div className="p-10 border-t border-gray-100 dark:border-[#1e1f26] bg-gray-50/50 dark:bg-[#111217] flex justify-between items-center text-[10px]">
+                    <div className="flex gap-3">
                         {tabs.map((tab, i) => (
-                            <div key={i} className={`w-2 h-2 rounded-full transition-all ${activeTab === tab.id ? 'w-6 bg-green-500' : 'bg-gray-200 dark:bg-gray-800'}`} />
+                            <div key={i} className={`w-2 h-2 rounded-full transition-all duration-500 ${activeTab === tab.id ? 'w-8 bg-[#0abab5]' : 'bg-gray-200 dark:bg-[#1e1f26]'}`} />
                         ))}
                     </div>
-                    <div className="flex gap-4">
-                        <button onClick={onClose} className="px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-all">
-                            Descartar
+                    <div className="flex gap-5">
+                        <button onClick={onClose} className="px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
+                            Cancelar
                         </button>
-                        <button onClick={handleSubmit} className="px-10 py-4 rounded-2xl bg-green-500 text-white font-black uppercase tracking-widest text-xs shadow-xl shadow-green-500/20 hover:bg-green-600 transition-all transform active:scale-95 flex items-center gap-3">
+                        <button onClick={handleSubmit} className="px-12 py-5 rounded-[22px] bg-[#0abab5] text-white font-black uppercase tracking-widest shadow-2xl shadow-[#0abab5]/30 hover:bg-[#008b8b] transition-all transform active:scale-95 flex items-center gap-4">
                             <FontAwesomeIcon icon={faSave} />
-                            Guardar Cambios
+                            Aplicar Cambios
                         </button>
                     </div>
                 </div>
