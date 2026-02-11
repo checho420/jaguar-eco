@@ -15,9 +15,6 @@ export const ProductProvider = ({ children }) => {
             setLoading(true);
             try {
                 // In a real app, we would fetch from Firebase here
-                // const querySnapshot = await getDocs(collection(db, "products"));
-                // const data = querySnapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
-
                 // Using mock data
                 await new Promise(resolve => setTimeout(resolve, 500)); // Mock network delay
                 setProducts(productsData);
@@ -39,8 +36,38 @@ export const ProductProvider = ({ children }) => {
         return products.filter(p => p.categoria === category);
     };
 
+    // CRUD Operations
+    const addProduct = async (newProduct) => {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 300));
+        const id = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+        const productToAdd = { ...newProduct, id, disabled: false, stock: parseInt(newProduct.stock) || 0, sold: 0 };
+        setProducts(prev => [productToAdd, ...prev]);
+        return productToAdd;
+    };
+
+    const updateProduct = async (id, updatedData) => {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 300));
+        setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updatedData } : p));
+    };
+
+    const deleteProduct = async (id) => {
+        // Soft delete logic
+        await new Promise(resolve => setTimeout(resolve, 300));
+        setProducts(prev => prev.map(p => p.id === id ? { ...p, disabled: true } : p));
+    };
+
     return (
-        <ProductContext.Provider value={{ products, loading, getProductById, getProductsByCategory }}>
+        <ProductContext.Provider value={{
+            products,
+            loading,
+            getProductById,
+            getProductsByCategory,
+            addProduct,
+            updateProduct,
+            deleteProduct
+        }}>
             {children}
         </ProductContext.Provider>
     );

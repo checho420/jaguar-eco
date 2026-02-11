@@ -9,6 +9,8 @@ import Checkout from './pages/Checkout';
 import AdminLayout from './layout/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
 import ProductList from './pages/admin/ProductList';
+import Orders from './pages/admin/Orders';
+import Customers from './pages/admin/Customers';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -26,6 +28,8 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="products" element={<ProductList />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="customers" element={<Customers />} />
           </Route>
 
           <Route path="/cart" element={<div className="p-20 text-center dark:text-white">El carrito llegará pronto...</div>} />

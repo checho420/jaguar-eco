@@ -34,6 +34,10 @@ const ProductCard = ({ product }) => {
                     src={product.imagenes[0]}
                     alt={product.nombre}
                     loading="lazy"
+                    onError={(e) => {
+                        e.target.src = 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80'; // Fallback image
+                        e.target.onerror = null; // Prevent infinite loop
+                    }}
                     animate={{ scale: isHovered ? 1.05 : 1 }}
                     transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1] }}
                     className="w-full h-full object-cover"

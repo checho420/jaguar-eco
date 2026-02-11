@@ -9,6 +9,8 @@ import { AuthProvider } from './context/AuthContext'
 import { BrowserRouter } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
 
+import { AdminProvider } from './context/AdminContext'
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ErrorBoundary>
@@ -16,9 +18,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <AuthProvider>
           <ThemeProvider>
             <ProductProvider>
-              <CartProvider>
-                <App />
-              </CartProvider>
+              <AdminProvider>
+                <CartProvider>
+                  <App />
+                </CartProvider>
+              </AdminProvider>
             </ProductProvider>
           </ThemeProvider>
         </AuthProvider>

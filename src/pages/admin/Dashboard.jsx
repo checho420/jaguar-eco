@@ -1,197 +1,260 @@
 import React from 'react';
 import {
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-    PieChart, Pie, Cell, Legend
+    PieChart, Pie, Cell, Legend, BarChart, Bar
 } from 'recharts';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTag, faDollarSign, faShoppingBag, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
-
-// Datos de prueba para gráficos
-const earningData = [
-    { month: 'Ene', earning: 1000 },
-    { month: 'Feb', earning: 2500 },
-    { month: 'Mar', earning: 2000 },
-    { month: 'Abr', earning: 3200 },
-    { month: 'May', earning: 2800 },
-    { month: 'Jun', earning: 3812 },
-    { month: 'Jul', earning: 3600 },
-    { month: 'Ago', earning: 4200 },
-];
-
-const orderModeData = [
-    { name: 'Pedidos en línea', value: 70 },
-    { name: 'Pedidos en tienda', value: 30 },
-];
-const PIE_COLORS = ['#34D399', '#374151']; // Verde y Gris Oscuro
+import { faTag, faDollarSign, faShoppingBag, faUsers, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { useAdmin } from '../../context/AdminContext';
+import { useProducts } from '../../context/ProductContext';
 
 const Dashboard = () => {
+    const { metrics, recentOrders, orders, loading: adminLoading } = useAdmin();
+    const { products, loading: productsLoading } = useProducts();
+
+    if (adminLoading || productsLoading) return <div className="p-10 text-center animate-pulse">Cargando Dashboard...</div>;
+
+    // Derived Data for Charts
+    const earningData = [
+        { name: 'Lun', current: 4000, previous: 2400 },
+        { name: 'Mar', current: 3000, previous: 1398 },
+        { name: 'Mie', current: 2000, previous: 9800 },
+        { name: 'Jue', current: 2780, previous: 3908 },
+        { name: 'Vie', current: 1890, previous: 4800 },
+        { name: 'Sab', current: 2390, previous: 3800 },
+        { name: 'Dom', current: 3490, previous: 4300 },
+    ];
+
+    const orderStatusData = [
+        { name: 'Entregado', value: metrics.deliveredOrders },
+        { name: 'Pendiente', value: metrics.pendingOrders },
+        { name: 'Cancelado', value: metrics.canceledOrders },
+    ];
+
+    const STATUS_COLORS = ['#10B981', '#F59E0B', '#EF4444']; // Green, Yellow/Orange, Red
+
+    // Top Selling Products (Mock logic: sort by 'sold' field if available, else random slice)
+    const topProducts = [...products]
+        .sort((a, b) => (b.sold || 0) - (a.sold || 0))
+        .slice(0, 5);
+
     return (
-        <div className="space-y-6 animate-fade-in-up">
-            <header className="flex justify-between items-center mb-6">
-                <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Panel de Control</h1>
-                <div className="flex items-center space-x-3">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">Bienvenido, Administrador</span>
-                    <button className="bg-gray-200 dark:bg-gray-700 p-2 rounded-full">
-                        <img src="https://i.pravatar.cc/150?u=admin_jaguar" alt="Administrador" className="w-8 h-8 rounded-full" />
-                    </button>
+        <div className="space-y-8 animate-fade-in-up">
+            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-1">Dashboard</h1>
+                    <p className="text-gray-500 dark:text-gray-400">Resumen de actividad en tiempo real</p>
+                </div>
+                <div className="flex items-center space-x-3 bg-white dark:bg-gray-800 p-2 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
+                    <img src="https://i.pravatar.cc/150?u=admin_jaguar" alt="Admin" className="w-10 h-10 rounded-full border-2 border-green-500" />
+                    <div className="pr-4">
+                        <p className="text-sm font-bold text-gray-800 dark:text-white">Admin User</p>
+                        <p className="text-xs text-gray-500">Super Admin</p>
+                    </div>
                 </div>
             </header>
 
-            {/* Tarjetas de Estadísticas */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Ventas Totales */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
-                    <div>
-                        <div className="flex items-center space-x-2 text-gray-500 dark:text-gray-400 mb-2">
-                            <FontAwesomeIcon icon={faTag} />
-                            <span className="font-semibold text-xs tracking-wider uppercase">Ventas Totales</span>
-                        </div>
-                        <h3 className="text-3xl font-bold text-gray-800 dark:text-white">$ 9568.19</h3>
-                    </div>
-                    <div className="h-12 w-12 bg-blue-50 dark:bg-blue-900/20 text-blue-500 rounded-full flex items-center justify-center">
-                        <span className="text-xl">↗</span>
-                    </div>
-                </div>
-
-                {/* Ganancias Totales */}
-                <div className="bg-[#DCFCE7] dark:bg-green-900/30 p-6 rounded-3xl shadow-sm border border-green-100 dark:border-green-800 flex items-center justify-between">
-                    <div>
-                        <div className="flex items-center space-x-2 text-green-700 dark:text-green-400 mb-2">
-                            <FontAwesomeIcon icon={faDollarSign} />
-                            <span className="font-semibold text-xs tracking-wider uppercase">Ganancias Totales</span>
-                        </div>
-                        <h3 className="text-3xl font-bold text-green-800 dark:text-green-300">$ 4593.36</h3>
-                    </div>
-                    <div className="h-12 w-12 bg-green-200 dark:bg-green-800 text-green-700 rounded-full flex items-center justify-center">
-                        <span className="text-xl">↗</span>
-                    </div>
-                </div>
-
-                {/* Pedidos Totales */}
-                <div className="bg-[#F3E8FF] dark:bg-purple-900/30 p-6 rounded-3xl shadow-sm border border-purple-100 dark:border-purple-800 flex items-center justify-between">
-                    <div>
-                        <div className="flex items-center space-x-2 text-purple-700 dark:text-purple-400 mb-2">
-                            <FontAwesomeIcon icon={faShoppingBag} />
-                            <span className="font-semibold text-xs tracking-wider uppercase">Pedidos Totales</span>
-                        </div>
-                        <h3 className="text-3xl font-bold text-purple-800 dark:text-purple-300">150 k</h3>
-                    </div>
-                    <div className="h-12 w-12 bg-purple-200 dark:bg-purple-800 text-purple-700 rounded-full flex items-center justify-center font-bold">
-                        <span>↘</span>
-                    </div>
-                </div>
+            {/* KPI Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <KPICard
+                    title="Ingresos del día"
+                    value={`$${(metrics.totalRevenue / 30).toFixed(2)}`} // Mock daily
+                    icon={faDollarSign}
+                    color="green"
+                    trend="+12.5%"
+                />
+                <KPICard
+                    title="Órdenes del día"
+                    value={Math.floor(metrics.totalOrders / 5)} // Mock daily
+                    icon={faShoppingBag}
+                    color="blue"
+                    trend="+5.2%"
+                />
+                <KPICard
+                    title="Total Productos"
+                    value={products.length}
+                    icon={faTag}
+                    color="purple"
+                    trend="Stable"
+                    trendUp={null}
+                />
+                <KPICard
+                    title="Visitantes del día"
+                    value="1,245"
+                    icon={faUsers}
+                    color="orange"
+                    trend="+18%"
+                />
             </div>
 
-            {/* Sección de Gráficos */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Análisis de Ganancias */}
-                <div className="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
+            {/* Charts Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* Revenue Chart */}
+                <div className="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700">
                     <div className="flex justify-between items-center mb-6">
-                        <h3 className="font-bold text-lg text-gray-800 dark:text-white">Análisis de Ganancias</h3>
-                        <div className="flex items-center space-x-2">
-                            <span className="h-3 w-3 bg-green-400 rounded-full"></span>
-                            <span className="text-xs text-gray-500">Ganancia</span>
-                            <select className="bg-gray-50 dark:bg-gray-700 ml-4 text-xs p-1 rounded border-none outline-none dark:text-white">
-                                <option>Mensual</option>
-                                <option>Semanal</option>
-                            </select>
-                        </div>
+                        <h3 className="font-bold text-xl text-gray-800 dark:text-white">Comparativa de Ingresos</h3>
+                        <select className="bg-gray-50 dark:bg-gray-700 text-sm p-2 rounded-lg border-none outline-none dark:text-white font-medium">
+                            <option>Semana Actual vs Anterior</option>
+                            <option>Mes Actual vs Anterior</option>
+                        </select>
                     </div>
-                    <div className="h-64">
+                    <div className="h-80">
                         <ResponsiveContainer width="100%" height="100%">
                             <AreaChart data={earningData}>
                                 <defs>
-                                    <linearGradient id="colorEarning" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#34D399" stopOpacity={0.3} />
-                                        <stop offset="95%" stopColor="#34D399" stopOpacity={0} />
+                                    <linearGradient id="colorCurrent" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="#10B981" stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor="#10B981" stopOpacity={0} />
+                                    </linearGradient>
+                                    <linearGradient id="colorPrev" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="5%" stopColor="#6B7280" stopOpacity={0.3} />
+                                        <stop offset="95%" stopColor="#6B7280" stopOpacity={0} />
                                     </linearGradient>
                                 </defs>
-                                <CartesianGrid strokeDasharray="3 3" verical={false} stroke="#E5E7EB" opacity={0.3} />
-                                <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
+                                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" opacity={0.3} />
+                                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} dy={10} />
                                 <YAxis axisLine={false} tickLine={false} tick={{ fill: '#9CA3AF', fontSize: 12 }} />
                                 <Tooltip
-                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}
+                                    contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}
+                                    formatter={(value) => [`$${value}`, 'Ingresos']}
                                 />
-                                <Area type="monotone" dataKey="earning" stroke="#34D399" strokeWidth={3} fillOpacity={1} fill="url(#colorEarning)" />
+                                <Area type="monotone" dataKey="current" name="Semana Actual" stroke="#10B981" strokeWidth={3} fillOpacity={1} fill="url(#colorCurrent)" />
+                                <Area type="monotone" dataKey="previous" name="Semana Anterior" stroke="#6B7280" strokeWidth={3} strokeDasharray="5 5" fillOpacity={1} fill="url(#colorPrev)" />
+                                <Legend verticalAlign="top" height={36} iconType="circle" />
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
 
-                {/* Modo de Pedido */}
-                <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
-                    <div className="flex justify-between items-center mb-6">
-                        <h3 className="font-bold text-lg text-gray-800 dark:text-white">Modo de Pedido</h3>
-                        <FontAwesomeIcon icon={faEllipsisH} className="text-gray-400" />
-                    </div>
-                    <div className="h-64 relative">
+                {/* Order Status Pie Chart */}
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col">
+                    <h3 className="font-bold text-xl text-gray-800 dark:text-white mb-6">Estado de Órdenes</h3>
+                    <div className="flex-grow relative min-h-[300px]">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
-                                    data={orderModeData}
-                                    innerRadius={60}
-                                    outerRadius={80}
+                                    data={orderStatusData}
+                                    innerRadius={80}
+                                    outerRadius={100}
                                     paddingAngle={5}
                                     dataKey="value"
+                                    cornerRadius={10}
                                 >
-                                    {orderModeData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                                    {orderStatusData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={STATUS_COLORS[index % STATUS_COLORS.length]} />
                                     ))}
                                 </Pie>
+                                <Tooltip />
                                 <Legend verticalAlign="bottom" height={36} iconType="circle" />
                             </PieChart>
                         </ResponsiveContainer>
-                        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                            <span className="text-3xl font-bold text-gray-800 dark:text-white">30%</span>
+                        {/* Center Text */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mb-8">
+                            <span className="text-4xl font-bold text-gray-800 dark:text-white">{metrics.totalOrders}</span>
+                            <span className="text-xs text-gray-400 uppercase tracking-widest">Total</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Sección Inferior: Productos más vendidos */}
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <div className="flex justify-between items-center mb-4">
-                    <h3 className="font-bold text-lg text-gray-800 dark:text-white">Productos más vendidos</h3>
-                    <select className="bg-gray-50 dark:bg-gray-700 text-xs p-1 rounded border-none outline-none dark:text-white">
-                        <option>Esta semana</option>
-                    </select>
+            {/* Bottom Section: Top Products & Recent Orders */}
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+                {/* Top Selling Products */}
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <h3 className="font-bold text-xl text-gray-800 dark:text-white mb-6">Productos Más Vendidos</h3>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="text-xs text-gray-400 uppercase border-b border-gray-100 dark:border-gray-700">
+                                    <th className="py-3 px-2">Producto</th>
+                                    <th className="py-3 px-2">Categoría</th>
+                                    <th className="py-3 px-2 text-right">Precio</th>
+                                    <th className="py-3 px-2 text-right">Vendidos</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-sm">
+                                {topProducts.map((product) => (
+                                    <tr key={product.id} className="border-b border-gray-50 dark:border-gray-700/50 last:border-none hover:bg-gray-50 dark:hover:bg-gray-700/20 transition-colors">
+                                        <td className="py-4 px-2 flex items-center gap-3">
+                                            <img src={product.imagenes[0]} alt={product.nombre} className="w-10 h-10 rounded-lg object-cover bg-gray-100" />
+                                            <span className="font-medium text-gray-800 dark:text-gray-200 line-clamp-1 max-w-[150px]">{product.nombre}</span>
+                                        </td>
+                                        <td className="py-4 px-2 text-gray-500">{product.categoria}</td>
+                                        <td className="py-4 px-2 text-right font-semibold text-gray-700 dark:text-gray-300 py-2">${product.precio}</td>
+                                        <td className="py-4 px-2 text-right text-green-500 font-bold">{product.sold || 0}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                {/* Tabla simple */}
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left">
-                        <thead className="text-xs text-gray-400 uppercase bg-gray-50 dark:bg-gray-700/50">
-                            <tr>
-                                <th className="px-4 py-3 rounded-l-lg">Producto</th>
-                                <th className="px-4 py-3">Precio</th>
-                                <th className="px-4 py-3">Pedidos</th>
-                                <th className="px-4 py-3">Existencias</th>
-                                <th className="px-4 py-3 rounded-r-lg">Monto</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-sm dark:text-gray-300">
-                            <tr className="border-b border-gray-100 dark:border-gray-700">
-                                <td className="px-4 py-3 font-medium flex items-center gap-2">
-                                    <div className="w-8 h-8 rounded bg-gray-200"></div>
-                                    Generador Solar 1000Wh
-                                </td>
-                                <td className="px-4 py-3">$999</td>
-                                <td className="px-4 py-3">47</td>
-                                <td className="px-4 py-3 text-red-500">23</td>
-                                <td className="px-4 py-3 font-bold">$46,953</td>
-                            </tr>
-                            <tr>
-                                <td className="px-4 py-3 font-medium flex items-center gap-2">
-                                    <div className="w-8 h-8 rounded bg-gray-200"></div>
-                                    Panel Solar 400W
-                                </td>
-                                <td className="px-4 py-3">$299</td>
-                                <td className="px-4 py-3">98</td>
-                                <td className="px-4 py-3 text-green-500">50</td>
-                                <td className="px-4 py-3 font-bold">$29,301</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                {/* Recent Orders */}
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-lg border border-gray-100 dark:border-gray-700">
+                    <h3 className="font-bold text-xl text-gray-800 dark:text-white mb-6">Órdenes Recientes</h3>
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left border-collapse">
+                            <thead>
+                                <tr className="text-xs text-gray-400 uppercase border-b border-gray-100 dark:border-gray-700">
+                                    <th className="py-3 px-2">Orden #</th>
+                                    <th className="py-3 px-2">Fecha</th>
+                                    <th className="py-3 px-2">Cliente</th>
+                                    <th className="py-3 px-2">Monto</th>
+                                    <th className="py-3 px-2 text-center">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-sm">
+                                {recentOrders.map((order) => (
+                                    <tr key={order.id} className="border-b border-gray-50 dark:border-gray-700/50 last:border-none hover:bg-gray-50 dark:hover:bg-gray-700/20 transition-colors">
+                                        <td className="py-4 px-2 font-medium text-gray-800 dark:text-gray-200">{order.id}</td>
+                                        <td className="py-4 px-2 text-gray-500">{order.date}</td>
+                                        <td className="py-4 px-2 text-gray-600 dark:text-gray-300">{order.customerName}</td>
+                                        <td className="py-4 px-2 font-bold text-gray-800 dark:text-white">${order.total}</td>
+                                        <td className="py-4 px-2 text-center">
+                                            <span className={`px-2 py-1 rounded-full text-xs font-bold ${order.status === 'entregado' ? 'bg-green-100 text-green-600 dark:bg-green-900/30' :
+                                                    order.status === 'pendiente' ? 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900/30' :
+                                                        'bg-red-100 text-red-600 dark:bg-red-900/30'
+                                                }`}>
+                                                {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+            </div>
+        </div>
+    );
+};
+
+const KPICard = ({ title, value, icon, color, trend, trendUp = true }) => {
+    const colorClasses = {
+        green: 'bg-green-50 text-green-600 dark:bg-green-900/20',
+        blue: 'bg-blue-50 text-blue-600 dark:bg-blue-900/20',
+        purple: 'bg-purple-50 text-purple-600 dark:bg-purple-900/20',
+        orange: 'bg-orange-50 text-orange-600 dark:bg-orange-900/20',
+        red: 'bg-red-50 text-red-600 dark:bg-red-900/20',
+    };
+
+    return (
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col justify-between h-full transition-transform hover:-translate-y-1 duration-300">
+            <div className="flex justify-between items-start mb-4">
+                <div className={`p-3 rounded-2xl ${colorClasses[color]}`}>
+                    <FontAwesomeIcon icon={icon} className="text-xl" />
+                </div>
+                {trend && (
+                    <div className={`flex items-center space-x-1 text-sm font-bold ${trendUp === true ? 'text-green-500' : trendUp === false ? 'text-red-500' : 'text-gray-400'}`}>
+                        <span>{trend}</span>
+                        {trendUp === true && <FontAwesomeIcon icon={faArrowUp} className="text-xs" />}
+                        {trendUp === false && <FontAwesomeIcon icon={faArrowDown} className="text-xs" />}
+                    </div>
+                )}
+            </div>
+            <div>
+                <p className="text-gray-500 dark:text-gray-400 text-xs font-semibold uppercase tracking-wider mb-1">{title}</p>
+                <h3 className="text-3xl font-bold text-gray-800 dark:text-white">{value}</h3>
             </div>
         </div>
     );

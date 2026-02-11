@@ -12,14 +12,16 @@
         ],
         "promocion": "Envío Gratis",
         "nuevo": true,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 50,
+        "disabled": false
     },
     {
         "id": 2,
         "nombre": "Inversor Solar Híbrido 5kW",
         "marca": "VoltMaster",
         "categoria": "Inversores",
-        "precio": 850.00,
+        "precio": 850,
         "stock": 30,
         "descripcion": "Inversor híbrido inteligente compatible con baterías de litio. Salida de onda senoidal pura para electrónica sensible.",
         "imagenes": [
@@ -27,14 +29,16 @@
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 154,
+        "disabled": false
     },
     {
         "id": 3,
         "nombre": "Generador Solar Portátil 1000Wh",
         "marca": "EcoFlow",
         "categoria": "Generadores",
-        "precio": 999.00,
+        "precio": 999,
         "stock": 25,
         "descripcion": "Estación de energía portátil para camping y respaldo de emergencia. Se puede cargar mediante paneles solares, toma de corriente o puerto de coche.",
         "imagenes": [
@@ -42,22 +46,26 @@
         ],
         "promocion": "Oferta en Pack",
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 8,
+        "disabled": false
     },
     {
         "id": 4,
         "nombre": "Batería de Gel de Ciclo Profundo 200Ah",
         "marca": "PowerCell",
         "categoria": "Baterías",
-        "precio": 320.50,
+        "precio": 320.5,
         "stock": 100,
         "descripcion": "Batería de gel sin mantenimiento diseñada para almacenamiento de energía solar. Larga vida útil y alto rendimiento de descarga.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1616423668238-d36c34a2e519?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1619641215423-2287e0254c7d?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 14,
+        "disabled": false
     },
     {
         "id": 5,
@@ -72,7 +80,9 @@
         ],
         "promocion": "Compra 2 Lleva 1",
         "nuevo": true,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 175,
+        "disabled": false
     },
     {
         "id": 6,
@@ -83,33 +93,37 @@
         "stock": 150,
         "descripcion": "Cargador solar compacto y ligero con dos puertos USB. Perfecto para senderismo, mochileros y viajes.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1605218427306-6a43b0182ce6?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 18,
+        "disabled": false
     },
     {
         "id": 7,
         "nombre": "Sistema de Bomba de Agua Solar",
         "marca": "AquaSolar",
         "categoria": "Agricultura",
-        "precio": 450.00,
+        "precio": 450,
         "stock": 15,
         "descripcion": "Bomba solar sumergible para riego, abrevadero de ganado y fuentes. Funciona directamente desde paneles solares.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1522967652758-5d25244ddf36?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": "10% de Descuento",
         "nuevo": false,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 44,
+        "disabled": false
     },
     {
         "id": 8,
         "nombre": "Controlador de Carga MPPT 60A",
         "marca": "SmartSolar",
         "categoria": "Controladores",
-        "precio": 185.00,
+        "precio": 185,
         "stock": 60,
         "descripcion": "Tecnología MPPT avanzada para máxima cosecha de energía. Habilitado para Bluetooth para monitoreo a través de aplicación móvil.",
         "imagenes": [
@@ -117,14 +131,16 @@
         ],
         "promocion": null,
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 120,
+        "disabled": false
     },
     {
         "id": 9,
         "nombre": "Farola Solar 100W",
         "marca": "UrbanRay",
         "categoria": "Iluminación",
-        "precio": 120.00,
+        "precio": 120,
         "stock": 80,
         "descripcion": "Farola solar todo-en-uno con sensor de movimiento. LEDs de alto brillo y carcasa de aluminio duradera.",
         "imagenes": [
@@ -132,52 +148,60 @@
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 103,
+        "disabled": false
     },
     {
         "id": 10,
         "nombre": "Panel Solar Bifacial 550W",
         "marca": "SunPower",
         "categoria": "Paneles Solares",
-        "precio": 380.00,
+        "precio": 380,
         "stock": 40,
         "descripcion": "Módulo bifacial de alto rendimiento que captura luz solar por ambos lados. Maximiza la generación en superficies reflectantes.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1545208942-e0c33257a0e2?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": "Nueva Llegada",
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 192,
+        "disabled": false
     },
     {
         "id": 11,
         "nombre": "Ventilador Solar para Ático",
         "marca": "VentSol",
         "categoria": "Ventilación",
-        "precio": 199.00,
+        "precio": 199,
         "stock": 55,
         "descripcion": "Ventilador de ático alimentado por energía solar que reduce la acumulación de calor y humedad. Funcionamiento silencioso y fácil instalación.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1454790130638-b7c6c44933a0?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 63,
+        "disabled": false
     },
     {
         "id": 12,
         "nombre": "Batería de Fosfato de Hierro y Litio 100Ah",
         "marca": "LiFePower",
         "categoria": "Baterías",
-        "precio": 450.00,
+        "precio": 450,
         "stock": 75,
         "descripcion": "Batería LiFePO4 de ciclo profundo con BMS incorporado. Ligera, segura y vida útil de más de 10 años.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1605943962635-43bf620d4402?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1616423668238-d36c34a2e519?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": "Kit de cables gratis",
         "nuevo": true,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 77,
+        "disabled": false
     },
     {
         "id": 13,
@@ -192,14 +216,16 @@
         ],
         "promocion": "Compra 1 Lleva 2 al 50%",
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 177,
+        "disabled": false
     },
     {
         "id": 14,
         "nombre": "Kit de Rieles de Montaje Solar",
         "marca": "RoofMount",
         "categoria": "Instalación",
-        "precio": 89.00,
+        "precio": 89,
         "stock": 100,
         "descripcion": "Sistema de rieles de montaje de aluminio para una instalación segura de paneles solares en techos inclinados.",
         "imagenes": [
@@ -207,14 +233,16 @@
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 181,
+        "disabled": false
     },
     {
         "id": 15,
         "nombre": "Panel Solar Flexible 100W",
         "marca": "FlexSun",
         "categoria": "Paneles Solares",
-        "precio": 149.00,
+        "precio": 149,
         "stock": 60,
         "descripcion": "Panel flexible ultra delgado y ligero. Ideal para caravanas, barcos y superficies curvas.",
         "imagenes": [
@@ -222,7 +250,9 @@
         ],
         "promocion": null,
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 134,
+        "disabled": false
     },
     {
         "id": 16,
@@ -237,7 +267,9 @@
         ],
         "promocion": null,
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 90,
+        "disabled": false
     },
     {
         "id": 17,
@@ -248,11 +280,13 @@
         "stock": 200,
         "descripcion": "Cámara de seguridad inalámbrica con panel solar incorporado y visión nocturna.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1587815254199-a9a30485d117?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": "Oferta en Pack",
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 173,
+        "disabled": false
     },
     {
         "id": 18,
@@ -267,7 +301,9 @@
         ],
         "promocion": "2 por $70",
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 182,
+        "disabled": false
     },
     {
         "id": 19,
@@ -282,7 +318,9 @@
         ],
         "promocion": null,
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 107,
+        "disabled": false
     },
     {
         "id": 20,
@@ -293,18 +331,20 @@
         "stock": 80,
         "descripcion": "Termostato con IA que optimiza su calefacción y refrigeración para el uso solar.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1563456070688-46487e914594?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1558402529-d2638a7023e9?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": "Instalación Gratis",
         "nuevo": true,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 86,
+        "disabled": false
     },
     {
         "id": 21,
         "nombre": "Ionizador Solar para Piscina",
         "marca": "ClearBlue",
         "categoria": "Mantenimiento",
-        "precio": 95.00,
+        "precio": 95,
         "stock": 40,
         "descripcion": "Reduce el uso de cloro en un 85%. Utiliza energía solar para generar iones.",
         "imagenes": [
@@ -312,14 +352,16 @@
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 34,
+        "disabled": false
     },
     {
         "id": 22,
         "nombre": "Sistema de Micro-Inversores",
         "marca": "Enphase",
         "categoria": "Inversores",
-        "precio": 150.00,
+        "precio": 150,
         "stock": 100,
         "descripcion": "Electrónica de potencia a nivel de módulo para tolerancia a la sombra y seguridad.",
         "imagenes": [
@@ -327,14 +369,16 @@
         ],
         "promocion": null,
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 87,
+        "disabled": false
     },
     {
         "id": 23,
         "nombre": "Cable Solar 10AWG (50 pies)",
         "marca": "WirePro",
         "categoria": "Instalación",
-        "precio": 35.00,
+        "precio": 35,
         "stock": 300,
         "descripcion": "Cable fotovoltaico resistente a los rayos UV con conectores MC4 pre-prensados.",
         "imagenes": [
@@ -342,14 +386,16 @@
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 46,
+        "disabled": false
     },
     {
         "id": 24,
         "nombre": "Turbina Eólica Híbrida 400W",
         "marca": "AeroGen",
         "categoria": "Generadores",
-        "precio": 350.00,
+        "precio": 350,
         "stock": 20,
         "descripcion": "Complemente su sistema solar con energía eólica. Baja velocidad de arranque.",
         "imagenes": [
@@ -357,7 +403,9 @@
         ],
         "promocion": "Controlador Gratis",
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 198,
+        "disabled": false
     },
     {
         "id": 25,
@@ -368,18 +416,20 @@
         "stock": 1000,
         "descripcion": "Clásica calculadora de escritorio solar hecha de plásticos reciclados.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1587145820266-a5951eebebb1?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 81,
+        "disabled": false
     },
     {
         "id": 26,
         "nombre": "Mochila Solar con Hidratación",
         "marca": "HikeSol",
         "categoria": "Accesorios",
-        "precio": 85.00,
+        "precio": 85,
         "stock": 60,
         "descripcion": "Mochila con cargador solar de 7L con bolsa de hidratación de 2L incluida.",
         "imagenes": [
@@ -387,7 +437,9 @@
         ],
         "promocion": null,
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 64,
+        "disabled": false
     },
     {
         "id": 27,
@@ -398,18 +450,20 @@
         "stock": 400,
         "descripcion": "Luces LED de color blanco cálido para decoración de patios y jardines.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1516216628259-29681f9f9575?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": "Compra 1 Lleva 1",
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 78,
+        "disabled": false
     },
     {
         "id": 28,
         "nombre": "Cargador EV Nivel 2",
         "marca": "DriveGreen",
         "categoria": "Hogar Inteligente",
-        "precio": 599.00,
+        "precio": 599,
         "stock": 25,
         "descripcion": "Estación de carga rápida para vehículos eléctricos. Habilitado para Wi-Fi.",
         "imagenes": [
@@ -417,36 +471,42 @@
         ],
         "promocion": null,
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 73,
+        "disabled": false
     },
     {
         "id": 29,
         "nombre": "Radio y Linterna Solar",
         "marca": "EmergencyKit",
         "categoria": "Electrónica",
-        "precio": 45.00,
+        "precio": 45,
         "stock": 100,
         "descripcion": "Radio meteorológica NOAA de emergencia con manivela y carga solar.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1585860367375-7489eee696c2?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": null,
         "nuevo": false,
-        "mas_vendido": true
+        "mas_vendido": true,
+        "sold": 132,
+        "disabled": false
     },
     {
         "id": 30,
         "nombre": "Horno Solar Portátil",
         "marca": "SunChef",
         "categoria": "Accesorios",
-        "precio": 120.00,
+        "precio": 120,
         "stock": 35,
         "descripcion": "Horno solar portátil que alcanza los 300°F. Cocine comidas solo con luz solar.",
         "imagenes": [
-            "https://images.unsplash.com/photo-1533749005934-22b64731835d?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1545259741-2ea3ebf61fa3?auto=format&fit=crop&w=800&q=80"
         ],
         "promocion": "Libro de recetas incluido",
         "nuevo": true,
-        "mas_vendido": false
+        "mas_vendido": false,
+        "sold": 50,
+        "disabled": false
     }
 ]

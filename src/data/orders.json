@@ -1,0 +1,74 @@
+[
+    {
+        "id": "ORD-001",
+        "date": "2026-02-11",
+        "customerId": 1,
+        "customerName": "Juan Pérez",
+        "total": 299.99,
+        "status": "pendiente",
+        "items": 2
+    },
+    {
+        "id": "ORD-002",
+        "date": "2026-02-10",
+        "customerId": 2,
+        "customerName": "María García",
+        "total": 1250.00,
+        "status": "entregado",
+        "items": 4
+    },
+    {
+        "id": "ORD-003",
+        "date": "2026-02-09",
+        "customerId": 4,
+        "customerName": "Ana Martínez",
+        "total": 450.50,
+        "status": "entregado",
+        "items": 1
+    },
+    {
+        "id": "ORD-004",
+        "date": "2026-02-08",
+        "customerId": 3,
+        "customerName": "Carlos López",
+        "total": 89.99,
+        "status": "cancelado",
+        "items": 1
+    },
+    {
+        "id": "ORD-005",
+        "date": "2026-02-08",
+        "customerId": 2,
+        "customerName": "María García",
+        "total": 2100.00,
+        "status": "entregado",
+        "items": 6
+    },
+    {
+        "id": "ORD-006",
+        "date": "2026-02-07",
+        "customerId": 5,
+        "customerName": "Roberto Sánchez",
+        "total": 120.00,
+        "status": "entregado",
+        "items": 1
+    },
+    {
+        "id": "ORD-007",
+        "date": "2026-02-06",
+        "customerId": 1,
+        "customerName": "Juan Pérez",
+        "total": 550.00,
+        "status": "pendiente",
+        "items": 3
+    },
+    {
+        "id": "ORD-008",
+        "date": "2026-02-05",
+        "customerId": 4,
+        "customerName": "Ana Martínez",
+        "total": 3200.00,
+        "status": "entregado",
+        "items": 8
+    }
+]
