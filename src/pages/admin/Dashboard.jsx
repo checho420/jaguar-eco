@@ -48,7 +48,7 @@ const Dashboard = () => {
                     <p className="text-gray-500 dark:text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Resumen de actividad en tiempo real</p>
                 </div>
                 <div className="flex items-center space-x-3 bg-white dark:bg-[#171821] p-2 rounded-2xl shadow-sm border border-gray-100 dark:border-[#1e1f26]">
-                    <img src="https://i.pravatar.cc/150?u=admin_jaguar" alt="Admin" className="w-10 h-10 rounded-full border-2 border-[#0abab5]" />
+                    <img src="https://i.pravatar.cc/150?u=admin_logo_energy" alt="Admin" className="w-10 h-10 rounded-full border-2 border-[#0abab5]" />
                     <div className="pr-4">
                         <p className="text-sm font-black text-gray-800 dark:text-white uppercase tracking-tighter">Admin User</p>
                         <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Super Admin</p>
@@ -294,3 +294,4 @@ const KPICard = ({ title, value, icon, color, trend }) => {
 };
 
 export default Dashboard;
+

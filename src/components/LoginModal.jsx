@@ -58,7 +58,7 @@ const LoginModal = ({ isOpen, onClose }) => {
 
                         <div className="text-center mb-8">
                             <h2 className="text-3xl font-bold bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">¡Bienvenido de nuevo!</h2>
-                            <p className="text-gray-500 dark:text-gray-400 mt-2">Accede al Centro de Control de JaguarEco</p>
+                            <p className="text-gray-500 dark:text-gray-400 mt-2">Accede al Centro de Control de LOGO Energy</p>
                         </div>
 
                         <form onSubmit={handleSubmit} className="space-y-6">
@@ -120,3 +120,4 @@ const LoginModal = ({ isOpen, onClose }) => {
 };
 
 export default LoginModal;
+

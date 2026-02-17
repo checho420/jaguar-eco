@@ -46,7 +46,7 @@ const ProductDetail = () => {
     }, [id, loading, getProductById, getProductsByCategory]);
 
     const mockCharacteristics = useMemo(() => [
-        { label: 'Tipo', value: product?.categoria || 'Dispositivo Eco' },
+        { label: 'Tipo', value: product?.categoria || 'Dispositivo Energy' },
         { label: 'Modelo', value: `JG-${(product?.id || 0).toString().padStart(4, '0')}` },
         { label: 'Eficiencia', value: product?.nuevo ? 'Ultra Alta' : 'Alta Estándar' },
         { label: 'Garantía', value: '2 Años de Fábrica' },
@@ -312,7 +312,7 @@ const ProductDetail = () => {
                                             {product.descripcion || 'Sin descripción detallada disponible.'}. Diseñado para quienes exigen eficiencia sin compromisos estéticos, este dispositivo incorpora materiales de primera calidad y componentes modulares de vanguardia.
                                         </p>
                                         <p>
-                                            Cada unidad es rigurosamente probada para cumplir con nuestra iniciativa "Residuo Cero", asegurando que hasta el 98% de los componentes sean reciclables al final de su vida útil. Jaguar Eco no es solo una elección, es un compromiso con el futuro.
+                                            Cada unidad es rigurosamente probada para cumplir con nuestra iniciativa "Residuo Cero", asegurando que hasta el 98% de los componentes sean reciclables al final de su vida útil. LOGO Energy no es solo una elección, es un compromiso con el futuro.
                                         </p>
                                     </div>
                                 )}
@@ -395,3 +395,4 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+

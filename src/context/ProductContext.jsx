@@ -14,13 +14,13 @@ export const ProductProvider = ({ children }) => {
         const initProducts = () => {
             setLoading(true);
             try {
-                const savedProducts = localStorage.getItem('jaguar_products');
+                const savedProducts = localStorage.getItem('logo_energy_products');
                 if (savedProducts && JSON.parse(savedProducts).length > 0) {
                     setProducts(JSON.parse(savedProducts));
                 } else {
                     // Fallback to static JSON if nothing in localStorage
                     setProducts(productsData);
-                    localStorage.setItem('jaguar_products', JSON.stringify(productsData));
+                    localStorage.setItem('logo_energy_products', JSON.stringify(productsData));
                 }
             } catch (error) {
                 console.error("Error initializing products:", error);
@@ -36,7 +36,7 @@ export const ProductProvider = ({ children }) => {
     // Persistence Effect: Save to localStorage whenever products state changes
     useEffect(() => {
         if (!loading) {
-            localStorage.setItem('jaguar_products', JSON.stringify(products));
+            localStorage.setItem('logo_energy_products', JSON.stringify(products));
         }
     }, [products, loading]);
 
@@ -92,3 +92,4 @@ export const ProductProvider = ({ children }) => {
         </ProductContext.Provider>
     );
 };
+

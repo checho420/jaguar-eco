@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
         username: "admin",
         password: "admin",
         name: "Admin User",
-        avatar: "https://i.pravatar.cc/150?u=admin_jaguar"
+        avatar: "https://i.pravatar.cc/150?u=admin_logo_energy"
     };
 
     const login = (email, password) => {
@@ -53,3 +53,4 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     );
 };
+

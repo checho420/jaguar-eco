@@ -461,7 +461,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Marca</label>
-                                                <input name="marca" value={formData.marca} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" placeholder="Jaguar" required />
+                                                <input name="marca" value={formData.marca} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" placeholder="LOGO" required />
                                             </div>
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Categoría</label>
@@ -688,3 +688,4 @@ const ProductModal = ({ product, onClose, onSave }) => {
 };
 
 export default ProductList;
+

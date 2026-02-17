@@ -82,3 +82,4 @@ const CartSidebar = () => {
 };
 
 export default CartSidebar;
+

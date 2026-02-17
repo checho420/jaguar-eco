@@ -57,10 +57,10 @@ const Navbar = () => {
 
     // Dynamic Color Logic
     const isBannerArea = isHome && !pastBanner;
-    const jaguarColorClass = isBannerArea ? "text-white" : "text-jaguar-gold";
+    const logoColorClass = isBannerArea ? "text-white" : "text-logo-energy-gold";
     const textClasses = isBannerArea
         ? "text-white hover:text-green-400"
-        : "text-jaguar-black dark:text-jaguar-cream hover:text-green-600 dark:hover:text-green-400";
+        : "text-logo-energy-black dark:text-logo-energy-cream hover:text-green-600 dark:hover:text-green-400";
     const iconColorStyle = isBannerArea ? { color: '#FFFFFF' } : {};
 
     // Menu Drawer Variants
@@ -133,7 +133,7 @@ const Navbar = () => {
                                 }}
                                 transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
                             >
-                                Jaguar
+                                LOGO
                             </motion.span><motion.span
                                 className="text-green-500 font-sans font-black italic inline-block"
                                 initial={{ rotate: 0 }}
@@ -147,7 +147,7 @@ const Navbar = () => {
                                     scale: { type: "spring", stiffness: 300 }
                                 }}
                             >
-                                Eco
+                                Energy
                             </motion.span>
                         </motion.div>
                     </Link>
@@ -332,7 +332,7 @@ const Navbar = () => {
                             className="text-left text-sm text-gray-400 tracking-widest uppercase font-medium"
                         >
                             <p>© 2026</p>
-                            <p className="text-gray-900 dark:text-white mt-1">Arquitectura Jaguar Eco</p>
+                            <p className="text-gray-900 dark:text-white mt-1">Arquitectura LOGO Energy</p>
                         </motion.div>
                     </motion.div>
                 )}
@@ -344,3 +344,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

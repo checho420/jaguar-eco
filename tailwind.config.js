@@ -8,17 +8,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        'jaguar-gold': '#C68E3F',
-        'jaguar-black': '#1A1714',
-        'jaguar-brown': '#5C4033',
-        'jaguar-cream': '#F5F5DC',
+        'logo-energy-gold': '#C68E3F',
+        'logo-energy-black': '#1A1714',
+        'logo-energy-brown': '#5C4033',
+        'logo-energy-cream': '#F5F5DC',
         primary: '#1a1a1a',
-        accent: '#22c55e', // Verde para 'Eco'
+        accent: '#22c55e', // Verde para 'Energy'
       },
       fontFamily: {
         sans: ['Outfit', 'sans-serif'],
         serif: ['"Playfair Display"', 'serif'],
-        jaguar: ['Cinzel', 'serif'],
+        logoEnergy: ['Cinzel', 'serif'],
         eco: ['Syne', 'sans-serif'],
       }
     },

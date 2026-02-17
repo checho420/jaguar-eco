@@ -52,7 +52,7 @@ const ProductCard = ({ product }) => {
                             animate={{ opacity: 1, x: 0 }}
                             className="absolute top-5 left-5 z-10"
                         >
-                            <span className="bg-white/90 dark:bg-black/80 backdrop-blur-md text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm dark:text-jaguar-gold">
+                            <span className="bg-white/90 dark:bg-black/80 backdrop-blur-md text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm dark:text-logo-energy-gold">
                                 {discount > 0 ? `-${discount}%` : 'Novedad'}
                             </span>
                         </motion.div>
@@ -195,3 +195,4 @@ const ProductCard = ({ product }) => {
 };
 
 export default ProductCard;
+

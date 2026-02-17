@@ -385,7 +385,7 @@ const Catalog = () => {
                             <div className="bg-gradient-to-br from-green-400 to-green-600 p-6 rounded-[32px] text-white overflow-hidden relative group cursor-pointer shadow-xl shadow-green-500/20">
                                 <div className="relative z-10">
                                     <p className="text-[10px] font-black uppercase tracking-widest mb-2 opacity-80">Edición Limitada</p>
-                                    <h4 className="text-2xl font-black italic tracking-tighter leading-tight mb-4">Membresía <br />Eco PRO</h4>
+                                    <h4 className="text-2xl font-black italic tracking-tighter leading-tight mb-4">Membresía <br />Energy PRO</h4>
                                     <button className="bg-white text-green-600 px-6 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-transform">Saber más</button>
                                 </div>
                                 <FontAwesomeIcon icon={faChartBar} className="absolute -right-4 -bottom-4 text-7xl opacity-20 rotate-12 group-hover:rotate-0 transition-transform duration-700" />
@@ -501,3 +501,4 @@ const Catalog = () => {
 };
 
 export default Catalog;
+

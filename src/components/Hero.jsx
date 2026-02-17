@@ -179,7 +179,7 @@ const Hero = () => {
                             setDirection(index > currentIndex ? 1 : -1);
                             setCurrentIndex(index);
                         }}
-                        className={`group relative h-1 transition-all duration-500 ${index === currentIndex ? 'w-10 md:w-12 bg-jaguar-gold' : 'w-4 md:w-6 bg-white/30 hover:bg-white/60'}`}
+                        className={`group relative h-1 transition-all duration-500 ${index === currentIndex ? 'w-10 md:w-12 bg-logo-energy-gold' : 'w-4 md:w-6 bg-white/30 hover:bg-white/60'}`}
                     >
                         <span className="absolute -inset-2 block pointer-events-auto"></span>
                     </button>
@@ -208,7 +208,7 @@ const Hero = () => {
                         }}
                         transition={{ duration: 0.4, type: "spring", stiffness: 200 }}
                     >
-                        Jaguar
+                        LOGO
                     </motion.span>
                     <motion.span
                         className="text-green-500 font-sans font-black italic inline-block tracking-tighter"
@@ -224,7 +224,7 @@ const Hero = () => {
                             scale: { type: "spring", stiffness: 300 }
                         }}
                     >
-                        Eco
+                        Energy
                     </motion.span>
                 </motion.div>
             </motion.div>
@@ -236,10 +236,11 @@ const Hero = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1.5 }}
             >
-                <div className="w-[1px] h-6 md:h-10 bg-gradient-to-b from-jaguar-gold to-transparent"></div>
+                <div className="w-[1px] h-6 md:h-10 bg-gradient-to-b from-logo-energy-gold to-transparent"></div>
             </motion.div>
         </div>
     );
 };
 
 export default Hero;
+
