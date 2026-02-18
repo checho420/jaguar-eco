@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { formatCurrency } from '../utils/formatters';
 
 const Checkout = () => {
-    const { cart, total, clearCart } = useCart();
+    const { cart, total, clearCart, updateQuantity, removeFromCart } = useCart();
     const { updateProduct, getProductById } = useProducts();
     const navigate = useNavigate();
 
@@ -107,12 +107,43 @@ const Checkout = () => {
                         <div className="space-y-4 mb-6 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
                             {cart.map(item => (
                                 <div key={item.id} className="flex gap-4 items-start">
-                                    <img src={item.images[0]} alt={item.name} className="w-16 h-16 rounded-lg object-cover bg-gray-100" />
+                                    <img
+                                        src={item.images?.[0] || 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80'}
+                                        alt={item.name}
+                                        className="w-16 h-16 rounded-lg object-cover bg-gray-100"
+                                    />
                                     <div className="flex-grow">
-                                        <p className="text-sm font-medium text-gray-800 dark:text-white line-clamp-2">{item.name}</p>
-                                        <div className="flex justify-between items-center mt-1">
-                                            <span className="text-xs text-gray-500">Cant: {item.quantity}</span>
-                                            <span className="text-sm font-bold text-gray-700 dark:text-gray-200">{formatCurrency(item.price * item.quantity)}</span>
+                                        <div className="flex justify-between items-start">
+                                            <p className="text-sm font-medium text-gray-800 dark:text-white line-clamp-2 leading-tight">{item.name}</p>
+                                            <button
+                                                onClick={() => removeFromCart(item.id)}
+                                                className="text-gray-400 hover:text-red-500 transition-colors ml-4 p-1"
+                                                title="Eliminar"
+                                            >
+                                                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <div className="flex justify-between items-center mt-3">
+                                            <div className="flex items-center gap-3 bg-gray-50 dark:bg-white/5 rounded-lg p-1 px-2 border border-gray-100 dark:border-white/5">
+                                                <button
+                                                    onClick={() => updateQuantity(item.id, -1)}
+                                                    className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-green-500 transition-colors"
+                                                >
+                                                    <span className="text-lg font-bold">−</span>
+                                                </button>
+                                                <span className="text-xs font-black dark:text-white w-4 text-center">{item.quantity}</span>
+                                                <button
+                                                    onClick={() => updateQuantity(item.id, 1)}
+                                                    className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-green-500 transition-colors"
+                                                >
+                                                    <span className="text-lg font-bold">+</span>
+                                                </button>
+                                            </div>
+                                            <span className="text-sm font-black text-gray-900 dark:text-gray-200 tracking-tighter italic">
+                                                {formatCurrency(item.price * item.quantity)}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>

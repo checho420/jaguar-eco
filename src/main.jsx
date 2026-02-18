@@ -10,21 +10,24 @@ import { BrowserRouter } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
 
 import { AdminProvider } from './context/AdminContext'
+import { UIProvider } from './context/UIContext'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ErrorBoundary>
       <BrowserRouter>
         <AuthProvider>
-          <ThemeProvider>
-            <ProductProvider>
-              <AdminProvider>
-                <CartProvider>
-                  <App />
-                </CartProvider>
-              </AdminProvider>
-            </ProductProvider>
-          </ThemeProvider>
+          <UIProvider>
+            <ThemeProvider>
+              <ProductProvider>
+                <AdminProvider>
+                  <CartProvider>
+                    <App />
+                  </CartProvider>
+                </AdminProvider>
+              </ProductProvider>
+            </ThemeProvider>
+          </UIProvider>
         </AuthProvider>
       </BrowserRouter>
     </ErrorBoundary>

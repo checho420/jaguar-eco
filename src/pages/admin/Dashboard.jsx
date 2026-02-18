@@ -8,12 +8,31 @@ import { faTag, faDollarSign, faShoppingBag, faUsers, faArrowUp, faArrowDown } f
 import { useAdmin } from '../../context/AdminContext';
 import { useProducts } from '../../context/ProductContext';
 import { formatCurrency, formatNumber } from '../../utils/formatters';
+import Skeleton from '../../components/Skeleton';
 
 const Dashboard = () => {
     const { metrics, recentOrders, orders, loading: adminLoading } = useAdmin();
     const { products, loading: productsLoading } = useProducts();
 
-    if (adminLoading || productsLoading) return <div className="p-10 text-center animate-pulse">Cargando Dashboard...</div>;
+    if (adminLoading || productsLoading) return (
+        <div className="space-y-8 animate-fade-in p-8">
+            <div className="flex justify-between items-center mb-12">
+                <Skeleton className="h-12 w-64" variant="text" />
+                <Skeleton className="h-10 w-48" variant="text" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-44 rounded-[28px]" />)}
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <Skeleton className="lg:col-span-2 h-[450px] rounded-[32px]" />
+                <Skeleton className="h-[450px] rounded-[32px]" />
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <Skeleton className="h-[600px] rounded-[32px]" />
+                <Skeleton className="h-[600px] rounded-[32px]" />
+            </div>
+        </div>
+    );
 
     // Derived Data for Charts
     const earningData = [
@@ -33,28 +52,21 @@ const Dashboard = () => {
 
     const STATUS_COLORS = ['#0abab5', '#ff9500', '#ff2d55']; // Tiffany Blue, Orange, Rose
 
-    // Top Selling Products (Mock logic: sort by 'sold' field if available, else random slice)
     const topProducts = [...products]
         .sort((a, b) => (b.sold || 0) - (a.sold || 0))
         .slice(0, 5);
 
+    const mostViewed = [...products]
+        .sort((a, b) => (b.views || 0) - (a.views || 0))
+        .slice(0, 5);
+
+    const mostLiked = [...products]
+        .sort((a, b) => (b.likesCount || 0) - (a.likesCount || 0))
+        .slice(0, 5);
+
     return (
         <div className="space-y-8 animate-fade-in-up">
-            <header className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
-                    <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase">
-                        Dashboard <span className="text-[#0abab5]">Global</span>
-                    </h1>
-                    <p className="text-gray-500 dark:text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] mt-1">Resumen de actividad en tiempo real</p>
-                </div>
-                <div className="flex items-center space-x-3 bg-white dark:bg-[#171821] p-2 rounded-2xl shadow-sm border border-gray-100 dark:border-[#1e1f26]">
-                    <img src="https://i.pravatar.cc/150?u=admin_logo_energy" alt="Admin" className="w-10 h-10 rounded-full border-2 border-[#0abab5]" />
-                    <div className="pr-4">
-                        <p className="text-sm font-black text-gray-800 dark:text-white uppercase tracking-tighter">Admin User</p>
-                        <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Super Admin</p>
-                    </div>
-                </div>
-            </header>
+
 
             {/* KPI Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -159,6 +171,61 @@ const Dashboard = () => {
                             <span className="text-4xl font-bold text-gray-800 dark:text-white">{metrics.totalOrders}</span>
                             <span className="text-xs text-gray-400 uppercase tracking-widest">Total</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Interaction Insights Section */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Most Viewed */}
+                <div className="bg-white dark:bg-[#171821] p-10 rounded-[32px] shadow-sm border border-gray-100 dark:border-[#1e1f26]">
+                    <h3 className="font-black text-xl text-gray-800 dark:text-white uppercase tracking-tighter italic mb-8 flex items-center gap-3">
+                        <span className="w-2 h-8 bg-blue-500 rounded-full"></span>
+                        Más Visitados
+                    </h3>
+                    <div className="space-y-4">
+                        {mostViewed.map((product, i) => (
+                            <div key={product.id} className="flex items-center justify-between p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-transparent hover:border-blue-500/30 transition-all">
+                                <div className="flex items-center gap-4">
+                                    <span className="text-2xl font-black italic text-gray-200 dark:text-white/10 w-8">{i + 1}</span>
+                                    <img src={product.images[0]} className="w-10 h-10 rounded-lg object-contain bg-white dark:bg-black p-1" alt="" />
+                                    <div>
+                                        <p className="text-xs font-black uppercase tracking-tighter text-gray-800 dark:text-white line-clamp-1">{product.name}</p>
+                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{product.brand}</p>
+                                    </div>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-lg font-black italic text-blue-500 leading-none">{formatNumber(product.views || 0)}</p>
+                                    <p className="text-[8px] font-black uppercase tracking-widest text-gray-400">Vistas</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Most Liked */}
+                <div className="bg-white dark:bg-[#171821] p-10 rounded-[32px] shadow-sm border border-gray-100 dark:border-[#1e1f26]">
+                    <h3 className="font-black text-xl text-gray-800 dark:text-white uppercase tracking-tighter italic mb-8 flex items-center gap-3">
+                        <span className="w-2 h-8 bg-rose-500 rounded-full"></span>
+                        Más Deseados (Likes)
+                    </h3>
+                    <div className="space-y-4">
+                        {mostLiked.map((product, i) => (
+                            <div key={product.id} className="flex items-center justify-between p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-transparent hover:border-rose-500/30 transition-all">
+                                <div className="flex items-center gap-4">
+                                    <span className="text-2xl font-black italic text-gray-200 dark:text-white/10 w-8">{i + 1}</span>
+                                    <img src={product.images[0]} className="w-10 h-10 rounded-lg object-contain bg-white dark:bg-black p-1" alt="" />
+                                    <div>
+                                        <p className="text-xs font-black uppercase tracking-tighter text-gray-800 dark:text-white line-clamp-1">{product.name}</p>
+                                        <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">{product.brand}</p>
+                                    </div>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-lg font-black italic text-rose-500 leading-none">{formatNumber(product.likesCount || 0)}</p>
+                                    <p className="text-[8px] font-black uppercase tracking-widest text-gray-400">Favoritos</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useProducts } from '../context/ProductContext';
 import ProductCard from '../components/ProductCard';
+import Skeleton from '../components/Skeleton';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -15,7 +16,6 @@ import { formatCurrency } from '../utils/formatters';
 
 const Catalog = () => {
     const { products, loading } = useProducts();
-    const [filteredProducts, setFilteredProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Todos');
     const [selectedBrand, setSelectedBrand] = useState('Todas');
@@ -41,7 +41,7 @@ const Catalog = () => {
     const categories = useMemo(() => ['Todos', ...new Set(products.map(p => p.category))], [products]);
     const brands = useMemo(() => ['Todas', ...new Set(products.map(p => p.brand))], [products]);
 
-    useEffect(() => {
+    const filteredProducts = useMemo(() => {
         // Start with only active products
         let result = products.filter(p => !p.disabled);
 
@@ -90,7 +90,7 @@ const Catalog = () => {
             sortedResult.sort((a, b) => (parseInt(b.id) || 0) - (parseInt(a.id) || 0));
         }
 
-        setFilteredProducts(sortedResult);
+        return sortedResult;
     }, [products, searchTerm, selectedCategory, selectedBrand, priceRange, sortBy, selectedRating]);
 
     const handleClearFilters = () => {
@@ -150,9 +150,21 @@ const Catalog = () => {
                         {/* Product Grid */}
                         <AnimatePresence mode="popLayout">
                             {loading ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 w-full">
                                     {[1, 2, 3, 4, 5, 6].map(i => (
-                                        <div key={i} className="h-[450px] bg-white dark:bg-white/5 rounded-[40px] animate-pulse" />
+                                        <div key={i} className="h-[520px] bg-white dark:bg-white/5 rounded-[40px] p-4 flex flex-col gap-4 border border-gray-100 dark:border-white/5">
+                                            <Skeleton className="h-64 rounded-[30px]" />
+                                            <Skeleton className="h-4 w-1/3" variant="text" />
+                                            <Skeleton className="h-8 w-3/4" variant="text" />
+                                            <Skeleton className="h-4 w-1/2" variant="text" />
+                                            <div className="mt-auto flex justify-between items-end">
+                                                <div className="space-y-2">
+                                                    <Skeleton className="h-4 w-12" variant="text" />
+                                                    <Skeleton className="h-8 w-24" variant="text" />
+                                                </div>
+                                                <Skeleton className="w-12 h-12 rounded-full" />
+                                            </div>
+                                        </div>
                                     ))}
                                 </div>
                             ) : filteredProducts.length > 0 ? (
@@ -324,7 +336,7 @@ const Catalog = () => {
                                     onClick={() => toggleSection('price')}
                                     className="w-full text-xs font-black uppercase tracking-widest text-gray-400 mb-4 flex items-center justify-between hover:text-blue-500 transition-colors"
                                 >
-                                    Precio (USD)
+                                    Precio (COP)
                                     <FontAwesomeIcon
                                         icon={faChevronDown}
                                         className={`text-[10px] transition-transform duration-300 ${collapsedSections.price ? '-rotate-90' : ''}`}

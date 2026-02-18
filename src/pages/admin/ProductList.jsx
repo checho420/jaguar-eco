@@ -168,7 +168,14 @@ const ProductList = () => {
                                                     <span className="text-2xl font-black text-gray-900 dark:text-white italic tracking-tighter">
                                                         {formatCurrency(product.price)}
                                                     </span>
-                                                    {product.promotion && <span className="text-[9px] text-[#ff2d55] font-black uppercase tracking-tighter mt-1">Oferta Activa</span>}
+                                                    {product.promotion && (
+                                                        <div className="flex flex-col">
+                                                            <span className="text-[9px] text-gray-400 line-through font-bold">
+                                                                {formatCurrency(product.price / (1 - (product.discountPercentage || 15) / 100))}
+                                                            </span>
+                                                            <span className="text-[9px] text-[#ff2d55] font-black uppercase tracking-tighter mt-0.5">-{product.discountPercentage || 15}% OFF</span>
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </td>
                                             <td className="p-6">
@@ -228,7 +235,7 @@ const ProductList = () => {
                                     {/* Quick Badges */}
                                     <div className="absolute top-4 left-4 flex flex-col gap-2">
                                         {product.new && <span className="bg-[#0abab5] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">Nuevo</span>}
-                                        {product.promotion && <span className="bg-[#ff2d55] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">Oferta</span>}
+                                        {product.promotion && <span className="bg-[#ff2d55] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">-{product.discountPercentage || 15}%</span>}
                                     </div>
 
                                     {/* Action Hover Overlay */}
@@ -254,7 +261,16 @@ const ProductList = () => {
                                     </div>
 
                                     <div className="flex justify-between items-end pt-5 border-t border-gray-100 dark:border-[#1e1f26]">
-                                        <div className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic leading-none">{formatCurrency(product.price)}</div>
+                                        <div className="flex flex-col">
+                                            <div className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic leading-none">
+                                                {formatCurrency(product.price)}
+                                            </div>
+                                            {product.promotion && (
+                                                <span className="text-[10px] text-gray-400 line-through font-bold mt-1">
+                                                    {formatCurrency(product.price / (1 - (product.discountPercentage || 15) / 100))}
+                                                </span>
+                                            )}
+                                        </div>
                                         <div className="flex flex-col items-end">
                                             <span className={`text-[9px] font-black tracking-widest uppercase ${product.stock < 10 ? 'text-[#ff2d55] animate-pulse' : 'text-gray-400 opacity-60'}`}>Stock: {product.stock}</span>
                                         </div>
@@ -301,6 +317,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
         newImageInput: '',
         disabled: product?.disabled || false,
         promotion: product?.promotion || false,
+        discountPercentage: product?.discountPercentage || 0,
         new: product?.new || false,
         bestSeller: product?.bestSeller || false,
         specifications: product?.specifications || [],
@@ -393,7 +410,8 @@ const ProductModal = ({ product, onClose, onSave }) => {
             ...formData,
             images: finalImages,
             price: parseFloat(formData.price) || 0,
-            stock: parseInt(formData.stock) || 0
+            stock: parseInt(formData.stock) || 0,
+            discountPercentage: parseInt(formData.discountPercentage) || 0
         };
 
         delete dataToSave.newImageInput;
@@ -486,6 +504,21 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                                 <input type="number" name="stock" value={formData.stock} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" required />
                                             </div>
                                         </div>
+                                        {formData.promotion && (
+                                            <div className="space-y-2 animate-fade-in">
+                                                <label className="text-[10px] font-black text-red-500 uppercase tracking-widest ml-1">Porcentaje de Descuento (%)</label>
+                                                <input
+                                                    type="number"
+                                                    name="discountPercentage"
+                                                    value={formData.discountPercentage}
+                                                    onChange={handleChange}
+                                                    min="0"
+                                                    max="100"
+                                                    className="w-full p-4 rounded-2xl bg-red-50/50 dark:bg-red-900/10 dark:text-white border border-red-100 dark:border-red-900/30 focus:border-red-500 outline-none font-black text-sm transition-all"
+                                                    required
+                                                />
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="space-y-4">
                                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Flags de Visibilidad</label>

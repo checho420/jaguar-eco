@@ -18,23 +18,24 @@ import { formatCurrency, formatNumber } from '../utils/formatters';
 import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import ProductCard from '../components/ProductCard';
+import Skeleton from '../components/Skeleton';
 
 const ProductDetail = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { getProductById, getProductsByCategory, loading } = useProducts();
+    const { getProductById, getProductsByCategory, loading, trackView, toggleLike } = useProducts();
     const { addToCart } = useCart();
     const [product, setProduct] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [activeImage, setActiveImage] = useState(0);
     const [activeTab, setActiveTab] = useState('description');
-    const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
         if (!loading) {
             const found = getProductById(id);
             if (found && !found.disabled) {
                 setProduct(found);
+                trackView(found.id); // Track product view
                 const related = getProductsByCategory(found.category)
                     .filter(p => p.id !== found.id && !p.disabled)
                     .slice(0, 4);
@@ -54,8 +55,38 @@ const ProductDetail = () => {
     ], [product]);
 
     if (loading) return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-black">
-            <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: "linear" }} className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full" />
+        <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
+            {/* Header Skeleton */}
+            <div className="h-20 border-b border-gray-100 dark:border-white/5" />
+
+            <main className="max-w-7xl mx-auto px-6 py-12">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                    {/* Media Column Skeleton */}
+                    <div className="lg:col-span-8 flex flex-col gap-6">
+                        <Skeleton className="w-full aspect-square rounded-[40px]" />
+                        <div className="grid grid-cols-4 gap-4">
+                            {[1, 2, 3, 4].map(i => <Skeleton key={i} className="aspect-square rounded-2xl" />)}
+                        </div>
+                    </div>
+
+                    {/* Content Column Skeleton */}
+                    <div className="lg:col-span-4 space-y-8">
+                        <div>
+                            <Skeleton className="h-4 w-24 mb-4" variant="text" />
+                            <Skeleton className="h-12 w-full mb-4" variant="text" />
+                            <Skeleton className="h-4 w-3/4" variant="text" />
+                        </div>
+                        <div className="p-8 rounded-[40px] bg-gray-50 dark:bg-white/5 space-y-6">
+                            <Skeleton className="h-10 w-1/2" variant="text" />
+                            <Skeleton className="h-12 w-full rounded-2xl" />
+                            <Skeleton className="h-12 w-full rounded-2xl" />
+                        </div>
+                        <div className="space-y-4">
+                            {[1, 2, 3].map(i => <Skeleton key={i} className="h-16 w-full rounded-2xl" />)}
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
     );
 
@@ -133,7 +164,7 @@ const ProductDetail = () => {
                             <div className="absolute top-8 left-8 flex flex-col gap-2 z-10">
                                 {product.promotion && (
                                     <span className="bg-red-500 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-xl">
-                                        Oferta -28%
+                                        Oferta -{product.discountPercentage || 15}%
                                     </span>
                                 )}
                                 {product.bestSeller && (
@@ -206,14 +237,14 @@ const ProductDetail = () => {
                         >
                             <div className="mb-10">
                                 <div className="flex items-baseline gap-2 mb-1">
-                                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">USD</span>
+                                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">COP</span>
                                     <span className="text-5xl font-black text-gray-900 dark:text-white tracking-tighter italic">
                                         {formatCurrency(product.price)}
                                     </span>
                                 </div>
                                 {product.promotion && (
                                     <span className="text-sm text-gray-400 line-through font-bold tracking-tight opacity-60">
-                                        {formatCurrency(product.price * 1.28)}
+                                        {formatCurrency(product.price / (1 - (product.discountPercentage || 15) / 100))}
                                     </span>
                                 )}
                             </div>
@@ -232,13 +263,13 @@ const ProductDetail = () => {
                                 <motion.button
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
-                                    onClick={() => setIsLiked(!isLiked)}
-                                    className={`w-full py-5 rounded-2xl border-2 font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 transition-all ${isLiked
+                                    onClick={() => toggleLike(product.id)}
+                                    className={`w-full py-5 rounded-2xl border-2 font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 transition-all ${product.isLiked
                                         ? 'bg-red-50 dark:bg-red-900/10 border-red-500 text-red-500 shadow-xl shadow-red-500/10'
                                         : 'border-gray-200 dark:border-white/10 text-gray-400 hover:border-gray-300 dark:hover:border-white/20'
                                         }`}
                                 >
-                                    <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} className="text-lg" />
+                                    <FontAwesomeIcon icon={product.isLiked ? faHeart : faHeartRegular} className="text-lg" />
                                     <span>Favoritos</span>
                                 </motion.button>
                             </div>

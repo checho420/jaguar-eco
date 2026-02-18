@@ -1,15 +1,17 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import productsData from '../data/products.json';
+import { useUI } from './UIContext';
 
 const ProductContext = createContext();
 
 export const useProducts = () => useContext(ProductContext);
 
 export const ProductProvider = ({ children }) => {
+    const { showToast } = useUI();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const STORAGE_KEY = 'logo_energy_products_v3';
+    const STORAGE_KEY = 'logo_energy_products_v4';
 
     // Initial Load
     useEffect(() => {
@@ -82,17 +84,39 @@ export const ProductProvider = ({ children }) => {
         }
     }, [products, loading]);
 
-    const getProductById = (id) => {
+    const getProductById = useCallback((id) => {
         return products.find(p => p.id === parseInt(id));
-    };
+    }, [products]);
 
-    const getProductsByCategory = (category) => {
+    const getProductsByCategory = useCallback((category) => {
         return products.filter(p => p.category === category);
-    };
+    }, [products]);
+
+    // Analytics Tracking logic
+    const trackView = useCallback(async (id) => {
+        setProducts(prev => prev.map(p =>
+            p.id === id ? { ...p, views: (p.views || 0) + 1 } : p
+        ));
+    }, []);
+
+    const toggleLike = useCallback(async (id) => {
+        setProducts(prev => {
+            const product = prev.find(p => p.id === id);
+            if (product) {
+                if (product.isLiked) {
+                    showToast(`Eliminado de favoritos`, 'info');
+                } else {
+                    showToast(`¡Añadido a tus favoritos!`, 'success');
+                }
+            }
+            return prev.map(p =>
+                p.id === id ? { ...p, likesCount: (p.likesCount || 0) + (p.isLiked ? -1 : 1), isLiked: !p.isLiked } : p
+            );
+        });
+    }, [showToast]);
 
     // CRUD Operations
-    const addProduct = async (newProduct) => {
-        // Simulate API delay
+    const addProduct = useCallback(async (newProduct) => {
         await new Promise(resolve => setTimeout(resolve, 300));
         const id = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
         const productToAdd = {
@@ -107,29 +131,32 @@ export const ProductProvider = ({ children }) => {
 
         setProducts(prev => [productToAdd, ...prev]);
         return productToAdd;
-    };
+    }, [products]);
 
-    const updateProduct = async (id, updatedData) => {
+    const updateProduct = useCallback(async (id, updatedData) => {
         await new Promise(resolve => setTimeout(resolve, 300));
         setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updatedData } : p));
-    };
+    }, []);
 
-    const deleteProduct = async (id) => {
-        // Soft delete logic: mark as disabled
+    const deleteProduct = useCallback(async (id) => {
         await new Promise(resolve => setTimeout(resolve, 300));
         setProducts(prev => prev.map(p => p.id === id ? { ...p, disabled: true } : p));
-    };
+    }, []);
+
+    const value = useMemo(() => ({
+        products,
+        loading,
+        getProductById,
+        getProductsByCategory,
+        trackView,
+        toggleLike,
+        addProduct,
+        updateProduct,
+        deleteProduct
+    }), [products, loading, getProductById, getProductsByCategory, trackView, toggleLike, addProduct, updateProduct, deleteProduct]);
 
     return (
-        <ProductContext.Provider value={{
-            products,
-            loading,
-            getProductById,
-            getProductsByCategory,
-            addProduct,
-            updateProduct,
-            deleteProduct
-        }}>
+        <ProductContext.Provider value={value}>
             {children}
         </ProductContext.Provider>
     );

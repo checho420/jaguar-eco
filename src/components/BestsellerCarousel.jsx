@@ -5,10 +5,16 @@ import { faChevronLeft, faChevronRight, faShoppingCart, faStar } from '@fortawes
 import { useCart } from '../context/CartContext';
 import { Link } from 'react-router-dom';
 import { formatCurrency } from '../utils/formatters';
+import Skeleton from './Skeleton';
 
 const BestsellerCarousel = ({ products }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [imageStates, setImageStates] = useState({});
     const { addToCart } = useCart();
+
+    const handleImageLoad = (productId) => {
+        setImageStates(prev => ({ ...prev, [productId]: true }));
+    };
 
     const nextSlide = useCallback(() => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % products.length);
@@ -78,10 +84,15 @@ const BestsellerCarousel = ({ products }) => {
                                     ${isActive ? 'ring-2 ring-green-500/20' : ''}
                                 `}>
                                     {/* Image Section */}
-                                    <div className="relative h-64 overflow-hidden">
-                                        <img
+                                    <div className="relative h-64 overflow-hidden bg-gray-50 dark:bg-white/5">
+                                        {!imageStates[product.id] && (
+                                            <Skeleton className="absolute inset-0 w-full h-full rounded-none" />
+                                        )}
+                                        <motion.img
                                             src={product.images[0]}
                                             alt={product.name}
+                                            onLoad={() => handleImageLoad(product.id)}
+                                            animate={{ opacity: imageStates[product.id] ? 1 : 0 }}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faHeart, faStar, faEye, faShoppingBag, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -6,16 +6,19 @@ import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
+import { useProducts } from '../context/ProductContext';
 import { formatCurrency } from '../utils/formatters';
+import Skeleton from './Skeleton';
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     const { addToCart } = useCart();
-    const [isLiked, setIsLiked] = useState(false);
+    const { toggleLike } = useProducts();
     const [isHovered, setIsHovered] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
-    const discount = product.promotion ? 15 : 0;
-    const originalPrice = discount > 0 ? (product.price * 1.15) : null;
+    const discount = product.promotion ? (product.discountPercentage || 15) : 0;
+    const originalPrice = discount > 0 ? (product.price / (1 - discount / 100)) : null;
     const whatsappUrl = `https://wa.me/1234567890?text=Hola, estoy interesado en: ${product.name}`;
 
     return (
@@ -31,15 +34,23 @@ const ProductCard = ({ product }) => {
         >
             {/* Image Vessel */}
             <div className="relative h-64 w-full rounded-[30px] overflow-hidden bg-gray-50 dark:bg-white/5">
+                {!imageLoaded && (
+                    <Skeleton className="absolute inset-0 w-full h-full rounded-none" />
+                )}
                 <motion.img
                     src={product.images[0]}
                     alt={product.name}
                     loading="lazy"
+                    onLoad={() => setImageLoaded(true)}
                     onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80'; // Fallback image
-                        e.target.onerror = null; // Prevent infinite loop
+                        e.target.src = 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80';
+                        setImageLoaded(true);
+                        e.target.onerror = null;
                     }}
-                    animate={{ scale: isHovered ? 1.05 : 1 }}
+                    animate={{
+                        scale: isHovered ? 1.05 : 1,
+                        opacity: imageLoaded ? 1 : 0
+                    }}
                     transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1] }}
                     className="w-full h-full object-cover"
                 />
@@ -93,17 +104,17 @@ const ProductCard = ({ product }) => {
                         whileHover={{ scale: 1.25, y: -4 }}
                         whileTap={{ scale: 0.9 }}
                         animate={{
-                            color: isLiked ? "#ef4444" : isHovered ? "#ef4444" : "",
-                            scale: isLiked ? 1.2 : 1
+                            color: product.isLiked ? "#ef4444" : isHovered ? "#ef4444" : "",
+                            scale: product.isLiked ? 1.2 : 1
                         }}
                         onClick={(e) => {
                             e.stopPropagation();
-                            setIsLiked(!isLiked);
+                            toggleLike(product.id);
                         }}
-                        className={`transition-colors duration-400 ${!isLiked ? 'text-gray-400 dark:text-gray-500' : ''}`}
+                        className={`transition-colors duration-400 ${!product.isLiked ? 'text-gray-400 dark:text-gray-500' : ''}`}
                         title="Me gusta"
                     >
-                        <FontAwesomeIcon icon={isLiked ? faHeart : faHeartRegular} className="text-xl" />
+                        <FontAwesomeIcon icon={product.isLiked ? faHeart : faHeartRegular} className="text-xl" />
                     </motion.button>
 
                     <div className="text-gray-400 dark:text-gray-500 transition-colors duration-400 hover:text-blue-500">
@@ -194,5 +205,5 @@ const ProductCard = ({ product }) => {
     );
 };
 
-export default ProductCard;
+export default memo(ProductCard);
 

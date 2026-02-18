@@ -16,21 +16,21 @@ export const AdminProvider = ({ children }) => {
         const initData = () => {
             setLoading(true);
             try {
-                const savedOrders = localStorage.getItem('logo_energy_orders');
-                const savedCustomers = localStorage.getItem('logo_energy_customers');
+                const savedOrders = localStorage.getItem('logo_energy_orders_v2');
+                const savedCustomers = localStorage.getItem('logo_energy_customers_v2');
 
                 if (savedOrders) {
                     setOrders(JSON.parse(savedOrders));
                 } else {
                     setOrders(ordersData);
-                    localStorage.setItem('logo_energy_orders', JSON.stringify(ordersData));
+                    localStorage.setItem('logo_energy_orders_v2', JSON.stringify(ordersData));
                 }
 
                 if (savedCustomers) {
                     setCustomers(JSON.parse(savedCustomers));
                 } else {
                     setCustomers(customersData);
-                    localStorage.setItem('logo_energy_customers', JSON.stringify(customersData));
+                    localStorage.setItem('logo_energy_customers_v2', JSON.stringify(customersData));
                 }
             } catch (error) {
                 console.error("Error initializing admin data:", error);
@@ -45,11 +45,11 @@ export const AdminProvider = ({ children }) => {
 
     // Persistence Effects
     useEffect(() => {
-        if (!loading) localStorage.setItem('logo_energy_orders', JSON.stringify(orders));
+        if (!loading) localStorage.setItem('logo_energy_orders_v2', JSON.stringify(orders));
     }, [orders, loading]);
 
     useEffect(() => {
-        if (!loading) localStorage.setItem('logo_energy_customers', JSON.stringify(customers));
+        if (!loading) localStorage.setItem('logo_energy_customers_v2', JSON.stringify(customers));
     }, [customers, loading]);
 
     // Derived Metrics

@@ -10,11 +10,11 @@ export const formatCurrency = (amount) => {
     // Show 2 decimal places only if there is a fractional part
     const hasDecimals = value % 1 !== 0;
 
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('es-CO', {
         style: 'currency',
-        currency: 'USD',
-        minimumFractionDigits: hasDecimals ? 2 : 0,
-        maximumFractionDigits: 2,
+        currency: 'COP',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
     }).format(value);
 };
 

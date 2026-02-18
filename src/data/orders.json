@@ -4,7 +4,7 @@
         "date": "2026-02-11",
         "customerId": 1,
         "customerName": "Juan Pérez",
-        "total": 299.99,
+        "total": 1199900,
         "status": "pendiente",
         "items": 2
     },
@@ -13,7 +13,7 @@
         "date": "2026-02-10",
         "customerId": 2,
         "customerName": "María García",
-        "total": 1250.00,
+        "total": 5150000,
         "status": "entregado",
         "items": 4
     },
@@ -22,7 +22,7 @@
         "date": "2026-02-09",
         "customerId": 4,
         "customerName": "Ana Martínez",
-        "total": 450.50,
+        "total": 1850000,
         "status": "entregado",
         "items": 1
     },
@@ -31,7 +31,7 @@
         "date": "2026-02-08",
         "customerId": 3,
         "customerName": "Carlos López",
-        "total": 89.99,
+        "total": 359000,
         "status": "cancelado",
         "items": 1
     },
@@ -40,7 +40,7 @@
         "date": "2026-02-08",
         "customerId": 2,
         "customerName": "María García",
-        "total": 2100.00,
+        "total": 8400000,
         "status": "entregado",
         "items": 6
     },
@@ -49,7 +49,7 @@
         "date": "2026-02-07",
         "customerId": 5,
         "customerName": "Roberto Sánchez",
-        "total": 120.00,
+        "total": 480000,
         "status": "entregado",
         "items": 1
     },
@@ -58,7 +58,7 @@
         "date": "2026-02-06",
         "customerId": 1,
         "customerName": "Juan Pérez",
-        "total": 550.00,
+        "total": 2200000,
         "status": "pendiente",
         "items": 3
     },
@@ -67,7 +67,7 @@
         "date": "2026-02-05",
         "customerId": 4,
         "customerName": "Ana Martínez",
-        "total": 3200.00,
+        "total": 12800000,
         "status": "entregado",
         "items": 8
     }

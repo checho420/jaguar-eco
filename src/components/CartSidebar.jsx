@@ -15,6 +15,7 @@ const CartSidebar = () => {
                 <>
                     {/* Backdrop */}
                     <motion.div
+                        key="cart-backdrop"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 0.5 }}
                         exit={{ opacity: 0 }}
@@ -24,6 +25,7 @@ const CartSidebar = () => {
 
                     {/* Drawer */}
                     <motion.div
+                        key="cart-drawer"
                         initial={{ x: '100%' }}
                         animate={{ x: 0 }}
                         exit={{ x: '100%' }}
@@ -43,7 +45,11 @@ const CartSidebar = () => {
                             ) : (
                                 cart.map(item => (
                                     <div key={item.id} className="flex gap-4">
-                                        <img src={item.images[0]} alt={item.name} className="w-20 h-20 object-cover rounded-md border border-gray-100 dark:border-gray-700" />
+                                        <img
+                                            src={item.images?.[0] || item.imagenes?.[0] || 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80'}
+                                            alt={item.name}
+                                            className="w-20 h-20 object-cover rounded-md border border-gray-100 dark:border-gray-700"
+                                        />
                                         <div className="flex-grow">
                                             <h4 className="text-sm font-semibold text-gray-800 dark:text-white line-clamp-2 mb-1">{item.name}</h4>
                                             <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{formatCurrency(item.price)}</p>
