@@ -66,11 +66,30 @@ export const AdminProvider = ({ children }) => {
     // but since our mock data structure is simple, we might just use the "sold" field in ProductContext for that. 
     // Here we focus on order metrics.
 
+    const addOrder = (newOrder) => {
+        const orderWithId = {
+            ...newOrder,
+            id: `ORD-${(orders.length + 1).toString().padStart(3, '0')}`,
+            date: new Date().toISOString().split('T')[0],
+            status: 'pendiente'
+        };
+        setOrders(prev => [orderWithId, ...prev]);
+        return orderWithId;
+    };
+
+    const updateOrderStatus = (orderId, newStatus) => {
+        setOrders(prev => prev.map(order =>
+            order.id === orderId ? { ...order, status: newStatus } : order
+        ));
+    };
+
     return (
         <AdminContext.Provider value={{
             orders,
             customers,
             loading,
+            addOrder,
+            updateOrderStatus,
             metrics: {
                 totalOrders,
                 totalRevenue,

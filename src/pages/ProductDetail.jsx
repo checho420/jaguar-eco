@@ -30,12 +30,19 @@ const ProductDetail = () => {
     const [activeImage, setActiveImage] = useState(0);
     const [activeTab, setActiveTab] = useState('description');
 
+    // Track view once when ID changes
+    useEffect(() => {
+        if (!loading && id) {
+            trackView(parseInt(id));
+        }
+    }, [id, loading, trackView]);
+
+    // Load product data
     useEffect(() => {
         if (!loading) {
             const found = getProductById(id);
             if (found && !found.disabled) {
                 setProduct(found);
-                trackView(found.id); // Track product view
                 const related = getProductsByCategory(found.category)
                     .filter(p => p.id !== found.id && !p.disabled)
                     .slice(0, 4);

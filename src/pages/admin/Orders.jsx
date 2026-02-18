@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useAdmin } from '../../context/AdminContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faFilter, faEye, faCheckCircle, faTimesCircle, faClock } from '@fortawesome/free-solid-svg-icons';
+import { motion, AnimatePresence } from 'framer-motion';
 import { formatCurrency } from '../../utils/formatters';
 
 const Orders = () => {
-    const { orders, loading } = useAdmin();
+    const { orders, loading, updateOrderStatus } = useAdmin();
     const [statusFilter, setStatusFilter] = useState('Todos');
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedOrder, setSelectedOrder] = useState(null);
@@ -17,7 +18,18 @@ const Orders = () => {
         return matchesStatus && matchesSearch;
     });
 
-    if (loading) return <div className="p-10 text-center animate-pulse">Cargando Pedidos...</div>;
+    const handleStatusChange = (orderId, newStatus) => {
+        updateOrderStatus(orderId, newStatus);
+        // Update local state for the modal UI
+        setSelectedOrder(prev => ({ ...prev, status: newStatus }));
+    };
+
+    if (loading) return (
+        <div className="p-20 text-center flex flex-col items-center gap-4">
+            <div className="w-12 h-12 border-4 border-[#0abab5] border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-gray-500 font-bold animate-pulse uppercase tracking-widest text-xs">Escaneando Registro de Ventas...</p>
+        </div>
+    );
 
     return (
         <div className="space-y-8 animate-fade-in-up">
@@ -108,68 +120,115 @@ const Orders = () => {
             </div>
 
             {/* Order Details Modal */}
-            {selectedOrder && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-fade-in">
-                    <div className="bg-white dark:bg-[#0d0e12] w-full max-w-xl rounded-[40px] shadow-2xl overflow-hidden animate-scale-in border border-gray-100 dark:border-[#1e1f26]">
-                        <div className="p-10 border-b border-gray-100 dark:border-[#1e1f26] flex justify-between items-center bg-gray-50/50 dark:bg-[#111217]">
-                            <h2 className="text-2xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">Detalle Transacción <span className="text-[#0abab5]">#{selectedOrder.id}</span></h2>
-                            <button onClick={() => setSelectedOrder(null)} className="w-12 h-12 flex items-center justify-center text-gray-400 hover:text-[#ff2d55] hover:bg-[#ff2d55]/5 rounded-2xl transition-all">
-                                <FontAwesomeIcon icon={faTimesCircle} className="text-2xl" />
-                            </button>
-                        </div>
-                        <div className="p-10 space-y-10 overflow-y-auto max-h-[70vh] custom-scrollbar">
-                            <div className="grid grid-cols-2 gap-8">
-                                <div>
-                                    <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1">Fecha de Registro</p>
-                                    <p className="font-black dark:text-white uppercase text-xs tracking-widest">{selectedOrder.date}</p>
+            <AnimatePresence>
+                {selectedOrder && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-fade-in">
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="bg-white dark:bg-[#0d0e12] w-full max-w-2xl rounded-[40px] shadow-2xl overflow-hidden border border-gray-100 dark:border-[#1e1f26] flex flex-col max-h-[90vh]"
+                        >
+                            <div className="p-10 border-b border-gray-100 dark:border-[#1e1f26] flex justify-between items-center bg-gray-50/50 dark:bg-[#111217]">
+                                <h2 className="text-2xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">Detalle Transacción <span className="text-[#0abab5]">#{selectedOrder.id}</span></h2>
+                                <button onClick={() => setSelectedOrder(null)} className="w-12 h-12 flex items-center justify-center text-gray-400 hover:text-[#ff2d55] hover:bg-[#ff2d55]/5 rounded-2xl transition-all">
+                                    <FontAwesomeIcon icon={faTimesCircle} className="text-2xl" />
+                                </button>
+                            </div>
+
+                            <div className="p-10 space-y-10 overflow-y-auto custom-scrollbar flex-grow">
+                                {/* Header Info */}
+                                <div className="grid grid-cols-2 gap-8">
+                                    <div className="space-y-6">
+                                        <div>
+                                            <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1">Cliente Solicitante</p>
+                                            <p className="font-black dark:text-white italic tracking-tighter uppercase text-lg">{selectedOrder.customerName}</p>
+                                            <p className="text-[10px] text-gray-400 font-bold lowercase opacity-60 tracking-tight">{selectedOrder.email}</p>
+                                        </div>
+                                        <div>
+                                            <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1">Fecha de Registro</p>
+                                            <p className="font-black dark:text-white uppercase text-xs tracking-widest">{selectedOrder.date}</p>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-6">
+                                        <div>
+                                            <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1">Cambiar Estado</p>
+                                            <select
+                                                value={selectedOrder.status}
+                                                onChange={(e) => handleStatusChange(selectedOrder.id, e.target.value)}
+                                                className={`w-full p-4 rounded-2xl font-black italic uppercase tracking-tighter text-sm appearance-none outline-none border transition-all ${selectedOrder.status === 'entregado' ? 'bg-[#0abab5]/10 text-[#0abab5] border-[#0abab5]/30' :
+                                                    selectedOrder.status === 'pendiente' ? 'bg-[#ff9500]/10 text-[#ff9500] border-[#ff9500]/30' :
+                                                        'bg-[#ff2d55]/10 text-[#ff2d55] border-[#ff2d55]/30'
+                                                    }`}
+                                            >
+                                                <option value="pendiente" className="bg-white dark:bg-gray-900 text-[#ff9500]">Pendiente</option>
+                                                <option value="entregado" className="bg-white dark:bg-gray-900 text-[#0abab5]">Entregado</option>
+                                                <option value="cancelado" className="bg-white dark:bg-gray-900 text-[#ff2d55]">Cancelado</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1">Monto de Inversión</p>
+                                            <p className="font-black text-3xl text-[#0abab5] tracking-tighter italic leading-none mt-1">{formatCurrency(selectedOrder.total)}</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1">Estado Actual</p>
-                                    <p className={`font-black italic uppercase tracking-tighter text-lg ${selectedOrder.status === 'entregado' ? 'text-[#0abab5]' :
-                                        selectedOrder.status === 'pendiente' ? 'text-[#ff9500]' : 'text-[#ff2d55]'
-                                        }`}>
-                                        {selectedOrder.status}
-                                    </p>
+
+                                {/* Items Detail */}
+                                <div className="border-t border-gray-100 dark:border-[#1e1f26] pt-10">
+                                    <h3 className="font-black text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-6 border-l-4 border-[#0abab5] pl-4">Hardware Inventory Detail</h3>
+                                    <div className="space-y-3">
+                                        {selectedOrder.orderDetails ? (
+                                            selectedOrder.orderDetails.map((item, idx) => (
+                                                <div key={idx} className="flex justify-between items-center bg-gray-50/50 dark:bg-white/5 p-4 rounded-2xl border border-gray-100 dark:border-white/5">
+                                                    <div className="flex items-center gap-4">
+                                                        <span className="w-10 h-10 rounded-xl bg-white dark:bg-[#1a1b23] text-[#0abab5] flex items-center justify-center font-black italic text-xs shadow-sm border border-gray-100 dark:border-[#1e1f26]">
+                                                            {item.quantity}x
+                                                        </span>
+                                                        <span className="font-black dark:text-white uppercase tracking-tighter text-sm italic">{item.name}</span>
+                                                    </div>
+                                                    <span className="text-[11px] font-black text-gray-400 italic">{formatCurrency(item.price)} C/U</span>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <div className="p-6 text-center text-gray-400 text-xs italic uppercase tracking-widest bg-gray-50 dark:bg-white/5 rounded-2xl border-2 border-dashed border-gray-100 dark:border-white/5">
+                                                No hay detalle de artículos disponible para este pedido histórico.
+                                            </div>
+                                        )}
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1">Cliente Solicitante</p>
-                                    <p className="font-black dark:text-white italic tracking-tighter uppercase text-lg">{selectedOrder.customerName}</p>
-                                </div>
-                                <div>
-                                    <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest mb-1">Monto de Inversión</p>
-                                    <p className="font-black text-3xl text-[#0abab5] tracking-tighter italic leading-none mt-1">{formatCurrency(selectedOrder.total)}</p>
+
+                                {/* Tracking Timeline */}
+                                <div className="border-t border-gray-100 dark:border-[#1e1f26] pt-10">
+                                    <h3 className="font-black text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-8 border-l-4 border-[#0abab5] pl-4">Security Tracking History</h3>
+                                    <div className="space-y-8 relative pl-6 border-l-2 border-dashed border-gray-100 dark:border-[#1e1f26] ml-3">
+                                        <div className="relative">
+                                            <div className="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full bg-[#0abab5] shadow-[0_0_15px_#0abab5]"></div>
+                                            <p className="text-xs font-black dark:text-white uppercase tracking-widest">Pedido Realizado</p>
+                                            <p className="text-[10px] text-gray-400 font-black uppercase mt-1">Status: OK • {selectedOrder.date}</p>
+                                        </div>
+                                        <div className="relative">
+                                            <div className={`absolute -left-[31px] top-1.5 h-4 w-4 rounded-full shadow-[0_0_15px_currentcolor] ${selectedOrder.status !== 'pendiente' ? 'bg-[#0abab5] text-[#0abab5]' : 'bg-gray-200 dark:bg-[#1e1f26] text-transparent'}`}></div>
+                                            <p className="text-xs font-black dark:text-white uppercase tracking-widest">Pago Confirmado</p>
+                                            <p className="text-[10px] text-gray-400 font-black uppercase mt-1">Gateway: Secured • Verified</p>
+                                        </div>
+                                        <div className="relative">
+                                            <div className={`absolute -left-[31px] top-1.5 h-4 w-4 rounded-full shadow-[0_0_15px_currentcolor] ${selectedOrder.status === 'entregado' ? 'bg-[#4169e1] text-[#4169e1]' : 'bg-gray-200 dark:bg-[#1e1f26] text-transparent'}`}></div>
+                                            <p className="text-xs font-black dark:text-white uppercase tracking-widest">Entrega Finalizada</p>
+                                            <p className="text-[10px] text-gray-400 font-black uppercase mt-1">{selectedOrder.status === 'entregado' ? 'Success: Hardware Deployed' : 'Pending Deployment'}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="border-t border-gray-100 dark:border-[#1e1f26] pt-10">
-                                <h3 className="font-black text-[10px] uppercase tracking-[0.3em] text-gray-400 mb-8 border-l-4 border-[#0abab5] pl-4">Security Tracking History</h3>
-                                <div className="space-y-8 relative pl-6 border-l-2 border-dashed border-gray-100 dark:border-[#1e1f26] ml-3">
-                                    <div className="relative">
-                                        <div className="absolute -left-[31px] top-1.5 h-4 w-4 rounded-full bg-[#0abab5] shadow-[0_0_15px_#0abab5]"></div>
-                                        <p className="text-xs font-black dark:text-white uppercase tracking-widest">Pedido Realizado</p>
-                                        <p className="text-[10px] text-gray-400 font-black uppercase mt-1">Status: OK • {selectedOrder.date}</p>
-                                    </div>
-                                    <div className="relative">
-                                        <div className={`absolute -left-[31px] top-1.5 h-4 w-4 rounded-full shadow-[0_0_15px_currentcolor] ${selectedOrder.status !== 'pendiente' ? 'bg-[#0abab5] text-[#0abab5]' : 'bg-gray-200 dark:bg-[#1e1f26] text-transparent'}`}></div>
-                                        <p className="text-xs font-black dark:text-white uppercase tracking-widest">Pago Confirmado</p>
-                                        <p className="text-[10px] text-gray-400 font-black uppercase mt-1">Gateway: Secured • Verified</p>
-                                    </div>
-                                    <div className="relative">
-                                        <div className={`absolute -left-[31px] top-1.5 h-4 w-4 rounded-full shadow-[0_0_15px_currentcolor] ${selectedOrder.status === 'entregado' ? 'bg-[#4169e1] text-[#4169e1]' : 'bg-gray-200 dark:bg-[#1e1f26] text-transparent'}`}></div>
-                                        <p className="text-xs font-black dark:text-white uppercase tracking-widest">Entrega Finalizada</p>
-                                        <p className="text-[10px] text-gray-400 font-black uppercase mt-1">{selectedOrder.status === 'entregado' ? 'Success: Hardware Deployed' : 'Pending Deployment'}</p>
-                                    </div>
-                                </div>
+                            <div className="p-8 bg-gray-50/50 dark:bg-[#111217] text-center border-t border-gray-100 dark:border-[#1e1f26]">
+                                <button onClick={() => setSelectedOrder(null)} className="text-[10px] font-black uppercase tracking-widest text-[#0abab5] hover:text-[#0abab5]/80 transition-all">
+                                    Cerrar Registros de Auditoría
+                                </button>
                             </div>
-                        </div>
-                        <div className="p-8 bg-gray-50/50 dark:bg-[#111217] text-center border-t border-gray-100 dark:border-[#1e1f26]">
-                            <button onClick={() => setSelectedOrder(null)} className="text-[10px] font-black uppercase tracking-widest text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all">
-                                Cerrar Ventana de Detalles
-                            </button>
-                        </div>
+                        </motion.div>
                     </div>
-                </div>
-            )}
+                )}
+            </AnimatePresence>
         </div>
     );
 };
