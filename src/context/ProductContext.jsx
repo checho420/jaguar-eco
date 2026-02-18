@@ -9,18 +9,60 @@ export const ProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const STORAGE_KEY = 'logo_energy_products_v3';
+
     // Initial Load
     useEffect(() => {
         const initProducts = () => {
             setLoading(true);
             try {
-                const savedProducts = localStorage.getItem('logo_energy_products');
+                const savedProducts = localStorage.getItem(STORAGE_KEY);
                 if (savedProducts && JSON.parse(savedProducts).length > 0) {
                     setProducts(JSON.parse(savedProducts));
                 } else {
-                    // Fallback to static JSON if nothing in localStorage
-                    setProducts(productsData);
-                    localStorage.setItem('logo_energy_products', JSON.stringify(productsData));
+                    // Check for old versions and migrate if needed
+                    const oldVersions = ['logo_energy_products', 'logo_energy_products_v2'];
+                    let migrated = false;
+
+                    for (const key of oldVersions) {
+                        const oldData = localStorage.getItem(key);
+                        if (oldData) {
+                            try {
+                                const parsed = JSON.parse(oldData);
+                                if (Array.isArray(parsed) && parsed.length > 0) {
+                                    // Migration logic: Map Spanish keys to English keys
+                                    const migratedData = parsed.map(p => ({
+                                        id: p.id,
+                                        name: p.name || p.nombre,
+                                        brand: p.brand || p.marca,
+                                        category: p.category || p.categoria,
+                                        price: p.price || p.precio,
+                                        stock: p.stock,
+                                        description: p.description || p.descripcion,
+                                        images: p.images || p.imagenes || [],
+                                        promotion: p.promotion !== undefined ? p.promotion : p.promocion,
+                                        new: p.new !== undefined ? p.new : p.nuevo,
+                                        bestSeller: p.bestSeller !== undefined ? p.bestSeller : p.mas_vendido,
+                                        sold: p.sold || 0,
+                                        disabled: p.disabled || false,
+                                        specifications: p.specifications || p.especificaciones || [],
+                                        reviews: p.reviews || p.reseñas || []
+                                    }));
+                                    setProducts(migratedData);
+                                    localStorage.setItem(STORAGE_KEY, JSON.stringify(migratedData));
+                                    migrated = true;
+                                    break;
+                                }
+                            } catch (e) {
+                                console.error(`Error migrating ${key}:`, e);
+                            }
+                        }
+                    }
+
+                    if (!migrated) {
+                        setProducts(productsData);
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(productsData));
+                    }
                 }
             } catch (error) {
                 console.error("Error initializing products:", error);
@@ -36,7 +78,7 @@ export const ProductProvider = ({ children }) => {
     // Persistence Effect: Save to localStorage whenever products state changes
     useEffect(() => {
         if (!loading) {
-            localStorage.setItem('logo_energy_products', JSON.stringify(products));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
         }
     }, [products, loading]);
 
@@ -45,7 +87,7 @@ export const ProductProvider = ({ children }) => {
     };
 
     const getProductsByCategory = (category) => {
-        return products.filter(p => p.categoria === category);
+        return products.filter(p => p.category === category);
     };
 
     // CRUD Operations
@@ -59,8 +101,8 @@ export const ProductProvider = ({ children }) => {
             disabled: false,
             stock: parseInt(newProduct.stock) || 0,
             sold: 0,
-            precio: parseFloat(newProduct.precio) || 0,
-            imagenes: Array.isArray(newProduct.imagenes) ? newProduct.imagenes : [newProduct.imagenes]
+            price: parseFloat(newProduct.price) || 0,
+            images: Array.isArray(newProduct.images) ? newProduct.images : [newProduct.images]
         };
 
         setProducts(prev => [productToAdd, ...prev]);

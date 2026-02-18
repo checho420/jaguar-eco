@@ -43,10 +43,10 @@ const CartSidebar = () => {
                             ) : (
                                 cart.map(item => (
                                     <div key={item.id} className="flex gap-4">
-                                        <img src={item.imagenes[0]} alt={item.nombre} className="w-20 h-20 object-cover rounded-md border border-gray-100 dark:border-gray-700" />
+                                        <img src={item.images[0]} alt={item.name} className="w-20 h-20 object-cover rounded-md border border-gray-100 dark:border-gray-700" />
                                         <div className="flex-grow">
-                                            <h4 className="text-sm font-semibold text-gray-800 dark:text-white line-clamp-2 mb-1">{item.nombre}</h4>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{formatCurrency(item.precio)}</p>
+                                            <h4 className="text-sm font-semibold text-gray-800 dark:text-white line-clamp-2 mb-1">{item.name}</h4>
+                                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">{formatCurrency(item.price)}</p>
                                             <div className="flex items-center justify-between">
                                                 <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
                                                     <button onClick={() => updateQuantity(item.id, -1)} className="p-1 px-2 text-gray-600 dark:text-gray-400 hover:text-green-600 transition-colors"><FontAwesomeIcon icon={faMinus} size="xs" /></button>

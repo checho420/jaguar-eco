@@ -38,8 +38,8 @@ const Catalog = () => {
     };
 
     // Categories and brands for filters
-    const categories = useMemo(() => ['Todos', ...new Set(products.map(p => p.categoria))], [products]);
-    const brands = useMemo(() => ['Todas', ...new Set(products.map(p => p.marca))], [products]);
+    const categories = useMemo(() => ['Todos', ...new Set(products.map(p => p.category))], [products]);
+    const brands = useMemo(() => ['Todas', ...new Set(products.map(p => p.brand))], [products]);
 
     useEffect(() => {
         // Start with only active products
@@ -49,26 +49,26 @@ const Catalog = () => {
         if (searchTerm.trim()) {
             const query = searchTerm.toLowerCase().trim();
             result = result.filter(p =>
-                (p.nombre || '').toLowerCase().includes(query) ||
-                (p.marca || '').toLowerCase().includes(query)
+                (p.name || '').toLowerCase().includes(query) ||
+                (p.brand || '').toLowerCase().includes(query)
             );
         }
 
         // Defensive Category
         if (selectedCategory !== 'Todos') {
-            result = result.filter(p => p.categoria === selectedCategory);
+            result = result.filter(p => p.category === selectedCategory);
         }
 
         // Defensive Brand
         if (selectedBrand !== 'Todas') {
-            result = result.filter(p => p.marca === selectedBrand);
+            result = result.filter(p => p.brand === selectedBrand);
         }
 
         // Defensive Price (ensure numbers)
         const minP = parseFloat(priceRange.min) || 0;
         const maxP = priceRange.max === '' ? Infinity : (parseFloat(priceRange.max) || Infinity);
         result = result.filter(p => {
-            const price = parseFloat(p.precio) || 0;
+            const price = parseFloat(p.price) || 0;
             return price >= minP && price <= maxP;
         });
 
@@ -80,11 +80,11 @@ const Catalog = () => {
         // Robust Sorting
         const sortedResult = [...result];
         if (sortBy === 'Precio: Menor a Mayor') {
-            sortedResult.sort((a, b) => (parseFloat(a.precio) || 0) - (parseFloat(b.precio) || 0));
+            sortedResult.sort((a, b) => (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0));
         } else if (sortBy === 'Precio: Mayor a Menor') {
-            sortedResult.sort((a, b) => (parseFloat(b.precio) || 0) - (parseFloat(a.precio) || 0));
+            sortedResult.sort((a, b) => (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0));
         } else if (sortBy === 'Nombre') {
-            sortedResult.sort((a, b) => (a.nombre || '').localeCompare(b.nombre || ''));
+            sortedResult.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
         } else {
             // Default: Newest first (highest ID first)
             sortedResult.sort((a, b) => (parseInt(b.id) || 0) - (parseInt(a.id) || 0));

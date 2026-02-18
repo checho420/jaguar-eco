@@ -80,16 +80,16 @@ const BestsellerCarousel = ({ products }) => {
                                     {/* Image Section */}
                                     <div className="relative h-64 overflow-hidden">
                                         <img
-                                            src={product.imagenes[0]}
-                                            alt={product.nombre}
+                                            src={product.images[0]}
+                                            alt={product.name}
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
                                             <p className="text-white text-sm font-medium line-clamp-2">
-                                                {product.descripcion || 'Calidad premium para un estilo de vida sostenible.'}
+                                                {product.description || 'Calidad premium para un estilo de vida sostenible.'}
                                             </p>
                                         </div>
-                                        {product.nuevo && (
+                                        {product.new && (
                                             <span className="absolute top-4 left-4 bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                                                 Nuevo
                                             </span>
@@ -101,10 +101,10 @@ const BestsellerCarousel = ({ products }) => {
                                         <div className="flex justify-between items-start mb-4">
                                             <div>
                                                 <span className="text-[10px] font-bold text-green-600 uppercase tracking-[0.2em] mb-1 block">
-                                                    {product.marca}
+                                                    {product.brand}
                                                 </span>
                                                 <h3 className="text-xl font-bold text-gray-900 dark:text-white line-clamp-1">
-                                                    {product.nombre}
+                                                    {product.name}
                                                 </h3>
                                             </div>
                                             <div className="flex items-center gap-1 bg-yellow-400/10 px-2 py-1 rounded-lg">
@@ -115,7 +115,7 @@ const BestsellerCarousel = ({ products }) => {
 
                                         <div className="flex items-center justify-between mt-6">
                                             <span className="text-2xl font-black text-gray-900 dark:text-white">
-                                                {formatCurrency(product.precio)}
+                                                {formatCurrency(product.price)}
                                             </span>
                                             <div className="flex gap-2">
                                                 <Link

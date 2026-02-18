@@ -14,9 +14,9 @@ const ProductCard = ({ product }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
-    const discount = product.promocion ? 15 : 0;
-    const originalPrice = discount > 0 ? (product.precio * 1.15) : null;
-    const whatsappUrl = `https://wa.me/1234567890?text=Hola, estoy interesado en: ${product.nombre}`;
+    const discount = product.promotion ? 15 : 0;
+    const originalPrice = discount > 0 ? (product.price * 1.15) : null;
+    const whatsappUrl = `https://wa.me/1234567890?text=Hola, estoy interesado en: ${product.name}`;
 
     return (
         <motion.div
@@ -32,8 +32,8 @@ const ProductCard = ({ product }) => {
             {/* Image Vessel */}
             <div className="relative h-64 w-full rounded-[30px] overflow-hidden bg-gray-50 dark:bg-white/5">
                 <motion.img
-                    src={product.imagenes[0]}
-                    alt={product.nombre}
+                    src={product.images[0]}
+                    alt={product.name}
                     loading="lazy"
                     onError={(e) => {
                         e.target.src = 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80'; // Fallback image
@@ -46,7 +46,7 @@ const ProductCard = ({ product }) => {
 
                 {/* Floating Status Badge */}
                 <AnimatePresence>
-                    {(discount > 0 || product.nuevo) && (
+                    {(discount > 0 || product.new) && (
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -67,13 +67,13 @@ const ProductCard = ({ product }) => {
             <div className="px-3 pt-6 flex flex-col flex-grow">
                 <div className="flex items-center gap-2 mb-2">
                     <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-[0.2em]">
-                        {product.marca}
+                        {product.brand}
                     </span>
                     <div className="h-px flex-grow bg-gray-100 dark:bg-white/5" />
                 </div>
 
                 <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight leading-tight line-clamp-1 mb-2 group-hover:text-blue-500 transition-colors duration-300">
-                    {product.nombre}
+                    {product.name}
                 </h3>
 
                 <div className="flex items-center gap-2 mb-4">
@@ -138,7 +138,7 @@ const ProductCard = ({ product }) => {
                         </div>
                         <div className="flex items-baseline gap-2">
                             <span className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
-                                {formatCurrency(product.precio)}
+                                {formatCurrency(product.price)}
                             </span>
                             {originalPrice && (
                                 <span className="text-sm text-gray-400 line-through font-medium tracking-tight">{formatCurrency(originalPrice)}</span>

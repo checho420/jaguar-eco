@@ -182,11 +182,11 @@ const Dashboard = () => {
                                 {topProducts.map((product) => (
                                     <tr key={product.id} className="border-b border-gray-50 dark:border-[#1e1f26] last:border-none hover:bg-gray-50 dark:hover:bg-white/5 transition-colors">
                                         <td className="py-6 px-4 flex items-center gap-4">
-                                            <img src={product.imagenes[0]} alt={product.nombre} className="w-12 h-12 rounded-xl object-contain bg-gray-50 dark:bg-[#0d0e12] p-1" />
-                                            <span className="font-black text-gray-800 dark:text-gray-200 line-clamp-1 uppercase tracking-tighter italic">{product.nombre}</span>
+                                            <img src={product.images[0]} alt={product.name} className="w-12 h-12 rounded-xl object-contain bg-gray-50 dark:bg-[#0d0e12] p-1" />
+                                            <span className="font-black text-gray-800 dark:text-gray-200 line-clamp-1 uppercase tracking-tighter italic">{product.name}</span>
                                         </td>
-                                        <td className="py-6 px-4 text-gray-500 dark:text-gray-400 font-black text-[10px] uppercase tracking-widest">{product.categoria}</td>
-                                        <td className="py-6 px-4 text-right font-black text-gray-900 dark:text-white text-lg tracking-tighter italic">{formatCurrency(product.precio)}</td>
+                                        <td className="py-6 px-4 text-gray-500 dark:text-gray-400 font-black text-[10px] uppercase tracking-widest">{product.category}</td>
+                                        <td className="py-6 px-4 text-right font-black text-gray-900 dark:text-white text-lg tracking-tighter italic">{formatCurrency(product.price)}</td>
                                         <td className="py-6 px-4 text-right text-[#0abab5] font-black italic text-lg">{formatNumber(product.sold || 0)}</td>
                                     </tr>
                                 ))}

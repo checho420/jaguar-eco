@@ -11,7 +11,7 @@ const Home = () => {
     const { products, loading } = useProducts();
 
     // Filter sections
-    const featuredProducts = products.filter(p => p.mas_vendido && !p.disabled).slice(0, 4);
+    const featuredProducts = products.filter(p => p.bestSeller && !p.disabled).slice(0, 4);
 
     // Randomize the "Novedades" section to show a fresh selection on each load
     const newProducts = React.useMemo(() => {

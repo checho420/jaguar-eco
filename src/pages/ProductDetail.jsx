@@ -27,7 +27,7 @@ const ProductDetail = () => {
     const [product, setProduct] = useState(null);
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [activeImage, setActiveImage] = useState(0);
-    const [activeTab, setActiveTab] = useState('descripción');
+    const [activeTab, setActiveTab] = useState('description');
     const [isLiked, setIsLiked] = useState(false);
 
     useEffect(() => {
@@ -35,7 +35,7 @@ const ProductDetail = () => {
             const found = getProductById(id);
             if (found && !found.disabled) {
                 setProduct(found);
-                const related = getProductsByCategory(found.categoria)
+                const related = getProductsByCategory(found.category)
                     .filter(p => p.id !== found.id && !p.disabled)
                     .slice(0, 4);
                 setRelatedProducts(related);
@@ -46,9 +46,9 @@ const ProductDetail = () => {
     }, [id, loading, getProductById, getProductsByCategory]);
 
     const mockCharacteristics = useMemo(() => [
-        { label: 'Tipo', value: product?.categoria || 'Dispositivo Energy' },
+        { label: 'Tipo', value: product?.category || 'Dispositivo Energy' },
         { label: 'Modelo', value: `JG-${(product?.id || 0).toString().padStart(4, '0')}` },
-        { label: 'Eficiencia', value: product?.nuevo ? 'Ultra Alta' : 'Alta Estándar' },
+        { label: 'Eficiencia', value: product?.new ? 'Ultra Alta' : 'Alta Estándar' },
         { label: 'Garantía', value: '2 Años de Fábrica' },
         { label: 'Origen', value: 'Producido de forma Sostenible' }
     ], [product]);
@@ -76,7 +76,7 @@ const ProductDetail = () => {
                         <FontAwesomeIcon icon={faChevronRight} className="text-[8px]" />
                         <span className="hover:text-green-500 cursor-pointer transition-colors" onClick={() => navigate('/catalog')}>Catálogo</span>
                         <FontAwesomeIcon icon={faChevronRight} className="text-[8px]" />
-                        <span className="text-gray-900 dark:text-white truncate max-w-[150px]">{product.nombre}</span>
+                        <span className="text-gray-900 dark:text-white truncate max-w-[150px]">{product.name}</span>
                     </div>
 
                     <div className="flex items-center space-x-6 text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">
@@ -98,7 +98,7 @@ const ProductDetail = () => {
                     <div className="lg:col-span-12 xl:col-span-5 flex flex-col-reverse md:flex-row gap-6">
                         {/* Vertical Thumbnails */}
                         <div className="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible no-scrollbar">
-                            {(product.imagenes || []).map((img, idx) => (
+                            {(product.images || []).map((img, idx) => (
                                 <motion.button
                                     key={idx}
                                     whileHover={{ scale: 1.05 }}
@@ -119,8 +119,8 @@ const ProductDetail = () => {
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={activeImage}
-                                    src={product.imagenes[activeImage]}
-                                    alt={product.nombre}
+                                    src={product.images[activeImage]}
+                                    alt={product.name}
                                     initial={{ opacity: 0, scale: 1.05 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0.95 }}
@@ -131,17 +131,17 @@ const ProductDetail = () => {
 
                             {/* Status Badges Overlay */}
                             <div className="absolute top-8 left-8 flex flex-col gap-2 z-10">
-                                {product.promocion && (
+                                {product.promotion && (
                                     <span className="bg-red-500 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-xl">
                                         Oferta -28%
                                     </span>
                                 )}
-                                {product.mas_vendido && (
+                                {product.bestSeller && (
                                     <span className="bg-orange-500 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-xl">
                                         Más Vendido
                                     </span>
                                 )}
-                                {product.nuevo && (
+                                {product.new && (
                                     <span className="bg-green-500 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-xl">
                                         Novedad
                                     </span>
@@ -153,11 +153,11 @@ const ProductDetail = () => {
                     {/* Middle: Info Section (4 columns) */}
                     <div className="lg:col-span-8 xl:col-span-4 flex flex-col">
                         <div className="flex items-center gap-2 mb-4">
-                            <span className="text-[10px] font-black text-green-500 uppercase tracking-[0.3em]">{product.marca}</span>
+                            <span className="text-[10px] font-black text-green-500 uppercase tracking-[0.3em]">{product.brand}</span>
                         </div>
 
                         <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-[1.05] tracking-tighter italic">
-                            {product.nombre}
+                            {product.name}
                         </h1>
 
                         {/* Rating Area */}
@@ -208,12 +208,12 @@ const ProductDetail = () => {
                                 <div className="flex items-baseline gap-2 mb-1">
                                     <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">USD</span>
                                     <span className="text-5xl font-black text-gray-900 dark:text-white tracking-tighter italic">
-                                        {formatCurrency(product.precio)}
+                                        {formatCurrency(product.price)}
                                     </span>
                                 </div>
-                                {product.promocion && (
+                                {product.promotion && (
                                     <span className="text-sm text-gray-400 line-through font-bold tracking-tight opacity-60">
-                                        {formatCurrency(product.precio * 1.28)}
+                                        {formatCurrency(product.price * 1.28)}
                                     </span>
                                 )}
                             </div>
@@ -275,18 +275,21 @@ const ProductDetail = () => {
                     </div>
                 </div>
 
-                {/* Tabs Section */}
                 <div className="mt-32">
                     <div className="flex border-b border-gray-100 dark:border-white/10 mb-12 overflow-x-auto no-scrollbar gap-12">
-                        {['descripción', 'especificaciones', 'reseñas'].map((tab) => (
+                        {[
+                            { id: 'description', label: 'descripción' },
+                            { id: 'specifications', label: 'especificaciones' },
+                            { id: 'reviews', label: 'reseñas' }
+                        ].map((tab) => (
                             <button
-                                key={tab}
-                                onClick={() => setActiveTab(tab)}
-                                className={`pb-6 text-xs font-black uppercase tracking-[0.3em] relative transition-all ${activeTab === tab ? 'text-green-500' : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                                key={tab.id}
+                                onClick={() => setActiveTab(tab.id)}
+                                className={`pb-6 text-xs font-black uppercase tracking-[0.3em] relative transition-all ${activeTab === tab.id ? 'text-green-500' : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                     }`}
                             >
-                                {tab}
-                                {activeTab === tab && (
+                                {tab.label}
+                                {activeTab === tab.id && (
                                     <motion.div layoutId="detailTab" className="absolute bottom-0 left-0 right-0 h-1 bg-green-500 rounded-full" />
                                 )}
                             </button>
@@ -303,22 +306,22 @@ const ProductDetail = () => {
                                 transition={{ duration: 0.3 }}
                                 className="text-gray-600 dark:text-gray-400 leading-relaxed font-bold"
                             >
-                                {activeTab === 'descripción' && (
+                                {activeTab === 'description' && (
                                     <div className="space-y-6">
                                         <p className="text-xl md:text-2xl text-gray-900 dark:text-white font-black italic tracking-tighter leading-snug">
-                                            El alto rendimiento se une al diseño sostenible. El {product.nombre} representa la cima de la ingeniería ecológica.
+                                            El alto rendimiento se une al diseño sostenible. El {product.name} representa la cima de la ingeniería ecológica.
                                         </p>
                                         <p className="text-lg">
-                                            {product.descripcion || 'Sin descripción detallada disponible.'}. Diseñado para quienes exigen eficiencia sin compromisos estéticos, este dispositivo incorpora materiales de primera calidad y componentes modulares de vanguardia.
+                                            {product.description || 'Sin descripción detallada disponible.'}. Diseñado para quienes exigen eficiencia sin compromisos estéticos, este dispositivo incorpora materiales de primera calidad y componentes modulares de vanguardia.
                                         </p>
                                         <p>
                                             Cada unidad es rigurosamente probada para cumplir con nuestra iniciativa "Residuo Cero", asegurando que hasta el 98% de los componentes sean reciclables al final de su vida útil. LOGO Energy no es solo una elección, es un compromiso con el futuro.
                                         </p>
                                     </div>
                                 )}
-                                {activeTab === 'especificaciones' && (
+                                {activeTab === 'specifications' && (
                                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                        {(product.especificaciones && product.especificaciones.length > 0 ? product.especificaciones : [...mockCharacteristics, ...mockCharacteristics]).map((spec, i) => (
+                                        {(product.specifications && product.specifications.length > 0 ? product.specifications : [...mockCharacteristics, ...mockCharacteristics]).map((spec, i) => (
                                             <div key={i} className="p-6 rounded-3xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 space-y-2">
                                                 <p className="text-[9px] font-black uppercase tracking-widest text-green-500">{spec.label}</p>
                                                 <p className="text-lg font-black italic text-gray-900 dark:text-white">{spec.value}</p>
@@ -326,16 +329,16 @@ const ProductDetail = () => {
                                         ))}
                                     </div>
                                 )}
-                                {activeTab === 'reseñas' && (
+                                {activeTab === 'reviews' && (
                                     <div className="space-y-8">
-                                        {product.reseñas && product.reseñas.length > 0 ? (
+                                        {product.reviews && product.reviews.length > 0 ? (
                                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                                {product.reseñas.map((review, i) => (
+                                                {product.reviews.map((review, i) => (
                                                     <div key={i} className="bg-gray-50 dark:bg-white/5 rounded-[32px] p-8 border border-gray-100 dark:border-white/5 shadow-sm">
                                                         <div className="flex justify-between items-start mb-4">
                                                             <div>
-                                                                <p className="font-black italic text-gray-900 dark:text-white uppercase tracking-tighter">{review.usuario}</p>
-                                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{review.fecha}</p>
+                                                                <p className="font-black italic text-gray-900 dark:text-white uppercase tracking-tighter">{review.user}</p>
+                                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{review.date}</p>
                                                             </div>
                                                             <div className="flex gap-1 text-orange-400 text-xs">
                                                                 {[...Array(5)].map((_, starIdx) => (
@@ -347,7 +350,7 @@ const ProductDetail = () => {
                                                                 ))}
                                                             </div>
                                                         </div>
-                                                        <p className="text-sm italic leading-relaxed text-gray-600 dark:text-gray-300">"{review.comentario}"</p>
+                                                        <p className="text-sm italic leading-relaxed text-gray-600 dark:text-gray-300">"{review.comment}"</p>
                                                     </div>
                                                 ))}
                                             </div>

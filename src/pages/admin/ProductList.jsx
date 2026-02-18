@@ -20,13 +20,13 @@ const ProductList = () => {
     }, [viewMode]);
 
     // Get unique categories
-    const categories = ['Todos', ...new Set(products.map(p => p.categoria))];
+    const categories = ['Todos', ...new Set(products.map(p => p.category))];
 
     // Filter Logic
     const filteredProducts = products.filter(product => {
-        const matchesSearch = product.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            product.marca.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = filterCategory === 'Todos' || product.categoria === filterCategory;
+        const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            product.brand.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = filterCategory === 'Todos' || product.category === filterCategory;
         return matchesSearch && matchesCategory;
     });
 
@@ -150,25 +150,25 @@ const ProductList = () => {
                                             <td className="p-6">
                                                 <div className="flex items-center gap-6">
                                                     <div className="h-20 w-20 rounded-[20px] bg-white dark:bg-[#0d0e12] p-2 border border-gray-100 dark:border-[#1e1f26] relative overflow-hidden flex-shrink-0 group-hover:scale-110 transition-transform shadow-sm">
-                                                        <img src={product.imagenes[0]} alt="" className="w-full h-full object-contain rounded-xl" />
+                                                        <img src={product.images[0]} alt="" className="w-full h-full object-contain rounded-xl" />
                                                     </div>
                                                     <div>
-                                                        <div className="font-black text-gray-900 dark:text-white text-lg tracking-tighter italic uppercase leading-none">{product.nombre}</div>
-                                                        <div className="text-[10px] text-[#0abab5] font-black uppercase tracking-[0.2em] mt-2 italic">{product.marca}</div>
+                                                        <div className="font-black text-gray-900 dark:text-white text-lg tracking-tighter italic uppercase leading-none">{product.name}</div>
+                                                        <div className="text-[10px] text-[#0abab5] font-black uppercase tracking-[0.2em] mt-2 italic">{product.brand}</div>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td className="p-6">
                                                 <span className="bg-gray-50 dark:bg-white/5 text-gray-500 dark:text-gray-400 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest border border-gray-100 dark:border-transparent">
-                                                    {product.categoria}
+                                                    {product.category}
                                                 </span>
                                             </td>
                                             <td className="p-6">
                                                 <div className="flex flex-col">
                                                     <span className="text-2xl font-black text-gray-900 dark:text-white italic tracking-tighter">
-                                                        {formatCurrency(product.precio)}
+                                                        {formatCurrency(product.price)}
                                                     </span>
-                                                    {product.promocion && <span className="text-[9px] text-[#ff2d55] font-black uppercase tracking-tighter mt-1">Oferta Activa</span>}
+                                                    {product.promotion && <span className="text-[9px] text-[#ff2d55] font-black uppercase tracking-tighter mt-1">Oferta Activa</span>}
                                                 </div>
                                             </td>
                                             <td className="p-6">
@@ -223,12 +223,12 @@ const ProductList = () => {
                             <div key={product.id} className={`group relative bg-white dark:bg-[#111217] rounded-[32px] p-6 shadow-sm border border-gray-100 dark:border-[#1e1f26] transition-all hover:scale-[1.03] hover:shadow-2xl hover:shadow-[#0abab5]/10 ${product.disabled ? 'opacity-60 grayscale' : ''}`}>
                                 {/* Card Image */}
                                 <div className="relative h-64 rounded-[24px] bg-gray-50 dark:bg-[#0d0e12] overflow-hidden mb-6 border border-gray-100 dark:border-[#1e1f26]">
-                                    <img src={product.imagenes[0]} alt="" className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700" />
+                                    <img src={product.images[0]} alt="" className="w-full h-full object-contain p-6 group-hover:scale-110 transition-transform duration-700" />
 
                                     {/* Quick Badges */}
                                     <div className="absolute top-4 left-4 flex flex-col gap-2">
-                                        {product.nuevo && <span className="bg-[#0abab5] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">Nuevo</span>}
-                                        {product.promocion && <span className="bg-[#ff2d55] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">Oferta</span>}
+                                        {product.new && <span className="bg-[#0abab5] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">Nuevo</span>}
+                                        {product.promotion && <span className="bg-[#ff2d55] text-white text-[8px] font-black px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-widest">Oferta</span>}
                                     </div>
 
                                     {/* Action Hover Overlay */}
@@ -246,15 +246,15 @@ const ProductList = () => {
 
                                 <div className="space-y-5 px-1">
                                     <div>
-                                        <h3 className="font-black text-gray-900 dark:text-white text-xl tracking-tighter italic uppercase group-hover:text-[#0abab5] transition-colors leading-tight line-clamp-2">{product.nombre}</h3>
+                                        <h3 className="font-black text-gray-900 dark:text-white text-xl tracking-tighter italic uppercase group-hover:text-[#0abab5] transition-colors leading-tight line-clamp-2">{product.name}</h3>
                                         <div className="flex justify-between items-center mt-3">
-                                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">{product.marca}</p>
-                                            <span className="text-[9px] font-black uppercase tracking-widest text-[#0abab5] px-2 py-1 bg-[#0abab5]/10 rounded-lg">{product.categoria}</span>
+                                            <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em]">{product.brand}</p>
+                                            <span className="text-[9px] font-black uppercase tracking-widest text-[#0abab5] px-2 py-1 bg-[#0abab5]/10 rounded-lg">{product.category}</span>
                                         </div>
                                     </div>
 
                                     <div className="flex justify-between items-end pt-5 border-t border-gray-100 dark:border-[#1e1f26]">
-                                        <div className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic leading-none">{formatCurrency(product.precio)}</div>
+                                        <div className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter italic leading-none">{formatCurrency(product.price)}</div>
                                         <div className="flex flex-col items-end">
                                             <span className={`text-[9px] font-black tracking-widest uppercase ${product.stock < 10 ? 'text-[#ff2d55] animate-pulse' : 'text-gray-400 opacity-60'}`}>Stock: {product.stock}</span>
                                         </div>
@@ -291,25 +291,25 @@ const ProductModal = ({ product, onClose, onSave }) => {
     const isEdit = !!product;
     const [activeTab, setActiveTab] = useState('general');
     const [formData, setFormData] = useState({
-        nombre: product?.nombre || '',
-        marca: product?.marca || '',
-        categoria: product?.categoria || '',
-        precio: product?.precio || '',
+        name: product?.name || '',
+        brand: product?.brand || '',
+        category: product?.category || '',
+        price: product?.price || '',
         stock: product?.stock || '',
-        descripcion: product?.descripcion || '',
-        imagenes: product?.imagenes || [],
+        description: product?.description || '',
+        images: product?.images || [],
         newImageInput: '',
         disabled: product?.disabled || false,
-        promocion: product?.promocion || false,
-        nuevo: product?.nuevo || false,
-        mas_vendido: product?.mas_vendido || false,
-        especificaciones: product?.especificaciones || [],
-        reseñas: product?.reseñas || [],
+        promotion: product?.promotion || false,
+        new: product?.new || false,
+        bestSeller: product?.bestSeller || false,
+        specifications: product?.specifications || [],
+        reviews: product?.reviews || [],
     });
 
     const [imagePreview, setImagePreview] = useState('');
     const [newSpec, setNewSpec] = useState({ label: '', value: '' });
-    const [newReview, setNewReview] = useState({ usuario: '', comentario: '', rating: 5, fecha: new Date().toLocaleDateString() });
+    const [newReview, setNewReview] = useState({ user: '', comment: '', rating: 5, date: new Date().toLocaleDateString() });
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -327,7 +327,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
         if (formData.newImageInput.trim()) {
             setFormData(prev => ({
                 ...prev,
-                imagenes: [...prev.imagenes, prev.newImageInput.trim()],
+                images: [...prev.images, prev.newImageInput.trim()],
                 newImageInput: ''
             }));
             setImagePreview('');
@@ -337,7 +337,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
     const handleRemoveImage = (index) => {
         setFormData(prev => ({
             ...prev,
-            imagenes: prev.imagenes.filter((_, i) => i !== index)
+            images: prev.images.filter((_, i) => i !== index)
         }));
     };
 
@@ -346,7 +346,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
         if (newSpec.label.trim() && newSpec.value.trim()) {
             setFormData(prev => ({
                 ...prev,
-                especificaciones: [...prev.especificaciones, { ...newSpec }]
+                specifications: [...prev.specifications, { ...newSpec }]
             }));
             setNewSpec({ label: '', value: '' });
         }
@@ -355,28 +355,28 @@ const ProductModal = ({ product, onClose, onSave }) => {
     const handleRemoveSpec = (index) => {
         setFormData(prev => ({
             ...prev,
-            especificaciones: prev.especificaciones.filter((_, i) => i !== index)
+            specifications: prev.specifications.filter((_, i) => i !== index)
         }));
     };
 
     const handleAddReview = (e) => {
         e.preventDefault();
-        if (newReview.usuario.trim() && newReview.comentario.trim()) {
+        if (newReview.user.trim() && newReview.comment.trim()) {
             setFormData(prev => ({
                 ...prev,
-                reseñas: [
-                    { ...newReview, fecha: new Date().toLocaleDateString() },
-                    ...prev.reseñas
+                reviews: [
+                    { ...newReview, date: new Date().toLocaleDateString() },
+                    ...prev.reviews
                 ]
             }));
-            setNewReview({ usuario: '', comentario: '', rating: 5, fecha: new Date().toLocaleDateString() });
+            setNewReview({ user: '', comment: '', rating: 5, date: new Date().toLocaleDateString() });
         }
     };
 
     const handleRemoveReview = (index) => {
         setFormData(prev => ({
             ...prev,
-            reseñas: prev.reseñas.filter((_, i) => i !== index)
+            reviews: prev.reviews.filter((_, i) => i !== index)
         }));
     };
 
@@ -384,15 +384,15 @@ const ProductModal = ({ product, onClose, onSave }) => {
         e.preventDefault();
 
         // Auto-add pending image if user forgot to click the plus button
-        let finalImages = [...formData.imagenes];
+        let finalImages = [...formData.images];
         if (formData.newImageInput.trim() && !finalImages.includes(formData.newImageInput.trim())) {
             finalImages.push(formData.newImageInput.trim());
         }
 
         const dataToSave = {
             ...formData,
-            imagenes: finalImages,
-            precio: parseFloat(formData.precio) || 0,
+            images: finalImages,
+            price: parseFloat(formData.price) || 0,
             stock: parseInt(formData.stock) || 0
         };
 
@@ -403,9 +403,9 @@ const ProductModal = ({ product, onClose, onSave }) => {
     const tabs = [
         { id: 'general', label: 'General', icon: faEdit },
         { id: 'multimedia', label: 'Multimedia', icon: faThLarge },
-        { id: 'descripcion', label: 'Descripción', icon: faList },
-        { id: 'especificaciones', label: 'Especificaciones', icon: faPlus }, // Reusing faPlus for variety or use specific icons
-        { id: 'reseñas', label: 'Reseñas', icon: faCheck }
+        { id: 'description', label: 'Descripción', icon: faList },
+        { id: 'specifications', label: 'Especificaciones', icon: faPlus }, // Reusing faPlus for variety or use specific icons
+        { id: 'reviews', label: 'Reseñas', icon: faCheck }
     ];
 
     return (
@@ -456,16 +456,16 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                     <div className="space-y-6">
                                         <div className="space-y-2">
                                             <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Nombre Comercial</label>
-                                            <input name="nombre" value={formData.nombre} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" placeholder="P. ej. Panel Solar Pro X" required />
+                                            <input name="name" value={formData.name} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" placeholder="P. ej. Panel Solar Pro X" required />
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Marca</label>
-                                                <input name="marca" value={formData.marca} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" placeholder="LOGO" required />
+                                                <input name="brand" value={formData.brand} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" placeholder="LOGO" required />
                                             </div>
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Categoría</label>
-                                                <select name="categoria" value={formData.categoria} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner appearance-none" required>
+                                                <select name="category" value={formData.category} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner appearance-none" required>
                                                     <option value="">Seleccionar...</option>
                                                     <option value="Paneles Solares">Paneles Solares</option>
                                                     <option value="Inversores">Inversores</option>
@@ -479,7 +479,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Precio Unitario ($)</label>
-                                                <input type="number" step="0.01" name="precio" value={formData.precio} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" required />
+                                                <input type="number" step="0.01" name="price" value={formData.price} onChange={handleChange} className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-sm transition-all shadow-inner" required />
                                             </div>
                                             <div className="space-y-2">
                                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Stock Disponible</label>
@@ -491,9 +491,9 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Flags de Visibilidad</label>
                                         <div className="grid grid-cols-1 gap-3">
                                             {[
-                                                { name: 'promocion', label: 'En Promoción', color: '#ff2d55', bg: 'bg-[#ff2d55]/10', border: 'border-[#ff2d55]', text: 'text-[#ff2d55]' },
-                                                { name: 'nuevo', label: 'Nuevo Producto', color: '#0abab5', bg: 'bg-[#0abab5]/10', border: 'border-[#0abab5]', text: 'text-[#0abab5]' },
-                                                { name: 'mas_vendido', label: 'Más Vendido', color: '#ff9500', bg: 'bg-[#ff9500]/10', border: 'border-[#ff9500]', text: 'text-[#ff9500]' },
+                                                { name: 'promotion', label: 'En Promoción', color: '#ff2d55', bg: 'bg-[#ff2d55]/10', border: 'border-[#ff2d55]', text: 'text-[#ff2d55]' },
+                                                { name: 'new', label: 'Nuevo Producto', color: '#0abab5', bg: 'bg-[#0abab5]/10', border: 'border-[#0abab5]', text: 'text-[#0abab5]' },
+                                                { name: 'bestSeller', label: 'Más Vendido', color: '#ff9500', bg: 'bg-[#ff9500]/10', border: 'border-[#ff9500]', text: 'text-[#ff9500]' },
                                                 { name: 'disabled', label: 'Deshabilitado', color: '#6b7280', bg: 'bg-[#6b7280]/10', border: 'border-[#6b7280]', text: 'text-[#6b7c93]' }
                                             ].map(flag => (
                                                 <label key={flag.name} className={`flex items-center justify-between p-4 rounded-2xl border-2 cursor-pointer transition-all ${formData[flag.name] ? `${flag.border} ${flag.bg}` : 'border-gray-50 dark:border-gray-800 hover:border-gray-100'}`}>
@@ -527,9 +527,9 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                     </div>
 
                                     <div className="space-y-4">
-                                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Galería Actual ({formData.imagenes.length} items)</label>
+                                        <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Galería Actual ({formData.images.length} items)</label>
                                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                                            {formData.imagenes.map((img, idx) => (
+                                            {formData.images.map((img, idx) => (
                                                 <div key={idx} className="relative group aspect-square rounded-2xl overflow-hidden bg-gray-50 dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-800">
                                                     <img src={img} alt="" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                                     <button onClick={() => handleRemoveImage(idx)} className="absolute inset-0 bg-red-600/80 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-xl">
@@ -538,7 +538,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                                     <div className="absolute top-2 left-2 bg-black/50 text-white text-[8px] font-black px-2 py-0.5 rounded uppercase">#{idx + 1}</div>
                                                 </div>
                                             ))}
-                                            {formData.imagenes.length === 0 && (
+                                            {formData.images.length === 0 && (
                                                 <div className="col-span-full py-12 flex flex-col items-center justify-center text-gray-400 bg-gray-50 dark:bg-gray-800 rounded-2xl">
                                                     <FontAwesomeIcon icon={faThLarge} className="text-4xl mb-3 opacity-20" />
                                                     <p className="text-xs uppercase font-black tracking-widest">Sin imágenes</p>
@@ -549,13 +549,13 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                 </div>
                             )}
 
-                            {activeTab === 'descripcion' && (
+                            {activeTab === 'description' && (
                                 <div className="space-y-6">
                                     <div className="space-y-2">
                                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Cuerpo de la Descripción (Markdown soportado)</label>
                                         <textarea
-                                            name="descripcion"
-                                            value={formData.descripcion}
+                                            name="description"
+                                            value={formData.description}
                                             onChange={handleChange}
                                             rows="12"
                                             className="w-full p-6 rounded-[32px] bg-gray-50 dark:bg-gray-800 dark:text-white border border-transparent focus:border-green-500 outline-none font-medium text-sm leading-relaxed transition-all shadow-inner resize-none"
@@ -569,7 +569,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                 </div>
                             )}
 
-                            {activeTab === 'especificaciones' && (
+                            {activeTab === 'specifications' && (
                                 <div className="space-y-8">
                                     <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-[32px] border border-gray-100 dark:border-gray-800">
                                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4 block">Añadir Especificación Técnica</label>
@@ -585,7 +585,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                     </div>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        {formData.especificaciones.map((spec, idx) => (
+                                        {formData.specifications.map((spec, idx) => (
                                             <div key={idx} className="flex items-center justify-between p-5 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-800 group hover:border-green-500/50 transition-all">
                                                 <div>
                                                     <p className="text-[9px] font-black text-green-500 uppercase tracking-widest">{spec.label}</p>
@@ -596,7 +596,7 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                                 </button>
                                             </div>
                                         ))}
-                                        {formData.especificaciones.length === 0 && (
+                                        {formData.specifications.length === 0 && (
                                             <div className="col-span-full py-12 text-center text-gray-400 bg-gray-50 dark:bg-gray-800 rounded-2xl border-2 border-dotted border-gray-200 dark:border-gray-800">
                                                 <p className="text-xs uppercase font-black tracking-widest opacity-50 italic">Utilizando especificaciones por defecto del sistema</p>
                                             </div>
@@ -605,12 +605,12 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                 </div>
                             )}
 
-                            {activeTab === 'reseñas' && (
+                            {activeTab === 'reviews' && (
                                 <div className="space-y-8">
                                     <div className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-[32px] border border-gray-100 dark:border-gray-800">
                                         <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4 block">Simular Nueva Reseña de Usuario</label>
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                                            <input value={newReview.usuario} onChange={(e) => setNewReview({ ...newReview, usuario: e.target.value })} className="p-4 rounded-2xl bg-white dark:bg-gray-900 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-xs" placeholder="Nombre de Usuario" />
+                                            <input value={newReview.user} onChange={(e) => setNewReview({ ...newReview, user: e.target.value })} className="p-4 rounded-2xl bg-white dark:bg-gray-900 dark:text-white border border-transparent focus:border-green-500 outline-none font-bold text-xs" placeholder="Nombre de Usuario" />
                                             <div className="flex items-center gap-4 p-4 rounded-2xl bg-white dark:bg-gray-900 border border-transparent">
                                                 <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">Calificación</span>
                                                 <div className="flex gap-1 text-orange-400">
@@ -630,30 +630,30 @@ const ProductModal = ({ product, onClose, onSave }) => {
                                                 </button>
                                             </div>
                                         </div>
-                                        <textarea value={newReview.comentario} onChange={(e) => setNewReview({ ...newReview, comentario: e.target.value })} className="w-full p-4 rounded-2xl bg-white dark:bg-gray-900 dark:text-white border border-transparent focus:border-green-500 outline-none font-medium text-xs leading-relaxed transition-all shadow-inner resize-none mb-2" rows="2" placeholder="Comentario del cliente..." />
+                                        <textarea value={newReview.comment} onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })} className="w-full p-4 rounded-2xl bg-white dark:bg-gray-900 dark:text-white border border-transparent focus:border-green-500 outline-none font-medium text-xs leading-relaxed transition-all shadow-inner resize-none mb-2" rows="2" placeholder="Comentario del cliente..." />
                                     </div>
 
                                     <div className="space-y-4">
-                                        {formData.reseñas.map((rev, idx) => (
+                                        {formData.reviews.map((rev, idx) => (
                                             <div key={idx} className="bg-white dark:bg-gray-800 p-6 rounded-3xl border border-gray-100 dark:border-gray-800 flex justify-between items-start">
                                                 <div>
                                                     <div className="flex items-center gap-3 mb-2">
-                                                        <span className="text-sm font-black italic dark:text-white uppercase">{rev.usuario}</span>
+                                                        <span className="text-sm font-black italic dark:text-white uppercase">{rev.user}</span>
                                                         <div className="flex gap-0.5 text-orange-400 text-[10px]">
                                                             {[...Array(5)].map((_, i) => (
                                                                 <FontAwesomeIcon key={i} icon={faStar} className={i < rev.rating ? 'text-orange-400' : 'text-gray-100 dark:text-gray-900'} />
                                                             ))}
                                                         </div>
-                                                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">{rev.fecha}</span>
+                                                        <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">{rev.date}</span>
                                                     </div>
-                                                    <p className="text-xs text-gray-500 dark:text-gray-400 italic">"{rev.comentario}"</p>
+                                                    <p className="text-xs text-gray-500 dark:text-gray-400 italic">"{rev.comment}"</p>
                                                 </div>
                                                 <button onClick={() => handleRemoveReview(idx)} className="w-10 h-10 flex items-center justify-center text-gray-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-xl transition-all">
                                                     <FontAwesomeIcon icon={faTrash} />
                                                 </button>
                                             </div>
                                         ))}
-                                        {formData.reseñas.length === 0 && (
+                                        {formData.reviews.length === 0 && (
                                             <div className="py-12 text-center text-gray-400 bg-gray-50 dark:bg-gray-800 rounded-2xl border-2 border-dotted border-gray-200 dark:border-gray-800">
                                                 <p className="text-xs uppercase font-black tracking-widest opacity-50 italic">No hay reseñas registradas para este producto</p>
                                             </div>
