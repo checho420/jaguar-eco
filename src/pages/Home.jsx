@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import ProductCard from '../components/ProductCard';
+import NewArrivalCard from '../components/NewArrivalCard';
 import BestsellerCarousel from '../components/BestsellerCarousel';
 import { useProducts } from '../context/ProductContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,13 +14,26 @@ const Home = () => {
     // Filter sections
     const featuredProducts = products.filter(p => p.bestSeller && !p.disabled).slice(0, 4);
 
-    // Randomize the "Novedades" section to show a fresh selection on each load
+    // State to keep the selection of random products stable
+    const [randomIds, setRandomIds] = React.useState([]);
+
+    React.useEffect(() => {
+        if (products.length > 0 && randomIds.length === 0) {
+            const ids = products
+                .filter(p => !p.disabled)
+                .sort(() => Math.random() - 0.5)
+                .slice(0, 6)
+                .map(p => p.id);
+            setRandomIds(ids);
+        }
+    }, [products, randomIds]);
+
+    // Map stable IDs back to current product data from context
     const newProducts = React.useMemo(() => {
-        return products
-            .filter(p => !p.disabled)
-            .sort(() => Math.random() - 0.5)
-            .slice(0, 6);
-    }, [products]);
+        return randomIds
+            .map(id => products.find(p => p.id === id))
+            .filter(Boolean);
+    }, [randomIds, products]);
 
     return (
         <div className="pb-20">
@@ -58,52 +72,54 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* New Arrivals Section */}
-            <section className="container mx-auto px-6 py-24">
-                <div className="flex flex-col items-center text-center mb-16">
-                    <motion.span
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        className="text-green-600 font-bold tracking-[0.3em] uppercase text-xs mb-4"
-                    >
-                        Lo más reciente
-                    </motion.span>
-                    <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-5xl font-black text-gray-900 dark:text-white mb-6"
-                    >
-                        Novedades
-                    </motion.h2>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-gray-500 dark:text-gray-400 max-w-xl text-lg"
-                    >
-                        Nuestra última selección de productos ecológicos diseñados para un estilo de vida consciente y moderno.
-                    </motion.p>
-                </div>
+            {/* New Arrivals Section - Minimalist & Elegant */}
+            <section className="py-32 bg-white dark:bg-[#080808]">
+                <div className="container mx-auto px-6">
+                    <div className="flex flex-col items-center text-center mb-20">
+                        <motion.span
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            className="text-[#E5FF00] font-black tracking-[0.4em] uppercase text-[10px] mb-6"
+                        >
+                            The Collection
+                        </motion.span>
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.1 }}
+                            className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-8 tracking-tighter"
+                        >
+                            Novedades
+                        </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="text-gray-500 dark:text-gray-400 max-w-xl text-lg font-medium"
+                        >
+                            Descubre la vanguardia de la tecnología sostenible con nuestra última selección de productos.
+                        </motion.p>
+                    </div>
 
-                {loading ? (
-                    <div className="flex justify-center py-20">
-                        <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                        {newProducts.map((product, index) => (
-                            <motion.div
-                                key={product.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
-                            >
-                                <ProductCard product={product} />
-                            </motion.div>
-                        ))}
-                    </div>
-                )}
+                    {loading ? (
+                        <div className="flex justify-center py-20">
+                            <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                            {newProducts.map((product, index) => (
+                                <motion.div
+                                    key={product.id}
+                                    initial={{ opacity: 0, y: 30 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                >
+                                    <NewArrivalCard product={product} />
+                                </motion.div>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </section>
 
             {/* WhatsApp Button */}

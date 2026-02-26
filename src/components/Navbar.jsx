@@ -103,12 +103,20 @@ const Navbar = () => {
         exit: { opacity: 0, x: 20 }
     };
 
-    const navItems = [
-        { label: 'Inicio', path: '/' },
-        { label: 'Catálogo', path: '/catalog' },
-        { label: 'Más Vendidos', path: '/bestsellers' },
-        { label: 'Ofertas', path: '/sale' }
-    ];
+    const navItems = isAdmin
+        ? [
+            { label: 'Dashboard', path: '/admin' },
+            { label: 'Pedidos', path: '/admin/orders' },
+            { label: 'Productos', path: '/admin/products' },
+            { label: 'Clientes', path: '/admin/customers' },
+            { label: 'Volver a la Tienda', path: '/' }
+        ]
+        : [
+            { label: 'Inicio', path: '/' },
+            { label: 'Catálogo', path: '/catalog' },
+            { label: 'Más Vendidos', path: '/bestsellers' },
+            { label: 'Ofertas', path: '/sale' }
+        ];
 
     return (
         <>

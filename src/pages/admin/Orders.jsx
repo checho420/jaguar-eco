@@ -33,16 +33,7 @@ const Orders = () => {
 
     return (
         <div className="space-y-8 animate-fade-in-up">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
-                    <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase">
-                        Gestión de <span className="text-[#0abab5]">Pedidos</span>
-                    </h1>
-                    <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">
-                        Operaciones: <span className="text-gray-900 dark:text-white">{orders.length} Transacciones totales</span>
-                    </p>
-                </div>
-            </div>
+
 
             {/* Filters Bar */}
             <div className="bg-white/50 dark:bg-[#111217]/50 backdrop-blur-md p-4 rounded-[28px] shadow-sm border border-gray-100 dark:border-[#1e1f26] flex flex-col lg:flex-row gap-6 justify-between">
@@ -73,8 +64,47 @@ const Orders = () => {
             </div>
 
             {/* Orders List */}
-            <div className="bg-white dark:bg-[#111217] rounded-[32px] shadow-sm border border-gray-100 dark:border-[#1e1f26] overflow-hidden">
-                <div className="overflow-x-auto">
+            <div className="bg-transparent lg:bg-white lg:dark:bg-[#111217] lg:rounded-[32px] lg:shadow-sm lg:border lg:border-gray-100 lg:dark:border-[#1e1f26] overflow-hidden">
+                {/* Mobile Order Cards */}
+                <div className="lg:hidden space-y-4">
+                    {filteredOrders.map(order => (
+                        <div key={order.id} className="bg-white dark:bg-[#111217] p-5 rounded-[28px] border border-gray-100 dark:border-[#1e1f26] shadow-sm flex flex-col gap-4">
+                            <div className="flex justify-between items-start">
+                                <div>
+                                    <h4 className="font-black text-gray-900 dark:text-white uppercase italic tracking-tighter text-lg leading-tight">#{order.id}</h4>
+                                    <p className="text-[9px] font-black uppercase tracking-widest text-gray-400 mt-1">{order.date}</p>
+                                </div>
+                                <span className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-widest border ${order.status === 'entregado' ? 'bg-[#0abab5]/10 text-[#0abab5] border-[#0abab5]/20' :
+                                    order.status === 'pendiente' ? 'bg-[#ff9500]/10 text-[#ff9500] border-[#ff9500]/20' :
+                                        'bg-[#ff2d55]/10 text-[#ff2d55] border-[#ff2d55]/20'
+                                    }`}>
+                                    {order.status}
+                                </span>
+                            </div>
+
+                            <div className="flex justify-between items-end">
+                                <div>
+                                    <p className="text-[8px] font-black uppercase tracking-[0.2em] text-gray-400 mb-1">Cliente</p>
+                                    <p className="font-black text-gray-800 dark:text-white uppercase tracking-tighter italic text-sm truncate max-w-[150px]">{order.customerName}</p>
+                                </div>
+                                <div className="text-right">
+                                    <p className="text-[8px] font-black uppercase tracking-[0.2em] text-[#0abab5] mb-1 text-right">Monto</p>
+                                    <p className="font-black text-gray-900 dark:text-white text-xl tracking-tighter italic leading-none">{formatCurrency(order.total)}</p>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setSelectedOrder(order)}
+                                className="w-full bg-gray-50 dark:bg-white/5 text-[9px] font-black uppercase tracking-widest py-3 rounded-xl border border-gray-100 dark:border-white/5 text-gray-600 dark:text-gray-400 active:bg-[#0abab5] active:text-white transition-all shadow-sm flex items-center justify-center gap-2"
+                            >
+                                <FontAwesomeIcon icon={faEye} /> Ver Detalles
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop table */}
+                <div className="hidden lg:block overflow-x-auto">
                     <table className="w-full text-left">
                         <thead className="bg-gray-50/50 dark:bg-[#171821]/50 text-gray-400 text-[9px] font-black uppercase tracking-[0.2em] border-b border-gray-100 dark:border-[#1e1f26]">
                             <tr>

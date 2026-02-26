@@ -16,16 +16,7 @@ const Customers = () => {
 
     return (
         <div className="space-y-8 animate-fade-in-up">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                <div>
-                    <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase">
-                        Gestión de <span className="text-[#0abab5]">Clientes</span>
-                    </h1>
-                    <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">
-                        Base de Datos: <span className="text-gray-900 dark:text-white">{customers.length} Usuarios activos</span>
-                    </p>
-                </div>
-            </div>
+
 
             {/* Filters Bar */}
             <div className="bg-white/50 dark:bg-[#111217]/50 backdrop-blur-md p-4 rounded-[28px] shadow-sm border border-gray-100 dark:border-[#1e1f26] flex flex-col md:flex-row gap-4 justify-between">

@@ -57,14 +57,7 @@ const ProductList = () => {
         <div className="space-y-8 animate-fade-in">
             {/* Elegant Header */}
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-                <div>
-                    <h1 className="text-4xl font-black text-gray-900 dark:text-white tracking-tighter italic uppercase">
-                        Gestión de <span className="text-[#0abab5]">Productos</span>
-                    </h1>
-                    <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mt-2">
-                        Inventario: <span className="text-gray-900 dark:text-white">{products.length} Items registrados</span>
-                    </p>
-                </div>
+
 
                 <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
                     {/* View Toggle */}
@@ -130,9 +123,41 @@ const ProductList = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
-                        className="bg-white dark:bg-[#111217] rounded-[32px] shadow-sm border border-gray-100 dark:border-[#1e1f26] overflow-hidden"
+                        className="bg-transparent lg:bg-white lg:dark:bg-[#111217] lg:rounded-[32px] lg:shadow-sm lg:border lg:border-gray-100 lg:dark:border-[#1e1f26] overflow-hidden"
                     >
-                        <div className="overflow-x-auto custom-scrollbar">
+                        {/* Mobile List View (Cards) */}
+                        <div className="lg:hidden space-y-4">
+                            {filteredProducts.map(product => (
+                                <div key={product.id} className={`bg-white dark:bg-[#111217] p-5 rounded-[28px] border border-gray-100 dark:border-[#1e1f26] shadow-sm flex items-center gap-5 transition-all active:scale-[0.98] ${product.disabled ? 'opacity-60 grayscale' : ''}`}>
+                                    <div className="w-20 h-20 rounded-2xl bg-gray-50 dark:bg-[#0d0e12] p-2 flex-shrink-0 border border-gray-100 dark:border-white/5">
+                                        <img src={product.images[0]} alt="" className="w-full h-full object-contain" />
+                                    </div>
+                                    <div className="flex-grow min-w-0">
+                                        <h4 className="font-black text-gray-900 dark:text-white uppercase italic tracking-tighter truncate leading-tight mb-1">{product.name}</h4>
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <span className="text-[9px] font-black uppercase text-[#0abab5] tracking-widest">{product.brand}</span>
+                                            <span className="text-[8px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-white/5 text-gray-400 font-black uppercase tracking-widest">{product.category}</span>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <span className="text-xl font-black text-gray-900 dark:text-white italic tracking-tighter">{formatCurrency(product.price)}</span>
+                                            <div className="flex gap-2">
+                                                <button onClick={() => handleEdit(product)} className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#0abab5] border border-gray-100 dark:border-white/5">
+                                                    <FontAwesomeIcon icon={faEdit} className="text-xs" />
+                                                </button>
+                                                {!product.disabled && (
+                                                    <button onClick={() => handleDelete(product.id)} className="w-10 h-10 rounded-xl bg-gray-50 dark:bg-white/10 flex items-center justify-center text-gray-400 hover:text-red-500 border border-gray-100 dark:border-white/5">
+                                                        <FontAwesomeIcon icon={faTrash} className="text-xs" />
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Desktop Table View */}
+                        <div className="hidden lg:block overflow-x-auto custom-scrollbar">
                             <table className="w-full text-left border-collapse">
                                 <thead className="bg-gray-50/50 dark:bg-[#171821]/50 text-gray-400 text-[9px] font-black uppercase tracking-[0.2em] border-b border-gray-100 dark:border-[#1e1f26]">
                                     <tr>
@@ -430,31 +455,31 @@ const ProductModal = ({ product, onClose, onSave }) => {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-fade-in">
             <div className="bg-white dark:bg-gray-900 w-full max-w-5xl rounded-[40px] shadow-2xl overflow-hidden animate-scale-in flex flex-col max-h-[90vh] border border-gray-100 dark:border-gray-800">
                 {/* Modal Header */}
-                <div className="p-10 border-b border-gray-100 dark:border-[#1e1f26] flex justify-between items-center bg-gray-50/50 dark:bg-[#111217]">
+                <div className="p-6 md:p-10 border-b border-gray-100 dark:border-[#1e1f26] flex justify-between items-center bg-gray-50/50 dark:bg-[#111217]">
                     <div>
-                        <h2 className="text-3xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">
+                        <h2 className="text-xl md:text-3xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter">
                             {isEdit ? 'Editar' : 'Añadir'} <span className="text-[#0abab5]">Producto</span>
                         </h2>
-                        <p className="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] mt-2">ID: {product?.id || 'Nuevo Sistema'}</p>
+                        <p className="text-[8px] md:text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] mt-1 md:mt-2">ID: {product?.id || 'Nuevo Sistema'}</p>
                     </div>
-                    <button onClick={onClose} className="w-14 h-14 flex items-center justify-center text-gray-400 hover:text-[#ff2d55] hover:bg-[#ff2d55]/5 rounded-[20px] transition-all border border-transparent hover:border-[#ff2d55]/20">
-                        <FontAwesomeIcon icon={faTimes} className="text-xl" />
+                    <button onClick={onClose} className="w-10 h-10 md:w-14 md:h-14 flex items-center justify-center text-gray-400 hover:text-[#ff2d55] hover:bg-[#ff2d55]/5 rounded-xl md:rounded-[20px] transition-all border border-transparent hover:border-[#ff2d55]/20">
+                        <FontAwesomeIcon icon={faTimes} className="text-lg md:text-xl" />
                     </button>
                 </div>
 
                 {/* Tab Navigation */}
-                <div className="flex px-10 bg-white dark:bg-[#111217] border-b border-gray-100 dark:border-[#1e1f26] overflow-x-auto custom-scrollbar">
+                <div className="flex px-4 md:px-10 bg-white dark:bg-[#111217] border-b border-gray-100 dark:border-[#1e1f26] overflow-x-auto custom-scrollbar">
                     {tabs.map(tab => (
                         <button
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`py-6 px-8 text-[10px] font-black uppercase tracking-widest flex items-center gap-3 border-b-2 transition-all whitespace-nowrap ${activeTab === tab.id
+                            className={`py-4 md:py-6 px-4 md:px-8 text-[8px] md:text-[10px] font-black uppercase tracking-widest flex items-center gap-2 md:gap-3 border-b-2 transition-all whitespace-nowrap ${activeTab === tab.id
                                 ? 'border-[#0abab5] text-[#0abab5] bg-[#0abab5]/5'
                                 : 'border-transparent text-gray-400 hover:text-gray-900 dark:hover:text-white'
                                 }`}
                         >
-                            <FontAwesomeIcon icon={tab.icon} className="text-sm" />
-                            {tab.label}
+                            <FontAwesomeIcon icon={tab.icon} className="text-xs md:text-sm" />
+                            <span className="hidden xs:inline">{tab.label}</span>
                         </button>
                     ))}
                 </div>
@@ -699,19 +724,19 @@ const ProductModal = ({ product, onClose, onSave }) => {
                 </form>
 
                 {/* Modal Footer */}
-                <div className="p-10 border-t border-gray-100 dark:border-[#1e1f26] bg-gray-50/50 dark:bg-[#111217] flex justify-between items-center text-[10px]">
-                    <div className="flex gap-3">
+                <div className="p-6 md:p-10 border-t border-gray-100 dark:border-[#1e1f26] bg-gray-50/50 dark:bg-[#111217] flex justify-between items-center text-[10px]">
+                    <div className="hidden sm:flex gap-3">
                         {tabs.map((tab, i) => (
                             <div key={i} className={`w-2 h-2 rounded-full transition-all duration-500 ${activeTab === tab.id ? 'w-8 bg-[#0abab5]' : 'bg-gray-200 dark:bg-[#1e1f26]'}`} />
                         ))}
                     </div>
-                    <div className="flex gap-5">
-                        <button onClick={onClose} className="px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
+                    <div className="flex gap-3 md:gap-5 w-full sm:w-auto">
+                        <button onClick={onClose} className="flex-1 sm:flex-none px-6 md:px-10 py-3 md:py-4 rounded-xl md:rounded-2xl font-black uppercase tracking-widest text-gray-500 hover:bg-gray-100 dark:hover:bg-white/5 transition-all text-[9px] md:text-[10px]">
                             Cancelar
                         </button>
-                        <button onClick={handleSubmit} className="px-12 py-5 rounded-[22px] bg-[#0abab5] text-white font-black uppercase tracking-widest shadow-2xl shadow-[#0abab5]/30 hover:bg-[#008b8b] transition-all transform active:scale-95 flex items-center gap-4">
+                        <button onClick={handleSubmit} className="flex-1 sm:flex-none px-8 md:px-12 py-4 md:py-5 rounded-xl md:rounded-[22px] bg-[#0abab5] text-white font-black uppercase tracking-widest shadow-2xl shadow-[#0abab5]/30 hover:bg-[#008b8b] transition-all transform active:scale-95 flex items-center justify-center gap-2 md:gap-4 text-[9px] md:text-[10px]">
                             <FontAwesomeIcon icon={faSave} />
-                            Aplicar Cambios
+                            <span>Aplicar</span>
                         </button>
                     </div>
                 </div>

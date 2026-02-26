@@ -37,23 +37,23 @@ const AdminLayout = () => {
         <div className="bg-[#f8fafc] dark:bg-[#0d0e12] font-sans transition-colors duration-500 min-h-screen">
             <div className="flex relative items-start">
                 {/* Minimalist Floating Trigger */}
-                <div className="fixed lg:sticky z-[70] pointer-events-none" style={{ top: '50%', transform: 'translateY(-50%)', height: '0' }}>
+                <div className="fixed lg:sticky z-[130] pointer-events-none" style={{ top: '50%', transform: 'translateY(-50%)', height: '0' }}>
                     <button
                         onClick={toggleMenu}
                         className={`
-                            pointer-events-auto w-6 h-16 flex items-center justify-center
-                            bg-white/40 dark:bg-[#1a1b23]/40 backdrop-blur-xl text-gray-400 shadow-2xl border-y border-r
-                            border-gray-100/20 dark:border-[#1e1f26]/20 transition-all duration-500 ease-in-out
+                            pointer-events-auto w-10 h-20 flex items-center justify-center
+                            bg-white/80 dark:bg-[#1a1b23]/80 backdrop-blur-2xl text-gray-400 shadow-[0_0_30px_rgba(0,0,0,0.1)] border-y border-r
+                            border-white/20 dark:border-white/5 transition-all duration-500 ease-in-out
                             ${isMenuOpen
-                                ? 'translate-x-[288px] rounded-l-xl border-l'
-                                : 'translate-x-0 rounded-r-xl border-l-0'
+                                ? 'translate-x-[288px] rounded-l-2xl border-l'
+                                : 'translate-x-0 rounded-r-2xl border-l-0'
                             }
                         `}
                         aria-label="Toggle CRM Menu"
                     >
                         <FontAwesomeIcon
                             icon={isMenuOpen ? faChevronLeft : faChevronRight}
-                            className={`text-[10px] transition-transform duration-500 ${isMenuOpen ? 'text-[#0abab5]' : ''}`}
+                            className={`text-sm transition-transform duration-500 ${isMenuOpen ? 'text-[#0abab5] rotate-0' : 'text-[#0abab5]/60 hover:text-[#0abab5]'}`}
                         />
                     </button>
                 </div>
@@ -66,17 +66,17 @@ const AdminLayout = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={closeMenu}
-                            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
+                            className="fixed inset-0 bg-black/80 backdrop-blur-md z-[110] lg:hidden"
                         />
                     )}
                 </AnimatePresence>
 
                 {/* Barra Lateral */}
                 <div className={`
-                fixed lg:sticky top-0 lg:top-[88px] left-0 bg-white/60 dark:bg-[#111217]/60 backdrop-blur-2xl border-r border-gray-200/20 dark:border-[#1e1f26]/20 flex flex-col z-40 
+                fixed lg:sticky top-0 lg:top-[88px] left-0 bg-white/90 dark:bg-[#111217]/90 backdrop-blur-3xl border-r border-gray-200/20 dark:border-[#1e1f26]/20 flex flex-col z-[120] 
                 transition-all duration-500 ease-in-out
                 ${isMenuOpen
-                        ? 'w-72 translate-x-0 opacity-100'
+                        ? 'w-72 translate-x-0 opacity-100 shadow-[20px_0_50px_rgba(0,0,0,0.2)]'
                         : 'w-72 lg:w-0 -translate-x-full lg:translate-x-0 opacity-0 lg:pointer-events-none lg:border-none'
                     }
                 h-screen lg:h-[calc(100vh-88px)]
