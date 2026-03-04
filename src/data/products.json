@@ -1,16 +1,14 @@
 [
     {
         "id": 1,
-        "name": "Luminaria publica solar 300W",
+        "name": "Luminaria pública solar 300W",
         "brand": "SunPower",
         "category": "Luminarias",
         "price": 1199900,
         "stock": 50,
         "description": "Luminaria solar de alta potencia diseñada para iluminación vial y perímetros extensos. Su sistema integrado con sensor de movimiento y panel monocristalino ofrece autonomía total y eficiencia sin precedentes.",
         "images": [
-            "https://http2.mlstatic.com/D_NQ_NP_2X_869820-MCO93086862936_092025-F.webp",
-            "https://http2.mlstatic.com/D_NQ_NP_2X_636582-MCO101076357687_122025-F.webp",
-            "https://http2.mlstatic.com/D_NQ_NP_2X_965945-MCO101075980747_122025-F.webp"
+            "/assets/products/luminaria.png"
         ],
         "promotion": true,
         "discountPercentage": 15,
@@ -28,7 +26,7 @@
         "stock": 30,
         "description": "Ventilador solar oscilante de alto flujo con batería integrada. Ideal para refrescar espacios sin necesidad de cables, ofreciendo aire puro y renovado mediante energía 100% renovable.",
         "images": [
-            "https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=800&q=80"
+            "/assets/products/ventilador.png"
         ],
         "promotion": false,
         "discountPercentage": 0,
@@ -46,7 +44,7 @@
         "stock": 25,
         "description": "Estación de energía portátil para camping y respaldo de emergencia. Se puede cargar mediante paneles solares, toma de corriente o puerto de coche.",
         "images": [
-            "https://images.unsplash.com/photo-1628135899203-d64828114c09?auto=format&fit=crop&w=800&q=80"
+            "/assets/products/generador.png"
         ],
         "promotion": true,
         "discountPercentage": 15,
@@ -64,7 +62,7 @@
         "stock": 100,
         "description": "Batería de gel sin mantenimiento diseñada para almacenamiento de energía solar. Larga vida útil y alto rendimiento de descarga.",
         "images": [
-            "https://images.unsplash.com/photo-1619641215423-2287e0254c7d?auto=format&fit=crop&w=800&q=80"
+            "/assets/products/bateria.png"
         ],
         "promotion": false,
         "discountPercentage": 0,
@@ -82,7 +80,7 @@
         "stock": 200,
         "description": "Juego de 6 luces solares de acero inoxidable para caminos. Resistentes a la intemperie y funcionamiento automático de anochecer a amanecer.",
         "images": [
-            "https://images.unsplash.com/photo-1499578124509-1611b77778c8?auto=format&fit=crop&w=800&q=80"
+            "/assets/products/luces.png"
         ],
         "promotion": true,
         "discountPercentage": 15,

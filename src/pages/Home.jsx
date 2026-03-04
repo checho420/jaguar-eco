@@ -58,60 +58,62 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative container mx-auto px-6 py-40 overflow-hidden">
-                {/* Decorative background element for the section */}
-                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-brand-green/5 rounded-full blur-[120px] pointer-events-none" />
+            <section className="relative py-40 overflow-hidden">
+                <div className="container mx-auto px-6 relative z-10">
+                    {/* Decorative background element for the section */}
+                    <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-brand-green/5 rounded-full blur-[120px] pointer-events-none" />
 
-                <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-12 relative z-10">
-                    <div className="max-w-2xl">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="flex items-center gap-4 mb-8"
-                        >
-                            <div className="h-[1px] w-10 bg-brand-green/30" />
-                            <span className="text-brand-green font-black tracking-[0.5em] uppercase text-[9px]">
-                                Catálogo Curado • Edición 2026
-                            </span>
-                        </motion.div>
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-12 relative z-10">
+                        <div className="max-w-2xl">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="flex items-center gap-4 mb-8"
+                            >
+                                <div className="h-[1px] w-10 bg-brand-green/30" />
+                                <span className="text-brand-green font-black tracking-[0.5em] uppercase text-[9px]">
+                                    Catálogo Curado • Edición 2026
+                                </span>
+                            </motion.div>
 
-                        <h2 className="text-6xl md:text-8xl font-black tracking-tightest leading-[0.85] text-brand-charcoal dark:text-brand-cream">
-                            <motion.span
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="block"
-                            >
-                                Piezas Maestras
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.4 }}
-                                className="block text-brand-green italic font-light mt-2"
-                            >
-                                de Ingeniería Humana
-                            </motion.span>
-                        </h2>
+                            <h2 className="text-6xl md:text-8xl font-black tracking-tightest leading-[0.85] text-brand-charcoal dark:text-brand-cream">
+                                <motion.span
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                    className="block"
+                                >
+                                    Piezas Maestras
+                                </motion.span>
+                                <motion.span
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                    className="block text-brand-green italic font-light mt-2"
+                                >
+                                    de Ingeniería Humana
+                                </motion.span>
+                            </h2>
+                        </div>
+                        <Link to="/catalog" className="group flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest border border-brand-charcoal/10 dark:border-white/10 px-10 py-6 rounded-full hover:bg-brand-green hover:border-brand-green hover:text-white transition-all duration-500">
+                            Ver Selección Completa
+                            <FontAwesomeIcon icon={faArrowRight} className="group-hover:translate-x-2 transition-transform" />
+                        </Link>
                     </div>
-                    <Link to="/catalog" className="group flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest border border-brand-charcoal/10 dark:border-white/10 px-10 py-6 rounded-full hover:bg-brand-green hover:border-brand-green hover:text-white transition-all duration-500">
-                        Ver Selección Completa
-                        <FontAwesomeIcon icon={faArrowRight} className="group-hover:translate-x-2 transition-transform" />
-                    </Link>
+
+                    {loading ? (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                            {[1, 2, 3].map(i => <div key={i} className="aspect-[3/4] bg-brand-charcoal/5 dark:bg-brand-cream/  5 rounded-[2rem] animate-pulse"></div>)}
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-24">
+                            {displayProducts.map((product) => (
+                                <ProductCard key={product.id} product={product} />
+                            ))}
+                        </div>
+                    )}
                 </div>
-
-                {loading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                        {[1, 2, 3].map(i => <div key={i} className="aspect-[3/4] bg-brand-charcoal/5 dark:bg-brand-cream/  5 rounded-[2rem] animate-pulse"></div>)}
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-24">
-                        {displayProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
-                    </div>
-                )}
             </section>
 
             {/* Minimalist CTA Banner */}

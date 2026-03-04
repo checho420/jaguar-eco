@@ -15,6 +15,9 @@
   body {
     @apply font-sans bg-brand-cream text-brand-charcoal transition-colors duration-1000 overflow-x-hidden antialiased;
     font-family: 'Inter', sans-serif;
+    hyphens: none;
+    word-break: normal;
+    overflow-wrap: normal;
   }
 
   html.dark body {
@@ -40,13 +43,15 @@
   h4,
   h5,
   h6 {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Outfit', sans-serif;
     @apply font-bold tracking-tight;
+    text-wrap: balance;
+    /* Previene cortes de palabras feos en títulos */
   }
 
   .font-logo {
-    font-family: 'Space Grotesk', sans-serif;
-    @apply font-black tracking-tighter;
+    font-family: 'Outfit', sans-serif;
+    @apply font-black tracking-tighter uppercase;
   }
 
   /* Selection style */

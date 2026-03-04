@@ -14,13 +14,13 @@ const images = [
         src: banner1,
         title: "Poder Ético",
         description: "Redefiniendo el futuro energético con tecnología de vanguardia y diseño extraordinario.",
-        tag: "Inovación 2026"
+        tag: "Innovación 2026"
     },
     {
         src: banner2,
         title: "Visión Solar",
         description: "Capturamos la esencia de la luz para potenciar tu vida cotidiana con elegancia.",
-        tag: "Energía Inifinita"
+        tag: "Energía Infinita"
     },
     {
         src: banner3,
@@ -103,17 +103,26 @@ const Hero = () => {
                                 </span>
                             </motion.div>
 
-                            <h1 className="text-6xl md:text-9xl font-bold tracking-tight text-brand-cream overflow-hidden">
-                                {images[currentIndex].title.split('').map((char, i) => (
-                                    <motion.span
-                                        key={i}
-                                        initial={{ y: "100%" }}
-                                        animate={{ y: 0 }}
-                                        transition={{ delay: 0.4 + i * 0.03, duration: 0.8, ease: "circOut" }}
-                                        className="inline-block"
-                                    >
-                                        {char === ' ' ? '\u00A0' : char}
-                                    </motion.span>
+                            <h1 className="text-6xl md:text-9xl font-bold tracking-tight text-brand-cream overflow-visible">
+                                {images[currentIndex].title.split(' ').map((word, wordIdx) => (
+                                    <span key={wordIdx} className="inline-block whitespace-nowrap">
+                                        {word.split('').map((char, i) => (
+                                            <motion.span
+                                                key={i}
+                                                initial={{ y: "100%", opacity: 0 }}
+                                                animate={{ y: 0, opacity: 1 }}
+                                                transition={{
+                                                    delay: 0.4 + (wordIdx * 0.1) + (i * 0.03),
+                                                    duration: 0.8,
+                                                    ease: "circOut"
+                                                }}
+                                                className="inline-block"
+                                            >
+                                                {char}
+                                            </motion.span>
+                                        ))}
+                                        {wordIdx < images[currentIndex].title.split(' ').length - 1 && '\u00A0'}
+                                    </span>
                                 ))}
                             </h1>
 
