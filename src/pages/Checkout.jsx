@@ -77,11 +77,11 @@ const Checkout = () => {
         return (
             <div className="container mx-auto px-6 py-20 text-center animate-fade-in text-gray-800 dark:text-white">
                 <div className="bg-green-50 dark:bg-green-900/20 w-32 h-32 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
-                    <FontAwesomeIcon icon={faShoppingBag} className="text-5xl text-green-500" />
+                    <FontAwesomeIcon icon={faShoppingBag} className="text-5xl text-brand-green" />
                 </div>
                 <h1 className="text-4xl font-black mb-4 uppercase italic tracking-tighter">Tu carrito está vacío</h1>
                 <p className="text-gray-500 mb-10 max-w-md mx-auto font-bold">Parece que aún no has añadido productos. Explora nuestro catálogo y encuentra las mejores soluciones en energía solar.</p>
-                <Link to="/catalog" className="inline-flex bg-green-500 text-white px-10 py-4 rounded-[20px] font-black uppercase tracking-widest text-xs hover:bg-green-600 shadow-xl shadow-green-500/20 transition-all transform hover:-translate-y-1">
+                <Link to="/catalog" className="inline-flex bg-brand-green text-white px-10 py-4 rounded-[20px] font-black uppercase tracking-widest text-xs hover:bg-brand-forest shadow-xl shadow-brand-green/20 transition-all transform hover:-translate-y-1">
                     Volver al Catálogo
                 </Link>
             </div>
@@ -90,42 +90,42 @@ const Checkout = () => {
 
     return (
         <div className="container mx-auto px-6 py-12 animate-fade-in relative">
-            <h1 className="text-4xl font-black text-gray-900 dark:text-white mb-12 italic uppercase tracking-tighter">Finalizar <span className="text-green-500">Compra</span></h1>
+            <h1 className="text-4xl font-black text-gray-900 dark:text-white mb-12 italic uppercase tracking-tighter">Finalizar <span className="text-brand-green">Compra</span></h1>
 
             <div className="flex flex-col lg:flex-row gap-16">
                 {/* Form */}
                 <div className="w-full lg:w-2/3">
                     <div className="bg-white dark:bg-[#111217] p-10 rounded-[40px] shadow-sm border border-gray-100 dark:border-[#1e1f26]">
                         <h2 className="text-sm font-black mb-10 dark:text-white flex items-center gap-4 uppercase tracking-[0.3em]">
-                            <span className="w-10 h-10 rounded-2xl bg-green-500 text-white flex items-center justify-center text-xs italic shadow-lg shadow-green-500/20">01</span>
+                            <span className="w-10 h-10 rounded-2xl bg-brand-green text-white flex items-center justify-center text-xs italic shadow-lg shadow-brand-green/20">01</span>
                             Información de Envío
                         </h2>
                         <form id="checkout-form" className="space-y-8" onSubmit={handleConfirmOrder}>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Nombre</label>
-                                    <input type="text" name="firstName" required value={formData.firstName} onChange={handleInputChange} className="w-full rounded-2xl border-transparent bg-gray-50 dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all p-4 font-bold text-sm" placeholder="Tu nombre" />
+                                    <input type="text" name="firstName" required value={formData.firstName} onChange={handleInputChange} className="w-full rounded-2xl border-transparent bg-gray-50 dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-brand-green/50 focus:border-brand-green transition-all p-4 font-bold text-sm" placeholder="Tu nombre" />
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Apellido</label>
-                                    <input type="text" name="lastName" required value={formData.lastName} onChange={handleInputChange} className="w-full rounded-2xl border-transparent bg-gray-50 dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all p-4 font-bold text-sm" placeholder="Tu apellido" />
+                                    <input type="text" name="lastName" required value={formData.lastName} onChange={handleInputChange} className="w-full rounded-2xl border-transparent bg-gray-50 dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-brand-green/50 focus:border-brand-green transition-all p-4 font-bold text-sm" placeholder="Tu apellido" />
                                 </div>
                             </div>
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Correo Electrónico</label>
-                                <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full rounded-2xl border-transparent bg-gray-50 dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all p-4 font-bold text-sm" placeholder="ejemplo@correo.com" />
+                                <input type="email" name="email" required value={formData.email} onChange={handleInputChange} className="w-full rounded-2xl border-transparent bg-gray-50 dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-brand-green/50 focus:border-brand-green transition-all p-4 font-bold text-sm" placeholder="ejemplo@correo.com" />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black text-gray-400 uppercase tracking-widest ml-1">Dirección de Entrega</label>
-                                <input type="text" name="address" required value={formData.address} onChange={handleInputChange} className="w-full rounded-2xl border-transparent bg-gray-50 dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-green-500/50 focus:border-green-500 transition-all p-4 font-bold text-sm" placeholder="Calle, Número, Ciudad" />
+                                <input type="text" name="address" required value={formData.address} onChange={handleInputChange} className="w-full rounded-2xl border-transparent bg-gray-50 dark:bg-white/5 dark:text-white focus:ring-2 focus:ring-brand-green/50 focus:border-brand-green transition-all p-4 font-bold text-sm" placeholder="Calle, Número, Ciudad" />
                             </div>
                         </form>
 
                         <h2 className="text-sm font-black mt-16 mb-10 dark:text-white flex items-center gap-4 uppercase tracking-[0.3em]">
-                            <span className="w-10 h-10 rounded-2xl bg-green-500 text-white flex items-center justify-center text-xs italic shadow-lg shadow-green-500/20">02</span>
+                            <span className="w-10 h-10 rounded-2xl bg-brand-green text-white flex items-center justify-center text-xs italic shadow-lg shadow-brand-green/20">02</span>
                             Método de Pago
                         </h2>
-                        <div className="p-10 border-2 border-dashed border-gray-100 dark:border-white/5 rounded-[32px] text-center bg-gray-50 dark:bg-white/5 group hover:border-green-500/30 transition-all">
+                        <div className="p-10 border-2 border-dashed border-gray-100 dark:border-white/5 rounded-[32px] text-center bg-gray-50 dark:bg-white/5 group hover:border-brand-green/30 transition-all">
                             <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] mb-6">Selecciona una pasarela de pago segura</p>
                             <div className="flex flex-wrap justify-center gap-10 opacity-40 grayscale group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700">
                                 <span className="font-black text-blue-600 text-2xl tracking-tighter italic">VISA</span>
@@ -152,7 +152,7 @@ const Checkout = () => {
                                         />
                                         <button
                                             onClick={() => removeFromCart(item.id)}
-                                            className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-[10px] shadow-lg opacity-0 group-hover:opacity-100 transition-opacity"
+                                            className="absolute -top-2 -right-2 w-6 h-6 bg-brand-green/90 hover:bg-brand-green transition-all"
                                         >
                                             <FontAwesomeIcon icon={faTimes} />
                                         </button>
@@ -161,11 +161,11 @@ const Checkout = () => {
                                         <p className="text-xs font-black uppercase tracking-tighter mb-4 leading-tight line-clamp-2">{item.name}</p>
                                         <div className="flex justify-between items-center">
                                             <div className="flex items-center gap-3 bg-white/5 rounded-xl p-1 px-3">
-                                                <button onClick={() => updateQuantity(item.id, -1)} className="text-gray-400 hover:text-green-500 transition-colors font-black">－</button>
+                                                <button onClick={() => updateQuantity(item.id, -1)} className="text-gray-400 hover:text-brand-green transition-colors font-black">－</button>
                                                 <span className="text-[10px] font-black w-4 text-center">{item.quantity}</span>
-                                                <button onClick={() => updateQuantity(item.id, 1)} className="text-gray-400 hover:text-green-500 transition-colors font-black">＋</button>
+                                                <button onClick={() => updateQuantity(item.id, 1)} className="text-gray-400 hover:text-brand-green transition-colors font-black">＋</button>
                                             </div>
-                                            <span className="text-lg font-black italic tracking-tighter text-green-500">{formatCurrency(item.price * item.quantity)}</span>
+                                            <span className="text-lg font-black italic tracking-tighter text-brand-green">{formatCurrency(item.price * item.quantity)}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -179,11 +179,11 @@ const Checkout = () => {
                             </div>
                             <div className="flex justify-between text-gray-500 text-[10px] font-black uppercase tracking-widest">
                                 <span>Envío</span>
-                                <span className="text-green-500">Gratis</span>
+                                <span className="text-brand-green">Gratis</span>
                             </div>
                             <div className="flex justify-between items-center pt-6 border-t border-white/5 mt-4">
                                 <span className="font-black text-xs uppercase tracking-[0.2em] text-gray-400">Total a Pagar</span>
-                                <span className="font-black text-3xl text-green-500 italic tracking-tighter">{formatCurrency(total)}</span>
+                                <span className="font-black text-3xl text-brand-green italic tracking-tighter">{formatCurrency(total)}</span>
                             </div>
                         </div>
 
@@ -191,7 +191,7 @@ const Checkout = () => {
                             form="checkout-form"
                             type="submit"
                             disabled={isSubmitting}
-                            className={`w-full bg-green-500 text-white py-6 rounded-[24px] font-black uppercase tracking-[0.3em] text-[10px] transition-all flex items-center justify-center gap-4 group shadow-xl shadow-green-500/20 active:scale-95 ${isSubmitting ? 'opacity-50 cursor-wait' : 'hover:bg-green-600'}`}
+                            className={`w-full bg-brand-green text-white py-6 rounded-[24px] font-black uppercase tracking-[0.3em] text-[10px] transition-all flex items-center justify-center gap-4 group shadow-xl shadow-brand-green/20 active:scale-95 ${isSubmitting ? 'opacity-50 cursor-wait' : 'hover:bg-brand-forest'}`}
                         >
                             <span>{isSubmitting ? 'Procesando...' : 'Confirmar Pedido'}</span>
                             {!isSubmitting && <FontAwesomeIcon icon={faArrowRight} className="group-hover:translate-x-2 transition-transform" />}
@@ -224,7 +224,7 @@ const Checkout = () => {
                             <div className="p-12 text-center flex flex-col items-center relative">
                                 <button
                                     onClick={() => navigate('/')}
-                                    className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-2xl transition-all"
+                                    className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center text-gray-400 hover:text-brand-green hover:bg-brand-green/5 dark:hover:bg-brand-green/10 rounded-2xl transition-all"
                                 >
                                     <FontAwesomeIcon icon={faTimes} className="text-xl" />
                                 </button>
@@ -233,12 +233,12 @@ const Checkout = () => {
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
                                     transition={{ type: "spring", damping: 10, stiffness: 100, delay: 0.2 }}
-                                    className="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-green-500/30"
+                                    className="w-24 h-24 bg-brand-green rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-brand-green/30"
                                 >
                                     <FontAwesomeIcon icon={faCheckCircle} className="text-4xl text-white" />
                                 </motion.div>
 
-                                <h2 className="text-4xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter mb-2">¡Pedido <span className="text-green-500">Exitoso</span>!</h2>
+                                <h2 className="text-4xl font-black text-gray-900 dark:text-white italic uppercase tracking-tighter mb-2">¡Pedido <span className="text-brand-green">Exitoso</span>!</h2>
                                 <p className="text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mb-12">Código de seguimiento: {confirmedOrder?.id}</p>
 
                                 <div className="w-full bg-gray-50 dark:bg-white/5 rounded-[32px] p-8 mb-12 text-left space-y-6">
@@ -254,7 +254,7 @@ const Checkout = () => {
                                             {confirmedOrder?.orderDetails?.map((item, idx) => (
                                                 <div key={idx} className="flex justify-between items-center text-xs bg-white dark:bg-white/5 p-3 rounded-xl border border-gray-100 dark:border-white/5">
                                                     <div className="flex items-center gap-3">
-                                                        <span className="w-6 h-6 rounded-lg bg-green-500/10 text-green-500 flex items-center justify-center font-black text-[10px] italic">{item.quantity}x</span>
+                                                        <span className="w-6 h-6 rounded-lg bg-brand-green/10 text-brand-green flex items-center justify-center font-black text-[10px] italic">{item.quantity}x</span>
                                                         <span className="font-bold dark:text-white uppercase tracking-tighter truncate max-w-[180px]">{item.name}</span>
                                                     </div>
                                                     <span className="font-black text-gray-400 italic">{formatCurrency(item.price)}</span>
@@ -279,13 +279,13 @@ const Checkout = () => {
                                     <button onClick={() => window.print()} className="py-5 px-8 rounded-2xl bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 font-black uppercase tracking-widest text-[9px] hover:bg-gray-200 dark:hover:bg-white/10 transition-all flex items-center justify-center gap-3">
                                         <FontAwesomeIcon icon={faPrint} /> Imprimir
                                     </button>
-                                    <button onClick={() => navigate('/')} className="py-5 px-8 rounded-2xl bg-[#111217] dark:bg-green-500 text-white font-black uppercase tracking-widest text-[9px] hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-xl">
+                                    <button onClick={() => navigate('/')} className="py-5 px-8 rounded-2xl bg-[#111217] dark:bg-brand-green text-white font-black uppercase tracking-widest text-[9px] hover:scale-105 transition-all flex items-center justify-center gap-3 shadow-xl">
                                         Continuar <FontAwesomeIcon icon={faArrowRight} />
                                     </button>
                                 </div>
 
                                 <p className="mt-10 text-[8px] font-black text-gray-400 uppercase tracking-widest flex items-center gap-2">
-                                    <FontAwesomeIcon icon={faEnvelope} className="text-green-500" /> Hemos enviado una copia a tu correo
+                                    <FontAwesomeIcon icon={faEnvelope} className="text-brand-green" /> Hemos enviado una copia a tu correo
                                 </p>
                             </div>
                         </motion.div>

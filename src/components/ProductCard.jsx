@@ -1,209 +1,102 @@
 import React, { useState, memo } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faHeart, faStar, faEye, faShoppingBag, faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as faHeartRegular } from '@fortawesome/free-regular-svg-icons';
-import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faPlus, faArrowRight, faStar, faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCart } from '../context/CartContext';
-import { useProducts } from '../context/ProductContext';
 import { formatCurrency } from '../utils/formatters';
-import Skeleton from './Skeleton';
 
 const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     const { addToCart } = useCart();
-    const { toggleLike } = useProducts();
-    const [isHovered, setIsHovered] = useState(false);
     const [imageLoaded, setImageLoaded] = useState(false);
-
-    const discount = product.promotion ? (product.discountPercentage || 15) : 0;
-    const originalPrice = discount > 0 ? (product.price / (1 - discount / 100)) : null;
-    const whatsappUrl = `https://wa.me/1234567890?text=Hola, estoy interesado en: ${product.name}`;
+    const [isHovered, setIsHovered] = useState(false);
 
     return (
         <motion.div
+            layout
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            className="group relative flex flex-col bg-white dark:bg-[#151718] rounded-[3rem] overflow-hidden transition-all duration-700 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.15)] dark:hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] border border-brand-charcoal/[0.03] dark:border-white/[0.03] cursor-pointer h-full"
             onClick={() => navigate(`/product/${product.id}`)}
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            whileHover={{ y: -8 }}
-            className="group relative h-[520px] bg-white dark:bg-[#0f0f0f] rounded-[40px] p-4 flex flex-col transition-all duration-700 hover:shadow-[0_40px_100px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_40px_100px_rgba(0,0,0,0.4)] border border-gray-100 dark:border-white/5 overflow-hidden cursor-pointer"
         >
-            {/* Image Vessel */}
-            <div className="relative h-64 w-full rounded-[30px] overflow-hidden bg-gray-50 dark:bg-white/5">
+            {/* Image Canvas */}
+            <div className="relative aspect-square overflow-hidden bg-brand-cream/5 dark:bg-black/10 transition-colors duration-700 group-hover:bg-brand-green/5">
                 {!imageLoaded && (
-                    <Skeleton className="absolute inset-0 w-full h-full rounded-none" />
+                    <div className="absolute inset-0 bg-brand-cream/5 animate-pulse" />
                 )}
+
+                {/* Product Image with dynamic scaling */}
                 <motion.img
                     src={product.images[0]}
                     alt={product.name}
-                    loading="lazy"
                     onLoad={() => setImageLoaded(true)}
-                    onError={(e) => {
-                        e.target.src = 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80';
-                        setImageLoaded(true);
-                        e.target.onerror = null;
-                    }}
                     animate={{
-                        scale: isHovered ? 1.05 : 1,
-                        opacity: imageLoaded ? 1 : 0
+                        scale: isHovered ? 1.15 : 1,
+                        y: isHovered ? -10 : 0
                     }}
-                    transition={{ duration: 1.2, ease: [0.33, 1, 0.68, 1] }}
-                    className="w-full h-full object-cover"
+                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full h-full object-contain p-12 transition-all"
                 />
 
-                {/* Floating Status Badge */}
-                <AnimatePresence>
-                    {(discount > 0 || product.new) && (
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="absolute top-5 left-5 z-10"
-                        >
-                            <span className="bg-white/90 dark:bg-black/80 backdrop-blur-md text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm dark:text-logo-energy-gold">
-                                {discount > 0 ? `-${discount}%` : 'Novedad'}
-                            </span>
-                        </motion.div>
+                {/* Status Badges */}
+                <div className="absolute top-8 left-8 flex flex-col gap-2">
+                    {product.new && (
+                        <span className="bg-brand-green text-brand-cream text-[8px] font-black uppercase tracking-[0.3em] px-5 py-2 rounded-2xl shadow-2xl backdrop-blur-md">
+                            Inédito
+                        </span>
                     )}
-                </AnimatePresence>
+                </div>
 
-                {/* Aesthetic Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                {/* Quick Add Button - Premium Floating Style */}
+                <div className="absolute bottom-8 right-8 overflow-hidden rounded-3xl shadow-2xl">
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => { e.stopPropagation(); addToCart(product); }}
+                        className="bg-brand-green text-white p-5 flex items-center justify-center transition-all duration-500 hover:bg-brand-forest group/btn"
+                    >
+                        <FontAwesomeIcon icon={faCartPlus} className="text-xl group-hover/btn:rotate-12 transition-transform" />
+                    </motion.button>
+                </div>
             </div>
 
-            {/* Information Space */}
-            <div className="px-3 pt-6 flex flex-col flex-grow">
-                <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-[0.2em]">
-                        {product.brand}
-                    </span>
-                    <div className="h-px flex-grow bg-gray-100 dark:bg-white/5" />
-                </div>
-
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight leading-tight line-clamp-1 mb-2 group-hover:text-blue-500 transition-colors duration-300">
-                    {product.name}
-                </h3>
-
-                <div className="flex items-center gap-2 mb-4">
-                    <div className="flex items-center text-yellow-400 text-[10px] gap-0.5">
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} />
-                        <FontAwesomeIcon icon={faStar} className="text-gray-200 dark:text-white/10" />
+            {/* Information Matrix */}
+            <div className="p-10 flex flex-col flex-grow">
+                <div className="flex flex-col gap-2 mb-8">
+                    <div className="flex items-center gap-3">
+                        <span className="text-[9px] font-black uppercase tracking-[0.4em] text-brand-green italic">
+                            {product.brand}
+                        </span>
+                        <div className="h-[1px] flex-grow bg-brand-charcoal/[0.05] dark:bg-white/[0.05]" />
                     </div>
-                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">4.5 (12 reseñas)</span>
+                    <h3 className="text-2xl font-black text-brand-charcoal dark:text-brand-cream tracking-tighter italic leading-tight group-hover:text-brand-green transition-colors duration-500">
+                        {product.name}
+                    </h3>
                 </div>
 
-                {/* Interactive Action Belt - Pure Minimalist Icons */}
-                <div className="flex items-center gap-6 mb-6">
-                    <motion.button
-                        whileHover={{ scale: 1.25, y: -4 }}
-                        whileTap={{ scale: 0.9 }}
-                        animate={{
-                            color: product.isLiked ? "#ef4444" : isHovered ? "#ef4444" : "",
-                            scale: product.isLiked ? 1.2 : 1
-                        }}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            toggleLike(product.id);
-                        }}
-                        className={`transition-colors duration-400 ${!product.isLiked ? 'text-gray-400 dark:text-gray-500' : ''}`}
-                        title="Me gusta"
-                    >
-                        <FontAwesomeIcon icon={product.isLiked ? faHeart : faHeartRegular} className="text-xl" />
-                    </motion.button>
-
-                    <div className="text-gray-400 dark:text-gray-500 transition-colors duration-400 hover:text-blue-500">
-                        <motion.div
-                            whileHover={{ scale: 1.25, y: -4 }}
-                            whileTap={{ scale: 0.9 }}
-                            title="Ver detalles"
-                        >
-                            <FontAwesomeIcon icon={faEye} className="text-xl" />
-                        </motion.div>
-                    </div>
-
-                    <motion.a
-                        href={whatsappUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        whileHover={{ scale: 1.25, y: -4, color: "#25D366" }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-gray-400 dark:text-gray-500 transition-colors duration-400"
-                        title="WhatsApp"
-                    >
-                        <FontAwesomeIcon icon={faWhatsapp} className="text-2xl" />
-                    </motion.a>
-                </div>
-
-                {/* Footer Engagement Area */}
-                <div className="mt-auto flex items-end justify-between pb-2">
+                <div className="mt-auto flex items-end justify-between">
                     <div className="flex flex-col">
-                        <div className="flex items-center gap-2 mb-1">
-                            <span className="text-[10px] text-blue-500/60 font-black uppercase tracking-[0.2em]">Comprar</span>
-                        </div>
-                        <div className="flex items-baseline gap-2">
-                            <span className="text-3xl font-black text-gray-900 dark:text-white tracking-tighter">
-                                {formatCurrency(product.price)}
-                            </span>
-                            {originalPrice && (
-                                <span className="text-sm text-gray-400 line-through font-medium tracking-tight">{formatCurrency(originalPrice)}</span>
-                            )}
-                        </div>
+                        <span className="text-[8px] font-black text-brand-charcoal/30 dark:text-brand-cream/30 uppercase tracking-[0.3em] mb-2 leading-none">Inversión Recomendada</span>
+                        <span className="text-4xl font-black text-brand-charcoal dark:text-brand-cream italic tracking-tighter leading-none">
+                            {formatCurrency(product.price)}
+                        </span>
                     </div>
 
-                    {/* Prominent Cart Icon Button */}
-                    <motion.button
-                        whileHover="hover"
-                        whileTap={{ scale: 0.9 }}
-                        onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            addToCart(product);
-                        }}
-                        className="relative p-4 group/cart outline-none"
-                    >
-                        <motion.div
-                            className="relative z-10 text-gray-400 dark:text-gray-500"
-                            variants={{
-                                hover: {
-                                    scale: 1.3,
-                                    y: -2,
-                                    color: "#22c55e",
-                                    filter: "drop-shadow(0 0 15px rgba(34, 197, 94, 0.3))"
-                                }
-                            }}
-                            transition={{ type: "spring", stiffness: 400, damping: 12 }}
-                        >
-                            {/* Floating Plus Indicator */}
-                            <motion.div
-                                className="absolute -top-5 left-1/2 -translate-x-1/2 text-green-500"
-                                initial={{ opacity: 0, y: 10, scale: 0.5 }}
-                                variants={{
-                                    hover: {
-                                        opacity: 1,
-                                        y: -10,
-                                        scale: 1,
-                                        transition: { type: "spring", stiffness: 500, damping: 15 }
-                                    }
-                                }}
-                            >
-                                <FontAwesomeIcon icon={faPlus} className="text-sm" />
-                            </motion.div>
-
-                            <FontAwesomeIcon icon={faShoppingCart} className="text-3xl" />
-                        </motion.div>
-                    </motion.button>
+                    <div className="flex items-center gap-2 bg-brand-green/5 dark:bg-brand-green/10 px-4 py-2 rounded-2xl border border-brand-green/10">
+                        <FontAwesomeIcon icon={faStar} className="text-brand-green text-[9px]" />
+                        <span className="text-[10px] font-black text-brand-green">Elite</span>
+                    </div>
                 </div>
             </div>
+
+            {/* Decoration Glow */}
+            <div className="absolute inset-0 border-2 border-transparent group-hover:border-brand-green/20 rounded-[3rem] transition-all duration-700 pointer-events-none" />
         </motion.div>
     );
 };
 
 export default memo(ProductCard);
-

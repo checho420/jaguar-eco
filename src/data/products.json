@@ -1,14 +1,16 @@
 [
     {
         "id": 1,
-        "name": "Panel Solar de Alta Eficiencia 400W",
+        "name": "Luminaria publica solar 300W",
         "brand": "SunPower",
-        "category": "Paneles Solares",
+        "category": "Luminarias",
         "price": 1199900,
         "stock": 50,
-        "description": "Panel solar monocristalino premium con 22% de eficiencia. Ideal para techos residenciales y sistemas aislados.",
+        "description": "Luminaria solar de alta potencia diseñada para iluminación vial y perímetros extensos. Su sistema integrado con sensor de movimiento y panel monocristalino ofrece autonomía total y eficiencia sin precedentes.",
         "images": [
-            "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=800&q=80"
+            "https://http2.mlstatic.com/D_NQ_NP_2X_869820-MCO93086862936_092025-F.webp",
+            "https://http2.mlstatic.com/D_NQ_NP_2X_636582-MCO101076357687_122025-F.webp",
+            "https://http2.mlstatic.com/D_NQ_NP_2X_965945-MCO101075980747_122025-F.webp"
         ],
         "promotion": true,
         "discountPercentage": 15,
@@ -19,14 +21,14 @@
     },
     {
         "id": 2,
-        "name": "Inversor Solar Híbrido 5kW",
+        "name": "Ventilador solar",
         "brand": "VoltMaster",
-        "category": "Inversores",
+        "category": "Ventiladores",
         "price": 3399900,
         "stock": 30,
-        "description": "Inversor híbrido inteligente compatible con baterías de litio. Salida de onda senoidal pura para electrónica sensible.",
+        "description": "Ventilador solar oscilante de alto flujo con batería integrada. Ideal para refrescar espacios sin necesidad de cables, ofreciendo aire puro y renovado mediante energía 100% renovable.",
         "images": [
-            "https://images.unsplash.com/photo-1565514020176-dbf22778c8a3?auto=format&fit=crop&w=800&q=80"
+            "https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=800&q=80"
         ],
         "promotion": false,
         "discountPercentage": 0,

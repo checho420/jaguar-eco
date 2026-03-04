@@ -5,7 +5,7 @@ import CartSidebar from '../components/CartSidebar';
 
 const Layout = ({ children }) => {
     return (
-        <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-black transition-colors duration-300 font-sans">
+        <div className="min-h-screen flex flex-col bg-brand-cream dark:bg-brand-charcoal transition-colors duration-1000 font-sans">
             <Navbar />
             <CartSidebar />
             <main className="flex-grow">

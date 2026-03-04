@@ -54,42 +54,35 @@ const ProductDetail = () => {
     }, [id, loading, getProductById, getProductsByCategory]);
 
     const mockCharacteristics = useMemo(() => [
-        { label: 'Tipo', value: product?.category || 'Dispositivo Energy' },
-        { label: 'Modelo', value: `JG-${(product?.id || 0).toString().padStart(4, '0')}` },
-        { label: 'Eficiencia', value: product?.new ? 'Ultra Alta' : 'Alta Estándar' },
-        { label: 'Garantía', value: '2 Años de Fábrica' },
-        { label: 'Origen', value: 'Producido de forma Sostenible' }
+        { label: 'Categoría', value: product?.category || 'Elite Tech' },
+        { label: 'Referencia', value: `EN-${(product?.id || 0).toString().padStart(4, '0')}` },
+        { label: 'Eficiencia', value: product?.new ? 'Grado A+' : 'Premium Standard' },
+        { label: 'Garantía', value: '3 Años de Excelencia' },
+        { label: 'Herencia', value: 'Artesanía Sostenible' }
     ], [product]);
 
     if (loading) return (
-        <div className="min-h-screen bg-white dark:bg-[#0a0a0a]">
+        <div className="min-h-screen bg-brand-cream/10 dark:bg-brand-charcoal">
             {/* Header Skeleton */}
-            <div className="h-20 border-b border-gray-100 dark:border-white/5" />
+            <div className="h-24 border-b border-brand-charcoal/5 dark:border-brand-cream/5" />
 
-            <main className="max-w-7xl mx-auto px-6 py-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-                    {/* Media Column Skeleton */}
-                    <div className="lg:col-span-8 flex flex-col gap-6">
-                        <Skeleton className="w-full aspect-square rounded-[40px]" />
-                        <div className="grid grid-cols-4 gap-4">
-                            {[1, 2, 3, 4].map(i => <Skeleton key={i} className="aspect-square rounded-2xl" />)}
+            <main className="max-w-7xl mx-auto px-10 py-20">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+                    <div className="lg:col-span-8 flex flex-col gap-8">
+                        <div className="w-full aspect-square rounded-[3rem] bg-brand-charcoal/5 dark:bg-brand-cream/5 animate-pulse" />
+                        <div className="grid grid-cols-4 gap-6">
+                            {[1, 2, 3, 4].map(i => <div key={i} className="aspect-square rounded-[1.5rem] bg-brand-charcoal/5 dark:bg-brand-cream/5 animate-pulse" />)}
                         </div>
                     </div>
-
-                    {/* Content Column Skeleton */}
-                    <div className="lg:col-span-4 space-y-8">
-                        <div>
-                            <Skeleton className="h-4 w-24 mb-4" variant="text" />
-                            <Skeleton className="h-12 w-full mb-4" variant="text" />
-                            <Skeleton className="h-4 w-3/4" variant="text" />
+                    <div className="lg:col-span-4 space-y-12">
+                        <div className="space-y-6">
+                            <div className="h-4 w-32 bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-full animate-pulse" />
+                            <div className="h-16 w-full bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-2xl animate-pulse" />
+                            <div className="h-4 w-3/4 bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-full animate-pulse" />
                         </div>
-                        <div className="p-8 rounded-[40px] bg-gray-50 dark:bg-white/5 space-y-6">
-                            <Skeleton className="h-10 w-1/2" variant="text" />
-                            <Skeleton className="h-12 w-full rounded-2xl" />
-                            <Skeleton className="h-12 w-full rounded-2xl" />
-                        </div>
-                        <div className="space-y-4">
-                            {[1, 2, 3].map(i => <Skeleton key={i} className="h-16 w-full rounded-2xl" />)}
+                        <div className="p-10 rounded-[3rem] bg-brand-charcoal/5 dark:bg-brand-cream/5 space-y-8 animate-pulse">
+                            <div className="h-12 w-1/2 bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-full" />
+                            <div className="h-16 w-full bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-2xl" />
                         </div>
                     </div>
                 </div>
@@ -98,53 +91,54 @@ const ProductDetail = () => {
     );
 
     if (!product) return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-black text-gray-900 dark:text-white">
-            <h2 className="text-3xl font-black mb-4 uppercase italic tracking-tighter">Producto no encontrado</h2>
-            <button onClick={() => navigate('/catalog')} className="text-green-500 font-black uppercase tracking-widest text-xs hover:underline">Volver al Catálogo</button>
+        <div className="min-h-screen flex flex-col items-center justify-center bg-brand-cream/20 dark:bg-brand-charcoal text-brand-charcoal dark:text-brand-cream">
+            <h2 className="text-4xl font-black mb-8 italic tracking-tighter">Exploración No Encontrada</h2>
+            <button onClick={() => navigate('/catalog')} className="text-brand-green font-black uppercase tracking-[0.4em] text-[10px] hover:tracking-[0.5em] transition-all px-10 py-4 bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-2xl">Reiniciar Búsqueda</button>
         </div>
     );
 
     return (
-        <div className="min-h-screen bg-white dark:bg-[#0a0a0a] pb-24">
+        <div className="min-h-screen bg-white dark:bg-brand-charcoal pb-32 transition-colors duration-700">
             {/* Top Navigation & Breadcrumbs */}
-            <nav className="container mx-auto px-6 py-8">
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                    <div className="flex items-center space-x-3 text-[10px] font-black uppercase tracking-widest text-gray-400">
-                        <span className="hover:text-green-500 cursor-pointer transition-colors" onClick={() => navigate('/')}>Inicio</span>
-                        <FontAwesomeIcon icon={faChevronRight} className="text-[8px]" />
-                        <span className="hover:text-green-500 cursor-pointer transition-colors" onClick={() => navigate('/catalog')}>Catálogo</span>
-                        <FontAwesomeIcon icon={faChevronRight} className="text-[8px]" />
-                        <span className="text-gray-900 dark:text-white truncate max-w-[150px]">{product.name}</span>
+            <nav className="container mx-auto px-10 py-12">
+                <div className="flex flex-wrap items-center justify-between gap-8">
+                    <div className="flex items-center space-x-4 text-[9px] font-black uppercase tracking-[0.3em] text-brand-charcoal/30 dark:text-brand-cream/30">
+                        <span className="hover:text-brand-green cursor-pointer transition-all" onClick={() => navigate('/')}>Atmósfera</span>
+                        <FontAwesomeIcon icon={faChevronRight} className="text-[7px]" />
+                        <span className="hover:text-brand-green cursor-pointer transition-all" onClick={() => navigate('/catalog')}>Colecciones</span>
+                        <FontAwesomeIcon icon={faChevronRight} className="text-[7px]" />
+                        <span className="text-brand-charcoal dark:text-brand-cream font-black">{product.name}</span>
                     </div>
 
-                    <div className="flex items-center space-x-6 text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">
-                        <button className="flex items-center gap-2 hover:text-green-500 transition-colors">
-                            <FontAwesomeIcon icon={faExchangeAlt} />
-                            <span className="hidden sm:inline">Comparar</span>
+                    <div className="flex items-center space-x-8 text-[9px] font-black uppercase tracking-[0.3em] text-brand-charcoal/40 dark:text-brand-cream/40 px-6 py-3 rounded-2xl bg-brand-charcoal/5 dark:bg-brand-cream/5">
+                        <button className="flex items-center gap-3 hover:text-brand-green transition-all group">
+                            <FontAwesomeIcon icon={faExchangeAlt} className="group-hover:rotate-180 transition-transform duration-700" />
+                            <span className="hidden sm:inline">Analizar</span>
                         </button>
-                        <button className="flex items-center gap-2 hover:text-green-500 transition-colors">
+                        <div className="w-[1px] h-3 bg-brand-charcoal/10 dark:bg-brand-cream/10" />
+                        <button className="flex items-center gap-3 hover:text-brand-forest transition-all">
                             <FontAwesomeIcon icon={faShareAlt} />
-                            <span className="hidden sm:inline">Compartir</span>
+                            <span className="hidden sm:inline">Difundir</span>
                         </button>
                     </div>
                 </div>
             </nav>
 
-            <main className="container mx-auto px-6">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    {/* Left: Gallery Section (5 columns) */}
-                    <div className="lg:col-span-12 xl:col-span-5 flex flex-col-reverse md:flex-row gap-6">
+            <main className="container mx-auto px-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+                    {/* Left: Gallery Section */}
+                    <div className="lg:col-span-12 xl:col-span-7 flex flex-col-reverse md:flex-row gap-10">
                         {/* Vertical Thumbnails */}
-                        <div className="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible no-scrollbar">
+                        <div className="flex md:flex-col gap-6 overflow-x-auto md:overflow-visible no-scrollbar pb-4 md:pb-0">
                             {(product.images || []).map((img, idx) => (
                                 <motion.button
                                     key={idx}
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setActiveImage(idx)}
-                                    className={`relative w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border-2 transition-all duration-300 flex-shrink-0 ${activeImage === idx
-                                        ? 'border-green-500 bg-white dark:bg-white/10 shadow-[0_10px_30px_rgba(34,197,94,0.2)]'
-                                        : 'border-gray-100 dark:border-white/5 opacity-40 hover:opacity-100'
+                                    className={`relative w-24 h-24 md:w-32 md:h-32 rounded-[2rem] overflow-hidden border-2 transition-all duration-500 flex-shrink-0 ${activeImage === idx
+                                        ? 'border-brand-green bg-brand-cream dark:bg-brand-charcoal shadow-2xl shadow-brand-green/20'
+                                        : 'border-brand-charcoal/5 dark:border-brand-cream/5 opacity-30 hover:opacity-100'
                                         }`}
                                 >
                                     <img src={img} alt="" className="w-full h-full object-cover" />
@@ -153,257 +147,221 @@ const ProductDetail = () => {
                         </div>
 
                         {/* Main Image View */}
-                        <div className="relative flex-grow aspect-square rounded-[40px] overflow-hidden bg-gray-50 dark:bg-white/5 group border border-gray-100 dark:border-white/5">
+                        <div className="relative flex-grow aspect-square rounded-[4rem] overflow-hidden bg-brand-cream/20 dark:bg-brand-charcoal/50 group border border-brand-charcoal/5 dark:border-brand-cream/5">
                             <AnimatePresence mode="wait">
                                 <motion.img
                                     key={activeImage}
                                     src={product.images[activeImage]}
                                     alt={product.name}
-                                    initial={{ opacity: 0, scale: 1.05 }}
+                                    initial={{ opacity: 0, scale: 1.1 }}
                                     animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.95 }}
-                                    transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
                                     className="w-full h-full object-cover"
                                 />
                             </AnimatePresence>
 
                             {/* Status Badges Overlay */}
-                            <div className="absolute top-8 left-8 flex flex-col gap-2 z-10">
+                            <div className="absolute top-10 left-10 flex flex-col gap-4 z-10">
                                 {product.promotion && (
-                                    <span className="bg-red-500 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-xl">
-                                        Oferta -{product.discountPercentage || 15}%
+                                    <span className="backdrop-blur-xl bg-brand-green/90 text-brand-cream text-[9px] font-black px-6 py-2.5 rounded-2xl uppercase tracking-[0.2em] shadow-2xl border border-white/10">
+                                        Exclusivo -{product.discountPercentage || 15}%
                                     </span>
                                 )}
                                 {product.bestSeller && (
-                                    <span className="bg-orange-500 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-xl">
-                                        Más Vendido
+                                    <span className="backdrop-blur-xl bg-brand-forest/90 text-brand-cream text-[9px] font-black px-6 py-2.5 rounded-2xl uppercase tracking-[0.2em] shadow-2xl border border-white/10">
+                                        Más Codiciado
                                     </span>
                                 )}
                                 {product.new && (
-                                    <span className="bg-green-500 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-xl">
-                                        Novedad
+                                    <span className="backdrop-blur-xl bg-brand-green/90 text-brand-cream text-[9px] font-black px-6 py-2.5 rounded-2xl uppercase tracking-[0.2em] shadow-2xl border border-white/10">
+                                        Novedad Elite
                                     </span>
                                 )}
                             </div>
                         </div>
                     </div>
 
-                    {/* Middle: Info Section (4 columns) */}
-                    <div className="lg:col-span-8 xl:col-span-4 flex flex-col">
-                        <div className="flex items-center gap-2 mb-4">
-                            <span className="text-[10px] font-black text-green-500 uppercase tracking-[0.3em]">{product.brand}</span>
+                    {/* Middle: Info Section */}
+                    <div className="lg:col-span-12 xl:col-span-5 flex flex-col">
+                        <div className="flex items-center gap-4 mb-6">
+                            <span className="text-[10px] font-black text-brand-green uppercase tracking-[0.5em] italic">{product.brand}</span>
+                            <div className="h-[1px] flex-grow bg-brand-charcoal/5 dark:bg-brand-cream/5" />
                         </div>
 
-                        <h1 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-[1.05] tracking-tighter italic">
+                        <h1 className="text-5xl md:text-7xl font-black text-brand-charcoal dark:text-brand-cream mb-10 leading-[0.9] tracking-tighter italic lg:pr-10">
                             {product.name}
                         </h1>
 
-                        {/* Rating Area */}
-                        <div className="flex items-center gap-4 mb-8">
-                            <div className="flex items-center text-orange-400 gap-1 text-sm">
-                                <FontAwesomeIcon icon={faStar} />
-                                <FontAwesomeIcon icon={faStar} />
-                                <FontAwesomeIcon icon={faStar} />
-                                <FontAwesomeIcon icon={faStar} />
-                                <FontAwesomeIcon icon={faStarHalfAlt} />
-                                <span className="ml-2 text-gray-900 dark:text-white text-xs font-black px-2 py-0.5 rounded bg-gray-100 dark:bg-white/5">4.5</span>
+                        <div className="flex items-center gap-8 mb-12">
+                            <div className="flex items-center text-brand-green dark:text-brand-green gap-2">
+                                {[1, 2, 3, 4, 5].map((_, i) => (
+                                    <FontAwesomeIcon key={i} icon={faStar} className={`text-[10px] ${i === 4 ? 'opacity-20' : ''}`} />
+                                ))}
+                                <span className="ml-4 text-brand-charcoal dark:text-brand-cream text-[10px] font-black px-4 py-1.5 rounded-xl bg-brand-charcoal/5 dark:bg-brand-cream/5 border border-brand-charcoal/5 dark:border-brand-cream/5">4.9 / 5.0</span>
                             </div>
-                            <span className="text-[10px] text-gray-400 font-black uppercase tracking-widest hover:text-green-500 cursor-pointer underline decoration-2 transition-colors">12 reseñas</span>
+                            <span className="text-[9px] text-brand-charcoal/40 dark:text-brand-cream/40 font-black uppercase tracking-[0.3em] hover:text-brand-green cursor-pointer transition-all border-b border-transparent hover:border-brand-green">24 Informes Técnicos</span>
                         </div>
 
-                        {/* Color Options */}
-                        <div className="mb-10">
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-4">Edición de Serie</p>
-                            <div className="flex gap-4">
-                                <motion.div whileHover={{ scale: 1.1 }} className="w-10 h-10 rounded-full bg-[#C68E3F] border-4 border-white dark:border-[#0a0a0a] ring-2 ring-[#C68E3F] cursor-pointer shadow-xl" />
-                                <motion.div whileHover={{ scale: 1.1 }} className="w-10 h-10 rounded-full bg-gray-900 border-2 border-gray-100 dark:border-white/10 cursor-pointer hover:border-green-500 transition-colors" />
+                        {/* Price Container - Desktop Integrated */}
+                        <div className="mb-12 p-10 rounded-[3rem] bg-brand-charcoal/5 dark:bg-brand-cream/5 border border-brand-charcoal/5 dark:border-brand-cream/5 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-brand-green/5 rounded-full -mr-20 -mt-20 blur-3xl" />
+
+                            <div className="flex items-baseline gap-3 mb-2">
+                                <span className="text-xs font-black text-brand-charcoal/40 dark:text-brand-cream/40 uppercase tracking-widest">Inversión Ética</span>
+                                <span className="text-5xl font-black text-brand-green tracking-tighter italic">
+                                    {formatCurrency(product.price)}
+                                </span>
                             </div>
-                        </div>
+                            {product.promotion && (
+                                <span className="text-sm text-brand-charcoal/30 dark:text-brand-cream/30 line-through font-black italic ml-28">
+                                    {formatCurrency(product.price / (1 - (product.discountPercentage || 15) / 100))}
+                                </span>
+                            )}
 
-                        {/* Characteristics Table */}
-                        <div className="flex flex-col gap-4">
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-2">Especificaciones Técnicas</p>
-                            {mockCharacteristics.map((char, i) => (
-                                <div key={i} className="flex items-baseline justify-between group">
-                                    <span className="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wider whitespace-nowrap">{char.label}</span>
-                                    <div className="mx-4 h-[1px] flex-grow border-b border-dotted border-gray-200 dark:border-white/10" />
-                                    <span className="text-sm text-gray-900 dark:text-white font-black italic whitespace-nowrap">{char.value}</span>
-                                </div>
-                            ))}
-                            <button className="text-[10px] font-black text-green-500 uppercase tracking-widest mt-4 hover:underline text-left transition-all">Ver todas las especificaciones</button>
-                        </div>
-                    </div>
-
-                    {/* Right: Floating Price Section (3 columns) */}
-                    <div className="lg:col-span-4 xl:col-span-3">
-                        <motion.div
-                            initial={{ y: 30, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ delay: 0.2 }}
-                            className="bg-gray-50 dark:bg-white/5 rounded-[40px] p-8 border border-gray-100 dark:border-white/10 sticky top-32 shadow-2xl dark:shadow-none shadow-gray-200/50"
-                        >
-                            <div className="mb-10">
-                                <div className="flex items-baseline gap-2 mb-1">
-                                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">COP</span>
-                                    <span className="text-5xl font-black text-gray-900 dark:text-white tracking-tighter italic">
-                                        {formatCurrency(product.price)}
-                                    </span>
-                                </div>
-                                {product.promotion && (
-                                    <span className="text-sm text-gray-400 line-through font-bold tracking-tight opacity-60">
-                                        {formatCurrency(product.price / (1 - (product.discountPercentage || 15) / 100))}
-                                    </span>
-                                )}
-                            </div>
-
-                            <div className="flex flex-col gap-3 mb-8">
+                            <div className="grid grid-cols-2 gap-4 mt-10">
                                 <motion.button
-                                    whileHover={{ scale: 1.02, backgroundColor: "#22c55e" }}
+                                    whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => addToCart(product)}
-                                    className="w-full bg-green-500 text-white font-black py-5 rounded-2xl shadow-xl shadow-green-500/20 flex items-center justify-center gap-3 transition-all"
+                                    className="col-span-1 bg-brand-charcoal dark:bg-brand-cream text-brand-cream dark:text-brand-charcoal font-black py-6 rounded-[1.5rem] shadow-2xl flex items-center justify-center gap-4 transition-all hover:bg-brand-green dark:hover:bg-brand-green dark:hover:text-brand-cream group"
                                 >
-                                    <FontAwesomeIcon icon={faShoppingCart} />
-                                    <span className="uppercase tracking-widest text-xs">Añadir al carrito</span>
+                                    <FontAwesomeIcon icon={faShoppingCart} className="group-hover:rotate-12 transition-transform" />
+                                    <span className="uppercase tracking-[0.2em] text-[10px]">Adquirir</span>
                                 </motion.button>
 
                                 <motion.button
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => toggleLike(product.id)}
-                                    className={`w-full py-5 rounded-2xl border-2 font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 transition-all ${product.isLiked
-                                        ? 'bg-red-50 dark:bg-red-900/10 border-red-500 text-red-500 shadow-xl shadow-red-500/10'
-                                        : 'border-gray-200 dark:border-white/10 text-gray-400 hover:border-gray-300 dark:hover:border-white/20'
+                                    className={`col-span-1 rounded-[1.5rem] border-2 font-black text-[10px] uppercase tracking-[0.2em] flex items-center justify-center gap-4 transition-all ${product.isLiked
+                                        ? 'bg-brand-green/10 border-brand-green text-brand-green shadow-2xl shadow-brand-green/20'
+                                        : 'border-brand-charcoal/10 dark:border-brand-cream/10 text-brand-charcoal/30 dark:text-brand-cream/30 hover:border-brand-green hover:text-brand-green'
                                         }`}
                                 >
-                                    <FontAwesomeIcon icon={product.isLiked ? faHeart : faHeartRegular} className="text-lg" />
-                                    <span>Favoritos</span>
+                                    <FontAwesomeIcon icon={product.isLiked ? faHeart : faHeartRegular} className="text-sm" />
+                                    <span>Lista Elite</span>
                                 </motion.button>
                             </div>
+                        </div>
 
-                            <div className="space-y-4 pt-8 border-t border-gray-200 dark:border-white/5">
-                                <div className="flex items-center gap-4 text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-                                    <div className="w-10 h-10 rounded-xl bg-green-500/10 text-green-500 flex items-center justify-center">
-                                        <FontAwesomeIcon icon={faTruck} />
-                                    </div>
-                                    <p className="font-black">Envío Estándar: <span className="text-green-500">Gratis</span></p>
+                        {/* Technical Attributes */}
+                        <div className="space-y-6">
+                            <p className="text-[10px] font-black text-brand-charcoal/30 dark:text-brand-cream/30 uppercase tracking-[0.4em] mb-4">Arquitectura del Objeto</p>
+                            {mockCharacteristics.map((char, i) => (
+                                <div key={i} className="flex items-center justify-between group py-1">
+                                    <span className="text-[10px] text-brand-charcoal/50 dark:text-brand-cream/50 font-black uppercase tracking-widest">{char.label}</span>
+                                    <div className="mx-6 h-[1px] flex-grow border-b border-dashed border-brand-charcoal/10 dark:border-brand-cream/20 group-hover:border-brand-green transition-colors duration-500" />
+                                    <span className="text-sm text-brand-charcoal dark:text-brand-cream font-black italic tracking-tight">{char.value}</span>
                                 </div>
-                                <div className="flex items-center gap-4 text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-widest">
-                                    <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
-                                        <FontAwesomeIcon icon={faShieldAlt} />
-                                    </div>
-                                    <p className="font-black">Pago Seguro Garantizado</p>
-                                </div>
+                            ))}
+                        </div>
+
+                        <div className="mt-12 flex gap-10 items-center">
+                            <div className="flex items-center gap-3 text-brand-charcoal/30 dark:text-brand-cream/30">
+                                <FontAwesomeIcon icon={faTruck} className="text-brand-green" />
+                                <span className="text-[9px] font-black uppercase tracking-widest leading-none">Logística Zero-E <br /><span className="text-brand-green">Garantizada</span></span>
                             </div>
-
-                            {/* Seasonal Banner */}
-                            <motion.div
-                                whileHover={{ x: 5 }}
-                                className="mt-10 bg-gradient-to-br from-orange-400 to-orange-600 p-5 rounded-[24px] text-white flex justify-between items-center cursor-pointer shadow-xl shadow-orange-500/20"
-                            >
-                                <div className="space-y-1">
-                                    <p className="text-[9px] font-black uppercase tracking-[0.2em] opacity-90">Oferta de Otoño 2026</p>
-                                    <p className="text-sm font-black italic tracking-tight">Hasta el 10 de Nov</p>
-                                </div>
-                                <div className="w-8 h-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center">
-                                    <FontAwesomeIcon icon={faChevronRight} className="text-[10px]" />
-                                </div>
-                            </motion.div>
-                        </motion.div>
+                            <div className="flex items-center gap-3 text-brand-charcoal/30 dark:text-brand-cream/30">
+                                <FontAwesomeIcon icon={faShieldAlt} className="text-brand-forest" />
+                                <span className="text-[9px] font-black uppercase tracking-widest leading-none">Protección <br /><span className="text-brand-forest">Cifrada</span></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div className="mt-32">
-                    <div className="flex border-b border-gray-100 dark:border-white/10 mb-12 overflow-x-auto no-scrollbar gap-12">
+                {/* Information Tabs Section */}
+                <div className="mt-40">
+                    <div className="flex border-b border-brand-charcoal/5 dark:border-brand-cream/5 mb-20 overflow-x-auto no-scrollbar gap-16 justify-center">
                         {[
-                            { id: 'description', label: 'descripción' },
-                            { id: 'specifications', label: 'especificaciones' },
-                            { id: 'reviews', label: 'reseñas' }
+                            { id: 'description', label: 'Evolución' },
+                            { id: 'specifications', label: 'Ingeniería' },
+                            { id: 'reviews', label: 'Auditoría' }
                         ].map((tab) => (
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`pb-6 text-xs font-black uppercase tracking-[0.3em] relative transition-all ${activeTab === tab.id ? 'text-green-500' : 'text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                                className={`pb-8 text-[10px] font-black uppercase tracking-[0.5em] relative transition-all duration-500 ${activeTab === tab.id ? 'text-brand-green opacity-100' : 'text-brand-charcoal/30 dark:text-brand-cream/30 hover:opacity-100'
                                     }`}
                             >
                                 {tab.label}
                                 {activeTab === tab.id && (
-                                    <motion.div layoutId="detailTab" className="absolute bottom-0 left-0 right-0 h-1 bg-green-500 rounded-full" />
+                                    <motion.div layoutId="detailTab" className="absolute bottom-0 left-0 right-0 h-[3px] bg-brand-green rounded-full" />
                                 )}
                             </button>
                         ))}
                     </div>
 
-                    <div className="max-w-5xl">
+                    <div className="max-w-6xl mx-auto">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={activeTab}
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.3 }}
-                                className="text-gray-600 dark:text-gray-400 leading-relaxed font-bold"
+                                exit={{ opacity: 0, y: -30 }}
+                                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                                className="text-brand-charcoal/60 dark:text-brand-cream/60 leading-relaxed"
                             >
                                 {activeTab === 'description' && (
-                                    <div className="space-y-6">
-                                        <p className="text-xl md:text-2xl text-gray-900 dark:text-white font-black italic tracking-tighter leading-snug">
-                                            El alto rendimiento se une al diseño sostenible. El {product.name} representa la cima de la ingeniería ecológica.
+                                    <div className="space-y-12 text-center md:px-20">
+                                        <p className="text-3xl md:text-5xl text-brand-charcoal dark:text-brand-cream font-black italic tracking-tighter leading-none">
+                                            Una convergencia entre <br /> <span className="text-brand-green">conciencia y distinción.</span>
                                         </p>
-                                        <p className="text-lg">
-                                            {product.description || 'Sin descripción detallada disponible.'}. Diseñado para quienes exigen eficiencia sin compromisos estéticos, este dispositivo incorpora materiales de primera calidad y componentes modulares de vanguardia.
-                                        </p>
-                                        <p>
-                                            Cada unidad es rigurosamente probada para cumplir con nuestra iniciativa "Residuo Cero", asegurando que hasta el 98% de los componentes sean reciclables al final de su vida útil. LOGO Energy no es solo una elección, es un compromiso con el futuro.
-                                        </p>
+                                        <div className="grid md:grid-cols-2 gap-16 text-left">
+                                            <p className="text-lg font-black tracking-tight leading-relaxed italic border-l-4 border-brand-green pl-10">
+                                                {product.description || 'Sin descripción detallada disponible.'}. Esta pieza ha sido concebida para redefinir los estándares de lujo contemporáneo, fusionando tecnología de precisión con una ética de fabricación implacable.
+                                            </p>
+                                            <p className="text-base font-medium opacity-80 py-4">
+                                                Cada material empleado ha sido seleccionado bajo criterios de biocompabilidad y ciclo de vida circular. El compromiso de LOGO Energy es trascender el consumo masivo, ofreciendo piezas que no solo satisfacen necesidades, sino que cuentan una historia de impacto positivo y elegancia audaz.
+                                            </p>
+                                        </div>
                                     </div>
                                 )}
                                 {activeTab === 'specifications' && (
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                                         {(product.specifications && product.specifications.length > 0 ? product.specifications : [...mockCharacteristics, ...mockCharacteristics]).map((spec, i) => (
-                                            <div key={i} className="p-6 rounded-3xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 space-y-2">
-                                                <p className="text-[9px] font-black uppercase tracking-widest text-green-500">{spec.label}</p>
-                                                <p className="text-lg font-black italic text-gray-900 dark:text-white">{spec.value}</p>
+                                            <div key={i} className="p-10 rounded-[2.5rem] bg-brand-charcoal/5 dark:bg-brand-cream/5 border border-brand-charcoal/5 dark:border-brand-cream/5 space-y-4 hover:border-brand-green transition-colors duration-700">
+                                                <p className="text-[9px] font-black uppercase tracking-[0.3em] text-brand-green italic">{spec.label}</p>
+                                                <p className="text-2xl font-black italic text-brand-charcoal dark:text-brand-cream tracking-tight">{spec.value}</p>
                                             </div>
                                         ))}
                                     </div>
                                 )}
                                 {activeTab === 'reviews' && (
-                                    <div className="space-y-8">
+                                    <div className="space-y-12">
                                         {product.reviews && product.reviews.length > 0 ? (
-                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                                 {product.reviews.map((review, i) => (
-                                                    <div key={i} className="bg-gray-50 dark:bg-white/5 rounded-[32px] p-8 border border-gray-100 dark:border-white/5 shadow-sm">
-                                                        <div className="flex justify-between items-start mb-4">
+                                                    <div key={i} className="bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-[3rem] p-10 border border-brand-charcoal/5 dark:border-brand-cream/5 transition-all hover:shadow-2xl hover:shadow-brand-charcoal/5">
+                                                        <div className="flex justify-between items-start mb-6">
                                                             <div>
-                                                                <p className="font-black italic text-gray-900 dark:text-white uppercase tracking-tighter">{review.user}</p>
-                                                                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{review.date}</p>
+                                                                <p className="font-black italic text-brand-charcoal dark:text-brand-cream uppercase tracking-tight text-xl leading-none">{review.user}</p>
+                                                                <p className="text-[9px] text-brand-charcoal/30 dark:text-brand-cream/30 font-black uppercase tracking-widest mt-2">{review.date}</p>
                                                             </div>
-                                                            <div className="flex gap-1 text-orange-400 text-xs">
+                                                            <div className="flex gap-1.5 text-brand-green text-[10px]">
                                                                 {[...Array(5)].map((_, starIdx) => (
                                                                     <FontAwesomeIcon
                                                                         key={starIdx}
                                                                         icon={faStar}
-                                                                        className={starIdx < review.rating ? 'text-orange-400' : 'text-gray-200 dark:text-white/10'}
+                                                                        className={starIdx < review.rating ? 'opacity-100' : 'opacity-10'}
                                                                     />
                                                                 ))}
                                                             </div>
                                                         </div>
-                                                        <p className="text-sm italic leading-relaxed text-gray-600 dark:text-gray-300">"{review.comment}"</p>
+                                                        <p className="text-base italic leading-relaxed text-brand-charcoal/80 dark:text-brand-cream/80 font-medium">"{review.comment}"</p>
                                                     </div>
                                                 ))}
                                             </div>
                                         ) : (
-                                            <div className="bg-gray-50 dark:bg-white/5 rounded-[40px] p-12 border-2 border-dotted border-gray-200 dark:border-white/10 text-center flex flex-col items-center">
-                                                <div className="flex gap-1 text-gray-200 dark:text-white/10 text-3xl mb-6">
-                                                    <FontAwesomeIcon icon={faStar} />
-                                                    <FontAwesomeIcon icon={faStar} />
+                                            <div className="bg-brand-charcoal/2 dark:bg-brand-cream/5 rounded-[4rem] p-20 border-2 border-dashed border-brand-charcoal/10 dark:border-brand-cream/10 text-center flex flex-col items-center">
+                                                <div className="flex gap-4 text-brand-charcoal/5 dark:text-brand-cream/10 text-5xl mb-10">
                                                     <FontAwesomeIcon icon={faStar} />
                                                     <FontAwesomeIcon icon={faStar} />
                                                     <FontAwesomeIcon icon={faStar} />
                                                 </div>
-                                                <h4 className="text-xl font-black italic text-gray-900 dark:text-white mb-2 uppercase">Sin reseñas aún</h4>
-                                                <p className="mb-8">Sé el primero en compartir tu experiencia con este producto.</p>
-                                                <button className="bg-white dark:bg-black text-[10px] font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl border-2 border-gray-100 dark:border-white/10 hover:border-green-500 transition-all">Escribir Reseña</button>
+                                                <h4 className="text-2xl font-black italic text-brand-charcoal dark:text-brand-cream mb-4 uppercase tracking-tighter">Expediente de Feedback Vacío</h4>
+                                                <p className="text-sm font-black uppercase tracking-widest opacity-40 mb-12">Sé el primero en auditar esta experiencia.</p>
+                                                <button className="bg-brand-charcoal dark:bg-brand-cream text-brand-cream dark:text-brand-charcoal text-[10px] font-black uppercase tracking-[0.4em] px-16 py-6 rounded-[2rem] hover:bg-brand-green dark:hover:bg-brand-green dark:hover:text-brand-cream transition-all shadow-xl">Registrar Opinión</button>
                                             </div>
                                         )}
                                     </div>
@@ -415,15 +373,15 @@ const ProductDetail = () => {
 
                 {/* Related Products */}
                 {relatedProducts.length > 0 && (
-                    <section className="mt-32 border-t border-gray-100 dark:border-white/5 pt-24">
-                        <div className="flex items-end justify-between mb-16 px-2">
+                    <section className="mt-48 pt-40 border-t border-brand-charcoal/5 dark:border-brand-cream/5">
+                        <div className="flex items-end justify-between mb-24">
                             <div>
-                                <p className="text-[10px] font-black text-green-500 uppercase tracking-[0.3em] mb-4">Completa tu set</p>
-                                <h3 className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white italic tracking-tighter">Ecosistema Relacionado</h3>
+                                <p className="text-[10px] font-black text-brand-green uppercase tracking-[0.5em] mb-6 italic">Sinergias Sugeridas</p>
+                                <h3 className="text-5xl md:text-7xl font-black text-brand-charcoal dark:text-brand-cream italic tracking-tighter leading-none">Ecosistema <br /><span className="text-brand-green">Relacionado</span></h3>
                             </div>
-                            <button onClick={() => navigate('/catalog')} className="hidden md:block text-[10px] font-black text-gray-900 dark:text-white uppercase tracking-[0.2em] px-8 py-3 rounded-xl border border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/5 transition-all">Explorar todo</button>
+                            <button onClick={() => navigate('/catalog')} className="hidden md:block text-[10px] font-black text-brand-charcoal dark:text-brand-cream uppercase tracking-[0.4em] px-12 py-5 rounded-[1.5rem] border-2 border-brand-charcoal/10 dark:border-brand-cream/10 hover:bg-brand-green hover:border-brand-green hover:text-brand-cream transition-all">Explorar Todo</button>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
                             {relatedProducts.map(p => (
                                 <ProductCard key={p.id} product={p} />
                             ))}

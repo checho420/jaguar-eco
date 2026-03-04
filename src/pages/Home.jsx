@@ -1,23 +1,20 @@
-import React from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Hero from '../components/Hero';
 import ProductCard from '../components/ProductCard';
-import NewArrivalCard from '../components/NewArrivalCard';
-import BestsellerCarousel from '../components/BestsellerCarousel';
 import { useProducts } from '../context/ProductContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
     const { products, loading } = useProducts();
 
-    // Filter sections
-    const featuredProducts = products.filter(p => p.bestSeller && !p.disabled).slice(0, 4);
+    // Stability of selection
+    const [randomIds, setRandomIds] = useState([]);
 
-    // State to keep the selection of random products stable
-    const [randomIds, setRandomIds] = React.useState([]);
-
-    React.useEffect(() => {
+    useEffect(() => {
         if (products.length > 0 && randomIds.length === 0) {
             const ids = products
                 .filter(p => !p.disabled)
@@ -28,112 +25,127 @@ const Home = () => {
         }
     }, [products, randomIds]);
 
-    // Map stable IDs back to current product data from context
-    const newProducts = React.useMemo(() => {
+    const displayProducts = useMemo(() => {
         return randomIds
             .map(id => products.find(p => p.id === id))
             .filter(Boolean);
     }, [randomIds, products]);
 
     return (
-        <div className="pb-20">
+        <div className="bg-brand-cream dark:bg-brand-charcoal overflow-x-hidden transition-colors duration-1000">
             <Hero />
 
-            {/* Featured Section */}
-            <section className="container mx-auto px-6 py-16 overflow-hidden">
-                <div className="flex justify-between items-end mb-12">
-                    <div>
-                        <h2 className="text-4xl font-black text-gray-900 dark:text-white mb-3">Los más vendidos</h2>
-                        <p className="text-gray-600 dark:text-gray-400 max-w-md">Descubre nuestras opciones ecológicas más populares y favoritas de la comunidad.</p>
+            {/* Intro Stats Section */}
+            <section className="py-24 border-b border-brand-charcoal/[0.03] dark:border-white/[0.03]">
+                <div className="container mx-auto px-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-20">
+                        <div className="flex flex-col gap-4">
+                            <span className="text-brand-green font-bold text-5xl">98%</span>
+                            <h4 className="text-sm font-bold uppercase tracking-widest opacity-40">Satisfacción Elite</h4>
+                            <p className="text-sm leading-relaxed opacity-60">Nuestros clientes experimentan una transición energética impecable y sofisticada.</p>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            <span className="text-brand-green font-bold text-5xl">25+</span>
+                            <h4 className="text-sm font-bold uppercase tracking-widest opacity-40">Proyectos Globales</h4>
+                            <p className="text-sm leading-relaxed opacity-60">Liderando la industria con infraestructuras de alto rendimiento en toda la región.</p>
+                        </div>
+                        <div className="flex flex-col gap-4">
+                            <span className="text-brand-green font-bold text-5xl">0.0</span>
+                            <h4 className="text-sm font-bold uppercase tracking-widest opacity-40">Huella de Carbono</h4>
+                            <p className="text-sm leading-relaxed opacity-60">Compromiso absoluto con la neutralidad climática en cada eslabón de nuestra cadena.</p>
+                        </div>
                     </div>
-                    <a href="/catalog" className="hidden md:block text-green-600 font-bold hover:text-green-700 transition-colors py-2 px-4 rounded-lg bg-green-50 dark:bg-green-900/20">
-                        Ver Todo
-                    </a>
+                </div>
+            </section>
+
+            <section className="relative container mx-auto px-6 py-40 overflow-hidden">
+                {/* Decorative background element for the section */}
+                <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-brand-green/5 rounded-full blur-[120px] pointer-events-none" />
+
+                <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-12 relative z-10">
+                    <div className="max-w-2xl">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="flex items-center gap-4 mb-8"
+                        >
+                            <div className="h-[1px] w-10 bg-brand-green/30" />
+                            <span className="text-brand-green font-black tracking-[0.5em] uppercase text-[9px]">
+                                Catálogo Curado • Edición 2026
+                            </span>
+                        </motion.div>
+
+                        <h2 className="text-6xl md:text-8xl font-black tracking-tightest leading-[0.85] text-brand-charcoal dark:text-brand-cream">
+                            <motion.span
+                                initial={{ opacity: 0, x: -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.2 }}
+                                className="block"
+                            >
+                                Piezas Maestras
+                            </motion.span>
+                            <motion.span
+                                initial={{ opacity: 0, x: -30 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.4 }}
+                                className="block text-brand-green italic font-light mt-2"
+                            >
+                                de Ingeniería Humana
+                            </motion.span>
+                        </h2>
+                    </div>
+                    <Link to="/catalog" className="group flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest border border-brand-charcoal/10 dark:border-white/10 px-10 py-6 rounded-full hover:bg-brand-green hover:border-brand-green hover:text-white transition-all duration-500">
+                        Ver Selección Completa
+                        <FontAwesomeIcon icon={faArrowRight} className="group-hover:translate-x-2 transition-transform" />
+                    </Link>
                 </div>
 
                 {loading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                        {[1, 2, 3, 4].map(i => <div key={i} className="h-96 bg-gray-200 dark:bg-gray-800 rounded-xl animate-pulse"></div>)}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        {[1, 2, 3].map(i => <div key={i} className="aspect-[3/4] bg-brand-charcoal/5 dark:bg-brand-cream/  5 rounded-[2rem] animate-pulse"></div>)}
                     </div>
                 ) : (
-                    <BestsellerCarousel products={featuredProducts} />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-24">
+                        {displayProducts.map((product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                    </div>
                 )}
             </section>
 
-            {/* Banner Promo */}
-            <section className="bg-green-900 py-20 text-white text-center mb-16 relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                <div className="relative z-10 container mx-auto px-6">
-                    <h2 className="text-4xl font-black mb-4">¡La Rebaja de Verano ya está aquí!</h2>
-                    <p className="text-xl mb-10 opacity-90 max-w-2xl mx-auto">Obtén hasta un 30% de descuento en una selección exclusiva de productos sostenibles.</p>
-                    <button className="bg-white text-green-900 px-10 py-4 rounded-full font-bold hover:bg-green-100 transition-all transform hover:scale-105 shadow-xl">
-                        Ver Promociones
-                    </button>
+            {/* Minimalist CTA Banner */}
+            <section className="py-40 bg-brand-charcoal">
+                <div className="container mx-auto px-6 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="max-w-4xl mx-auto flex flex-col items-center gap-12"
+                    >
+                        <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-green">Membresía Energy Elite</span>
+                        <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-brand-cream leading-none italic">
+                            El futuro no se espera, <br /> se diseña.
+                        </h2>
+                        <button className="bg-brand-cream text-brand-charcoal px-12 py-6 rounded-full font-bold uppercase text-[11px] tracking-widest hover:bg-brand-green hover:text-white transition-all shadow-2xl">
+                            Unirse al Programa
+                        </button>
+                    </motion.div>
                 </div>
             </section>
 
-            {/* New Arrivals Section - Minimalist & Elegant */}
-            <section className="py-32 bg-white dark:bg-[#080808]">
-                <div className="container mx-auto px-6">
-                    <div className="flex flex-col items-center text-center mb-20">
-                        <motion.span
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            className="text-[#E5FF00] font-black tracking-[0.4em] uppercase text-[10px] mb-6"
-                        >
-                            The Collection
-                        </motion.span>
-                        <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.1 }}
-                            className="text-5xl md:text-6xl font-black text-gray-900 dark:text-white mb-8 tracking-tighter"
-                        >
-                            Novedades
-                        </motion.h2>
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2 }}
-                            className="text-gray-500 dark:text-gray-400 max-w-xl text-lg font-medium"
-                        >
-                            Descubre la vanguardia de la tecnología sostenible con nuestra última selección de productos.
-                        </motion.p>
-                    </div>
-
-                    {loading ? (
-                        <div className="flex justify-center py-20">
-                            <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                            {newProducts.map((product, index) => (
-                                <motion.div
-                                    key={product.id}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.1 }}
-                                >
-                                    <NewArrivalCard product={product} />
-                                </motion.div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            </section>
-
-            {/* WhatsApp Button */}
-            <a
+            {/* WhatsApp Floating */}
+            <motion.a
                 href="https://wa.me/1234567890"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="fixed bottom-8 right-8 bg-green-500 text-white p-4 rounded-full shadow-lg hover:bg-green-600 transition-all transform hover:scale-110 z-50 flex items-center justify-center h-14 w-14"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className="fixed bottom-10 right-10 bg-brand-green text-brand-cream h-16 w-16 rounded-full flex items-center justify-center shadow-2xl z-50 transition-colors"
             >
-                <FontAwesomeIcon icon={faWhatsapp} className="text-2xl" />
-            </a>
+                <FontAwesomeIcon icon={faWhatsapp} className="text-3xl" />
+            </motion.a>
         </div>
     );
 };
 
 export default Home;
-

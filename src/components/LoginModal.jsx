@@ -31,62 +31,64 @@ const LoginModal = ({ isOpen, onClose }) => {
     return (
         <AnimatePresence>
             {isOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                <div className="fixed inset-0 z-[300] flex items-center justify-center p-6">
                     {/* Backdrop */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                        className="absolute inset-0 bg-brand-charcoal/90 backdrop-blur-xl"
                     />
 
                     {/* Modal */}
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                        initial={{ opacity: 0, scale: 0.9, y: 40 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                        className="relative w-full max-w-md bg-white dark:bg-gray-800 rounded-3xl p-8 shadow-2xl border border-gray-100 dark:border-gray-700 mx-4"
+                        exit={{ opacity: 0, scale: 0.9, y: 40 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        className="relative w-full max-w-md bg-brand-cream dark:bg-brand-charcoal rounded-[3rem] p-12 shadow-2xl border border-brand-charcoal/5 dark:border-brand-cream/10 mx-4 transition-colors duration-700"
                     >
                         <button
                             onClick={onClose}
-                            className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 dark:hover:text-white transition-colors"
+                            className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-full text-brand-charcoal/30 dark:text-brand-cream/30 hover:text-brand-green transition-all active:scale-90"
                         >
                             <FontAwesomeIcon icon={faTimes} />
                         </button>
 
-                        <div className="text-center mb-8">
-                            <h2 className="text-3xl font-bold bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">¡Bienvenido de nuevo!</h2>
-                            <p className="text-gray-500 dark:text-gray-400 mt-2">Accede al Centro de Control de LOGO Energy</p>
+                        <div className="text-center mb-12">
+                            <h2 className="text-4xl font-black text-brand-charcoal dark:text-brand-cream italic tracking-tighter leading-none mb-4">
+                                Acceso <br /><span className="text-brand-green">Energy</span>
+                            </h2>
+                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-charcoal/30 dark:text-brand-cream/30">Centro de Control Administrativo</p>
                         </div>
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Usuario</label>
-                                <div className="relative">
-                                    <FontAwesomeIcon icon={faUser} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                        <form onSubmit={handleSubmit} className="space-y-8">
+                            <div className="space-y-3">
+                                <label className="text-[8px] font-black uppercase tracking-[0.3em] text-brand-charcoal/40 dark:text-brand-cream/40 ml-2">Identidad</label>
+                                <div className="relative group">
+                                    <FontAwesomeIcon icon={faUser} className="absolute left-5 top-1/2 transform -translate-y-1/2 text-brand-charcoal/20 dark:text-brand-cream/20 group-focus-within:text-brand-green transition-colors" />
                                     <input
                                         type="text"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
-                                        className="w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-green-500 outline-none transition-all dark:text-white"
+                                        className="w-full pl-14 pr-6 py-4 rounded-2xl bg-white dark:bg-brand-charcoal/50 border border-brand-charcoal/5 dark:border-brand-cream/10 focus:border-brand-green outline-none transition-all dark:text-brand-cream font-bold text-sm shadow-sm"
                                         placeholder="admin"
                                         required
                                     />
                                 </div>
                             </div>
 
-                            <div className="space-y-2">
-                                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 ml-1">Contraseña</label>
-                                <div className="relative">
-                                    <FontAwesomeIcon icon={faLock} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                            <div className="space-y-3">
+                                <label className="text-[8px] font-black uppercase tracking-[0.3em] text-brand-charcoal/40 dark:text-brand-cream/40 ml-2">Código Secreto</label>
+                                <div className="relative group">
+                                    <FontAwesomeIcon icon={faLock} className="absolute left-5 top-1/2 transform -translate-y-1/2 text-brand-charcoal/20 dark:text-brand-cream/20 group-focus-within:text-brand-green transition-colors" />
                                     <input
                                         type="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="w-full pl-12 pr-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 focus:ring-2 focus:ring-green-500 outline-none transition-all dark:text-white"
-                                        placeholder="admin"
+                                        className="w-full pl-14 pr-6 py-4 rounded-2xl bg-white dark:bg-brand-charcoal/50 border border-brand-charcoal/5 dark:border-brand-cream/10 focus:border-brand-green outline-none transition-all dark:text-brand-cream font-bold text-sm shadow-sm"
+                                        placeholder="••••••••"
                                         required
                                     />
                                 </div>
@@ -94,9 +96,9 @@ const LoginModal = ({ isOpen, onClose }) => {
 
                             {error && (
                                 <motion.div
-                                    initial={{ opacity: 0, height: 0 }}
-                                    animate={{ opacity: 1, height: 'auto' }}
-                                    className="text-red-500 text-sm text-center bg-red-50 dark:bg-red-900/20 py-2 rounded-lg"
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    className="text-brand-green text-[10px] font-black text-center bg-brand-green/5 p-4 rounded-2xl border border-brand-green/10 uppercase tracking-widest"
                                 >
                                     {error}
                                 </motion.div>
@@ -107,9 +109,9 @@ const LoginModal = ({ isOpen, onClose }) => {
                                 whileTap={{ scale: 0.98 }}
                                 type="submit"
                                 disabled={loading}
-                                className="w-full py-3.5 bg-gradient-to-r from-green-500 to-teal-600 text-white font-bold rounded-xl shadow-lg hover:shadow-green-500/30 transition-all disabled:opacity-50"
+                                className="w-full py-5 bg-brand-charcoal dark:bg-brand-cream text-brand-cream dark:text-brand-charcoal font-black uppercase text-[10px] tracking-[0.4em] rounded-[1.5rem] shadow-2xl transition-all disabled:opacity-50 hover:bg-brand-green dark:hover:bg-brand-green dark:hover:text-brand-cream"
                             >
-                                {loading ? 'Accediendo...' : 'Entrar al Panel'}
+                                {loading ? 'Validando...' : 'Iniciar Sesión'}
                             </motion.button>
                         </form>
                     </motion.div>
