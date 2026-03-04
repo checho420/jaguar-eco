@@ -4,6 +4,7 @@ import Layout from './layout/Layout';
 import Catalog from './pages/Catalog';
 import ProductDetail from './pages/ProductDetail';
 import Home from './pages/Home';
+import NotFound from './pages/NotFound';
 
 import Checkout from './pages/Checkout';
 import AdminLayout from './layout/AdminLayout';
@@ -34,7 +35,7 @@ function App() {
 
           <Route path="/cart" element={<div className="p-20 text-center dark:text-white">El carrito llegará pronto...</div>} />
           <Route path="/login" element={<div className="p-20 text-center dark:text-white">Página de Inicio de Sesión</div>} />
-          <Route path="*" element={<div className="p-20 text-center dark:text-white">404 - Página no encontrada</div>} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Layout>
     </>
