@@ -103,11 +103,11 @@ const Home = () => {
                     </div>
 
                     {loading ? (
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             {[1, 2, 3].map(i => <div key={i} className="aspect-[3/4] bg-brand-charcoal/5 dark:bg-brand-cream/  5 rounded-[2rem] animate-pulse"></div>)}
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-12 gap-y-24">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                             {displayProducts.map((product) => (
                                 <ProductCard key={product.id} product={product} />
                             ))}

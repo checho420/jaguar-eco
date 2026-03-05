@@ -24,7 +24,7 @@
         "category": "Ventiladores",
         "price": 3399900,
         "stock": 30,
-        "description": "Ventilador solar oscilante de alto flujo con batería integrada. Ideal para refrescar espacios sin necesidad de cables, ofreciendo aire puro y renovado mediante energía 100% renovable.",
+        "description": "",
         "images": [
             "/assets/products/ventilador.png"
         ],

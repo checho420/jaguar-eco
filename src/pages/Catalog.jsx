@@ -103,7 +103,7 @@ const Catalog = () => {
 
     return (
         <div className="min-h-screen bg-brand-cream/20 dark:bg-brand-charcoal pb-24 transition-colors duration-700">
-            <div className="container mx-auto px-6 pt-40 py-12">
+            <div className="container mx-auto px-6 pt-12 py-12">
                 <div className="flex flex-col lg:flex-row gap-16">
                     <div className="flex-grow order-2 lg:order-1">
                         {/* Search and Sort Toolbar */}
@@ -150,7 +150,7 @@ const Catalog = () => {
                         {/* Product Grid */}
                         <AnimatePresence mode="popLayout">
                             {loading ? (
-                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10 w-full text-brand-charcoal">
+                                <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full text-brand-charcoal">
                                     {[1, 2, 3, 4, 5, 6].map(i => (
                                         <div key={i} className="h-[520px] bg-white dark:bg-brand-charcoal/40 rounded-[2.5rem] p-6 flex flex-col gap-6 border border-brand-charcoal/5 dark:border-brand-cream/5 animate-pulse">
                                             <div className="h-64 bg-brand-cream/50 dark:bg-brand-cream/5 rounded-[2rem]" />
@@ -168,7 +168,7 @@ const Catalog = () => {
                             ) : filteredProducts.length > 0 ? (
                                 <motion.div
                                     layout
-                                    className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10"
+                                    className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
                                 >
                                     {filteredProducts.map(product => (
                                         <motion.div
