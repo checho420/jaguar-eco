@@ -6,7 +6,7 @@
         "category": "Luminarias",
         "price": 1199900,
         "stock": 50,
-        "description": "Luminaria solar de alta potencia diseñada para iluminación vial y perímetros extensos. Su sistema integrado con sensor de movimiento y panel monocristalino ofrece autonomía total y eficiencia sin precedentes.",
+        "description": "",
         "images": [
             "/assets/products/luminaria.png"
         ],
@@ -42,7 +42,7 @@
         "category": "Generadores",
         "price": 4199900,
         "stock": 25,
-        "description": "Estación de energía portátil para camping y respaldo de emergencia. Se puede cargar mediante paneles solares, toma de corriente o puerto de coche.",
+        "description": "Checho",
         "images": [
             "/assets/products/generador.png"
         ],
@@ -60,7 +60,7 @@
         "category": "Baterías",
         "price": 1280000,
         "stock": 100,
-        "description": "Batería de gel sin mantenimiento diseñada para almacenamiento de energía solar. Larga vida útil y alto rendimiento de descarga.",
+        "description": "",
         "images": [
             "/assets/products/bateria.png"
         ],
@@ -78,7 +78,7 @@
         "category": "Iluminación",
         "price": 185000,
         "stock": 200,
-        "description": "Juego de 6 luces solares de acero inoxidable para caminos. Resistentes a la intemperie y funcionamiento automático de anochecer a amanecer.",
+        "description": "Juego",
         "images": [
             "/assets/products/luces.png"
         ],
