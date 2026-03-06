@@ -81,7 +81,7 @@ const ProductCard = ({ product }) => {
                         onClick={(e) => { e.stopPropagation(); addToCart(product); }}
                         className="bg-brand-green text-white px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
                     >
-                        <FontAwesomeIcon icon={faCartPlus} />
+                        <FontAwesomeIcon icon={faCartPlus} className="text-base" />
                         Añadir
                     </motion.button>
                 </div>
@@ -100,33 +100,31 @@ const ProductCard = ({ product }) => {
                 </div>
 
                 {/* Price Matrix */}
-                <div className="mt-auto flex flex-col gap-1">
-                    <div className="flex items-baseline gap-2">
-                        <span className="text-xl font-black text-brand-charcoal dark:text-brand-cream tracking-tight">
-                            {formatCurrency(product.price)}
+                <div className="mt-auto flex flex-col">
+                    {originalPrice && (
+                        <span className="text-[11px] text-brand-charcoal/40 dark:text-brand-cream/40 line-through font-bold mb-0.5">
+                            {formatCurrency(originalPrice)}
                         </span>
-                        {originalPrice && (
-                            <span className="text-[11px] text-brand-charcoal/30 dark:text-brand-cream/30 line-through font-medium">
-                                {formatCurrency(originalPrice)}
-                            </span>
-                        )}
-                    </div>
+                    )}
+                    <span className="text-xl font-black text-brand-charcoal dark:text-brand-cream tracking-tight leading-none">
+                        {formatCurrency(product.price)}
+                    </span>
+                </div>
 
-                    {/* Rating */}
-                    <div className="flex items-center gap-2 pt-2 border-t border-brand-charcoal/[0.03] dark:border-white/[0.03]">
-                        <div className="flex gap-0.5">
-                            {[1, 2, 3, 4, 5].map((s) => (
-                                <FontAwesomeIcon
-                                    key={s}
-                                    icon={faStar}
-                                    className={`text-[8px] ${s <= 4 ? 'text-brand-red' : 'text-brand-charcoal/10 dark:text-white/10'}`}
-                                />
-                            ))}
-                        </div>
-                        <p className="text-[10px] font-bold text-brand-charcoal/40 dark:text-brand-cream/40">
-                            {rating} <span className="opacity-50">({reviewCount})</span>
-                        </p>
+                {/* Rating */}
+                <div className="flex items-center gap-2 pt-2 border-t border-brand-charcoal/[0.03] dark:border-white/[0.03]">
+                    <div className="flex gap-0.5">
+                        {[1, 2, 3, 4, 5].map((s) => (
+                            <FontAwesomeIcon
+                                key={s}
+                                icon={faStar}
+                                className={`text-[8px] ${s <= 4 ? 'text-brand-red' : 'text-brand-charcoal/10 dark:text-white/10'}`}
+                            />
+                        ))}
                     </div>
+                    <p className="text-[10px] font-bold text-brand-charcoal/40 dark:text-brand-cream/40">
+                        {rating} <span className="opacity-50">({reviewCount})</span>
+                    </p>
                 </div>
             </div>
         </motion.div>

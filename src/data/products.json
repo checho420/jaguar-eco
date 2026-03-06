@@ -24,7 +24,7 @@
         "category": "Ventiladores",
         "price": 3399900,
         "stock": 30,
-        "description": " ",
+        "description": "Checho",
         "images": [
             "/assets/products/ventilador.png"
         ],
@@ -64,8 +64,8 @@
         "images": [
             "/assets/products/bateria.png"
         ],
-        "promotion": false,
-        "discountPercentage": 0,
+        "promotion": true,
+        "discountPercentage": 10,
         "new": false,
         "bestSeller": false,
         "sold": 14,

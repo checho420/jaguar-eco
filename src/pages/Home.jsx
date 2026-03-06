@@ -13,23 +13,45 @@ const Home = () => {
 
     // Stability of selection
     const [randomIds, setRandomIds] = useState([]);
+    const [promoIds, setPromoIds] = useState([]);
 
     useEffect(() => {
-        if (products.length > 0 && randomIds.length === 0) {
-            const ids = products
-                .filter(p => !p.disabled)
-                .sort(() => Math.random() - 0.5)
-                .slice(0, 6)
-                .map(p => p.id);
-            setRandomIds(ids);
+        if (products.length > 0) {
+            // Selected random products for main section
+            const availableProducts = products.filter(p => !p.disabled);
+            if (randomIds.length === 0) {
+                const limit = Math.min(availableProducts.length, 8);
+                const ids = [...availableProducts]
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, limit)
+                    .map(p => p.id);
+                setRandomIds(ids);
+            }
+
+            // Products on promotion
+            const promoProducts = products.filter(p => !p.disabled && p.promotion);
+            if (promoIds.length < 4 && promoProducts.length > promoIds.length) {
+                const limit = Math.min(promoProducts.length, 4);
+                const pIds = [...promoProducts]
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, limit)
+                    .map(p => p.id);
+                setPromoIds(pIds);
+            }
         }
-    }, [products, randomIds]);
+    }, [products, randomIds.length, promoIds.length]);
 
     const displayProducts = useMemo(() => {
         return randomIds
             .map(id => products.find(p => p.id === id))
             .filter(Boolean);
     }, [randomIds, products]);
+
+    const promoProductsList = useMemo(() => {
+        return promoIds
+            .map(id => products.find(p => p.id === id))
+            .filter(Boolean);
+    }, [promoIds, products]);
 
     return (
         <div className="bg-brand-cream dark:bg-brand-charcoal overflow-x-hidden transition-colors duration-1000">
@@ -54,6 +76,38 @@ const Home = () => {
                             <h4 className="text-sm font-bold uppercase tracking-widest opacity-40">Huella de Carbono</h4>
                             <p className="text-sm leading-relaxed opacity-60">Compromiso absoluto con la neutralidad climática en cada eslabón de nuestra cadena.</p>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Promociones Section */}
+            <section className="relative py-20 overflow-hidden bg-brand-charcoal/[0.02] dark:bg-white/[0.01]">
+                <div className="container mx-auto px-6 relative z-10">
+                    <div className="flex flex-col mb-16">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="flex items-center gap-4 mb-4"
+                        >
+                            <div className="h-[1px] w-10 bg-brand-red/30" />
+                            <span className="text-brand-red font-black tracking-[0.5em] uppercase text-[9px]">
+                                Oportunidades Únicas
+                            </span>
+                        </motion.div>
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tightest text-brand-charcoal dark:text-brand-cream">
+                            Promociones
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {loading ? (
+                            [1, 2, 3, 4].map(i => <div key={i} className="aspect-[3/4] bg-brand-charcoal/5 dark:bg-brand-cream/5 rounded-[2rem] animate-pulse"></div>)
+                        ) : (
+                            promoProductsList.map((product) => (
+                                <ProductCard key={product.id} product={product} />
+                            ))
+                        )}
                     </div>
                 </div>
             </section>
@@ -84,7 +138,7 @@ const Home = () => {
                                     transition={{ delay: 0.2 }}
                                     className="block"
                                 >
-                                    Piezas Maestras
+                                    nuestra
                                 </motion.span>
                                 <motion.span
                                     initial={{ opacity: 0, x: -30 }}
@@ -92,7 +146,7 @@ const Home = () => {
                                     transition={{ delay: 0.4 }}
                                     className="block text-brand-green italic font-light mt-2"
                                 >
-                                    de Ingeniería Humana
+                                    tienda
                                 </motion.span>
                             </h2>
                         </div>
