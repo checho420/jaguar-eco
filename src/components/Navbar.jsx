@@ -126,8 +126,13 @@ const Navbar = () => {
                                     to={item.path}
                                     className={`${textClasses} text-[11px] font-bold uppercase tracking-[0.25em] transition-all relative group flex items-center gap-3`}
                                 >
-                                    <FontAwesomeIcon icon={item.icon} className="text-lg opacity-40 group-hover:opacity-100 transition-opacity" />
-                                    {item.label}
+                                    <FontAwesomeIcon
+                                        icon={item.icon}
+                                        className="text-lg opacity-40 group-hover:opacity-100 group-hover:text-brand-green transition-all duration-300"
+                                    />
+                                    <span className="group-hover:text-brand-charcoal dark:group-hover:text-brand-cream transition-colors">
+                                        {item.label}
+                                    </span>
                                     <span className="absolute -bottom-1 left-0 w-0 h-[1.5px] bg-brand-green transition-all duration-500 group-hover:w-full" />
                                 </Link>
                             ))}
@@ -136,7 +141,7 @@ const Navbar = () => {
 
                     {/* Toolbar Icons */}
                     <div className="flex items-center space-x-4 md:space-x-8">
-                        <motion.button whileHover={{ scale: 1.1 }} className={`${textClasses} opacity-60 hover:opacity-100 hidden md:block`}>
+                        <motion.button whileHover={{ scale: 1.1 }} className={`${textClasses} opacity-60 hover:opacity-100 hover:text-brand-green hidden md:block transition-colors`}>
                             <FontAwesomeIcon icon={faSearch} className="text-lg" />
                         </motion.button>
 
@@ -147,7 +152,7 @@ const Navbar = () => {
                             whileHover={{ scale: 1.1 }}
                             className={`${textClasses} relative group p-2 flex items-center justify-center`}
                         >
-                            <FontAwesomeIcon icon={faShoppingCart} className="text-lg opacity-60 group-hover:opacity-100 transition-opacity" />
+                            <FontAwesomeIcon icon={faShoppingCart} className="text-lg opacity-60 group-hover:opacity-100 group-hover:text-brand-green transition-all" />
                             <AnimatePresence>
                                 {itemCount > 0 && (
                                     <motion.span
@@ -165,14 +170,14 @@ const Navbar = () => {
                         <motion.button
                             onClick={() => setIsLoginOpen(true)}
                             whileHover={{ scale: 1.1 }}
-                            className={`${textClasses} opacity-60 hover:opacity-100 hidden md:block`}
+                            className={`${textClasses} opacity-60 hover:opacity-100 hover:text-brand-green hidden md:block transition-colors`}
                         >
                             <FontAwesomeIcon icon={faUser} className="text-lg" />
                         </motion.button>
 
                         <button
                             onClick={() => setIsMenuOpen(true)}
-                            className={`${textClasses} xl:hidden p-2`}
+                            className={`${textClasses} xl:hidden p-2 hover:text-brand-green transition-colors`}
                         >
                             <FontAwesomeIcon icon={faBars} className="text-2xl" />
                         </button>
