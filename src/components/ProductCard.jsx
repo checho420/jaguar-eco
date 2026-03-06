@@ -91,10 +91,10 @@ const ProductCard = ({ product }) => {
             <div className="p-6 flex flex-col flex-grow">
                 {/* Brand & Name */}
                 <div className="mb-4">
-                    <p className="text-[8px] font-black uppercase tracking-[0.2em] text-brand-green/60 mb-1">
+                    <p className="text-[10px] font-black uppercase tracking-[0.4em] text-brand-green/60 mb-2">
                         {product.brand}
                     </p>
-                    <h3 className="text-base sm:text-lg font-bold text-brand-charcoal dark:text-brand-cream leading-tight line-clamp-2 min-h-[2.5rem] group-hover:text-brand-green transition-colors duration-300">
+                    <h3 className="text-xl font-bold text-brand-charcoal dark:text-brand-cream leading-tight line-clamp-2 min-h-[3rem] group-hover:text-brand-green transition-colors duration-300">
                         {product.name}
                     </h3>
                 </div>
@@ -106,7 +106,7 @@ const ProductCard = ({ product }) => {
                             {formatCurrency(originalPrice)}
                         </span>
                     )}
-                    <span className="text-xl font-black text-brand-charcoal dark:text-brand-cream tracking-tight leading-none">
+                    <span className="text-2xl font-black text-brand-charcoal dark:text-brand-cream tracking-tight leading-none italic">
                         {formatCurrency(product.price)}
                     </span>
                 </div>

@@ -81,23 +81,44 @@ const Home = () => {
             </section>
 
             {/* Promociones Section */}
-            <section className="relative py-20 overflow-hidden bg-brand-charcoal/[0.02] dark:bg-white/[0.01]">
+            <section className="relative py-32 overflow-hidden bg-brand-charcoal/[0.02] dark:bg-white/[0.01]">
                 <div className="container mx-auto px-6 relative z-10">
-                    <div className="flex flex-col mb-16">
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            className="flex items-center gap-4 mb-4"
-                        >
-                            <div className="h-[1px] w-10 bg-brand-red/30" />
-                            <span className="text-brand-red font-black tracking-[0.5em] uppercase text-[9px]">
-                                Oportunidades Únicas
-                            </span>
-                        </motion.div>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tightest text-brand-charcoal dark:text-brand-cream">
-                            Promociones
-                        </h2>
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12 relative z-10">
+                        <div className="max-w-2xl">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="flex items-center gap-4 mb-8"
+                            >
+                                <div className="h-[1px] w-12 bg-brand-red/30" />
+                                <span className="text-brand-red font-black tracking-[0.5em] uppercase text-[10px]">
+                                    Oportunidades Únicas
+                                </span>
+                            </motion.div>
+                            <h2 className="text-6xl md:text-8xl font-black tracking-tightest leading-[0.85] text-brand-charcoal dark:text-brand-cream">
+                                <motion.span
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                    className="block"
+                                >
+                                    en
+                                </motion.span>
+                                <motion.span
+                                    initial={{ opacity: 0, x: -30 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                    className="block text-brand-red italic font-light mt-2"
+                                >
+                                    promoción
+                                </motion.span>
+                            </h2>
+                        </div>
+                        <Link to="/sale" className="group flex items-center gap-6 text-[10px] font-bold uppercase tracking-widest border border-brand-charcoal/10 dark:border-white/10 px-10 py-6 rounded-full hover:bg-brand-red hover:border-brand-red hover:text-white transition-all duration-500">
+                            Ver Todas las Ofertas
+                            <FontAwesomeIcon icon={faArrowRight} className="group-hover:translate-x-2 transition-transform" />
+                        </Link>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -112,12 +133,12 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="relative py-40 overflow-hidden">
+            <section className="relative py-32 overflow-hidden">
                 <div className="container mx-auto px-6 relative z-10">
                     {/* Decorative background element for the section */}
                     <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-brand-green/5 rounded-full blur-[120px] pointer-events-none" />
 
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-32 gap-12 relative z-10">
+                    <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12 relative z-10">
                         <div className="max-w-2xl">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
@@ -125,8 +146,8 @@ const Home = () => {
                                 viewport={{ once: true }}
                                 className="flex items-center gap-4 mb-8"
                             >
-                                <div className="h-[1px] w-10 bg-brand-green/30" />
-                                <span className="text-brand-green font-black tracking-[0.5em] uppercase text-[9px]">
+                                <div className="h-[1px] w-12 bg-brand-green/30" />
+                                <span className="text-brand-green font-black tracking-[0.5em] uppercase text-[10px]">
                                     Catálogo Curado • Edición 2026
                                 </span>
                             </motion.div>
@@ -170,18 +191,19 @@ const Home = () => {
                 </div>
             </section>
 
-            <section className="py-40 bg-brand-charcoal">
-                <div className="container mx-auto px-6 text-center">
+            <section className="py-32 bg-brand-charcoal overflow-hidden">
+                <div className="container mx-auto px-6 text-center h-full">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        className="max-w-4xl mx-auto flex flex-col items-center gap-12"
+                        viewport={{ once: true }}
+                        className="max-w-5xl mx-auto flex flex-col items-center gap-10"
                     >
-                        <span className="text-[10px] font-bold uppercase tracking-[0.5em] text-brand-green">Membresía Energy Elite</span>
-                        <h2 className="text-5xl md:text-8xl font-bold tracking-tighter text-brand-cream leading-none italic">
+                        <span className="text-[10px] font-black uppercase tracking-[0.5em] text-brand-green">Membresía Energy Elite</span>
+                        <h2 className="text-6xl md:text-8xl font-black tracking-tightest text-brand-cream leading-[0.85] italic">
                             El futuro no se espera, <br /> se diseña.
                         </h2>
-                        <button className="bg-brand-cream text-brand-charcoal px-12 py-6 rounded-full font-bold uppercase text-[11px] tracking-widest hover:bg-brand-green hover:text-white transition-all shadow-2xl">
+                        <button className="bg-brand-cream text-brand-charcoal px-12 py-6 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-brand-green hover:text-white transition-all shadow-2xl mt-8">
                             Unirse al Programa
                         </button>
                     </motion.div>
