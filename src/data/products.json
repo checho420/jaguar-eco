@@ -24,7 +24,7 @@
         "category": "Ventiladores",
         "price": 3399900,
         "stock": 30,
-        "description": "",
+        "description": " ",
         "images": [
             "/assets/products/ventilador.png"
         ],
