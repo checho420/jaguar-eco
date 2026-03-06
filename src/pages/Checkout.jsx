@@ -152,9 +152,12 @@ const Checkout = () => {
                                         />
                                         <button
                                             onClick={() => removeFromCart(item.id)}
-                                            className="absolute -top-2 -right-2 w-6 h-6 bg-brand-green/90 hover:bg-brand-green transition-all"
+                                            className="absolute -top-3 -right-3 w-10 h-10 bg-brand-red text-white rounded-full flex items-center justify-center shadow-lg hover:bg-brand-maroon hover:scale-110 active:scale-90 transition-all z-10 group/remove"
+                                            title="Eliminar producto"
                                         >
-                                            <FontAwesomeIcon icon={faTimes} />
+                                            <motion.div whileHover={{ rotate: 90 }}>
+                                                <FontAwesomeIcon icon={faTimes} className="text-xs" />
+                                            </motion.div>
                                         </button>
                                     </div>
                                     <div className="flex-grow">

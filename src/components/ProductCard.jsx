@@ -53,13 +53,16 @@ const ProductCard = ({ product }) => {
                     )}
                 </div>
 
-                {/* Quick Action: Wishlist */}
-                <button
-                    onClick={(e) => { e.stopPropagation(); }}
-                    className="absolute top-4 right-4 z-20 w-9 h-9 bg-white dark:bg-brand-charcoal/80 text-brand-charcoal/40 dark:text-brand-cream/40 rounded-full flex items-center justify-center shadow-md hover:text-brand-red transition-all duration-300 opacity-0 group-hover:opacity-100 translate-y-[-10px] group-hover:translate-y-0"
-                >
-                    <FontAwesomeIcon icon={faHeart} className="text-sm" />
-                </button>
+                {/* Action Toolbar */}
+                <div className="absolute top-4 right-4 z-20 flex flex-col gap-2">
+                    {/* Wishlist */}
+                    <button
+                        onClick={(e) => { e.stopPropagation(); }}
+                        className="w-10 h-10 bg-white/80 dark:bg-brand-charcoal/80 backdrop-blur-md text-brand-charcoal/40 dark:text-brand-cream/40 rounded-full flex items-center justify-center shadow-sm hover:text-brand-red hover:bg-white dark:hover:bg-brand-charcoal transition-all duration-300 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0"
+                    >
+                        <FontAwesomeIcon icon={faHeart} className="text-sm" />
+                    </button>
+                </div>
 
                 {/* Main Product Image */}
                 <motion.img
@@ -73,16 +76,34 @@ const ProductCard = ({ product }) => {
                     className="w-full h-full object-contain p-8 z-10"
                 />
 
-                {/* Quick Add Overlay */}
-                <div className="absolute inset-0 bg-brand-charcoal/5 dark:bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 flex flex-col items-center justify-center gap-4">
+                {/* Modern Quick Add Button */}
+                <div className="absolute bottom-4 right-4 z-20">
                     <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover="hover"
+                        whileTap={{ scale: 0.9 }}
                         onClick={(e) => { e.stopPropagation(); addToCart(product); }}
-                        className="bg-brand-green text-white px-6 py-2.5 rounded-full text-[9px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
+                        className="w-12 h-12 bg-brand-green text-white rounded-full flex items-center justify-center shadow-2xl shadow-brand-green/30 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500 overflow-hidden relative group/btn"
                     >
-                        <FontAwesomeIcon icon={faCartPlus} className="text-base" />
-                        Añadir
+                        {/* Glow overlay */}
+                        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
+
+                        <motion.div
+                            variants={{
+                                hover: {
+                                    scale: [1, 1.25, 1],
+                                    rotate: [0, -15, 15, -15, 0],
+                                    y: [0, -3, 0],
+                                    transition: {
+                                        duration: 0.6,
+                                        repeat: Infinity,
+                                        repeatDelay: 0.5,
+                                        ease: "easeInOut"
+                                    }
+                                }
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faCartPlus} className="text-lg relative z-10" />
+                        </motion.div>
                     </motion.button>
                 </div>
             </div>

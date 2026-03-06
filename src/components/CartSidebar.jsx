@@ -74,8 +74,14 @@ const CartSidebar = () => {
                                                     <span className="text-xs font-black dark:text-brand-cream px-2">{item.quantity}</span>
                                                     <button onClick={() => updateQuantity(item.id, 1)} className="text-brand-charcoal/40 dark:text-brand-cream/40 hover:text-brand-green transition-colors font-black"><FontAwesomeIcon icon={faPlus} className="text-[10px]" /></button>
                                                 </div>
-                                                <button onClick={() => removeFromCart(item.id)} className="text-brand-charcoal/10 dark:text-brand-cream/10 hover:text-brand-green transition-all duration-300 hover:scale-125">
-                                                    <FontAwesomeIcon icon={faTrash} />
+                                                <button
+                                                    onClick={() => removeFromCart(item.id)}
+                                                    className="w-12 h-12 flex items-center justify-center text-brand-red/40 hover:text-brand-red hover:bg-brand-red/10 rounded-2xl transition-all duration-300 group/delete active:scale-90"
+                                                    title="Quitar de la bolsa"
+                                                >
+                                                    <motion.div whileHover={{ x: [-1, 1, -1, 1, 0], rotate: [-5, 5, -5, 5, 0] }}>
+                                                        <FontAwesomeIcon icon={faTrash} className="text-base" />
+                                                    </motion.div>
                                                 </button>
                                             </div>
                                         </div>
