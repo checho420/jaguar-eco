@@ -213,9 +213,9 @@ const Home = () => {
             {/* Dynamic Promo Banner */}
             <section className="w-full bg-brand-charcoal overflow-hidden">
                 <picture className="w-full">
-                    <source media="(max-width: 768px)" srcSet="/assets/banners/banner-mobile.jpg" />
+                    <source media="(max-width: 768px)" srcSet="assets/banners/banner-mobile.jpg" />
                     <img
-                        src="/assets/banners/banner-desktop.jpg"
+                        src="assets/banners/banner-desktop.jpg"
                         alt="Promo Luminaria"
                         className="w-full h-auto object-cover"
                     />

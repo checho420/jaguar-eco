@@ -8,7 +8,7 @@
         "stock": 50,
         "description": "",
         "images": [
-            "/assets/products/luminaria.png"
+            "assets/products/luminaria.png"
         ],
         "promotion": true,
         "discountPercentage": 15,
@@ -26,7 +26,7 @@
         "stock": 30,
         "description": "Checho",
         "images": [
-            "/assets/products/ventilador.png"
+            "assets/products/ventilador.png"
         ],
         "promotion": false,
         "discountPercentage": 0,
@@ -44,7 +44,7 @@
         "stock": 25,
         "description": "Checho",
         "images": [
-            "/assets/products/generador.png"
+            "assets/products/generador.png"
         ],
         "promotion": true,
         "discountPercentage": 15,
@@ -62,7 +62,7 @@
         "stock": 100,
         "description": "",
         "images": [
-            "/assets/products/bateria.png"
+            "assets/products/bateria.png"
         ],
         "promotion": true,
         "discountPercentage": 10,
@@ -80,7 +80,7 @@
         "stock": 200,
         "description": "Juego",
         "images": [
-            "/assets/products/luces.png"
+            "assets/products/luces.png"
         ],
         "promotion": true,
         "discountPercentage": 15,

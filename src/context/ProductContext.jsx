@@ -2,6 +2,28 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import productsData from '../data/products.json';
 import { useUI } from './UIContext';
 
+const BASE = import.meta.env.BASE_URL; // e.g. '/jaguar-eco/'
+
+/**
+ * Normalizes a product image path to always use the correct base URL.
+ * Handles both absolute paths (/assets/...) and relative paths (assets/...).
+ */
+const resolveImageUrl = (imagePath) => {
+    if (!imagePath) return imagePath;
+    // Already an external URL (http/https/blob/data)
+    if (/^(https?:|blob:|data:)/.test(imagePath)) return imagePath;
+    // Already prefixed with the base — idempotent, don't double-prefix
+    if (imagePath.startsWith(BASE)) return imagePath;
+    // Strip any leading slash to make it relative, then prepend the base
+    const cleanPath = imagePath.replace(/^\//, '');
+    return `${BASE}${cleanPath}`;
+};
+
+const normalizeProductImages = (product) => ({
+    ...product,
+    images: (product.images || []).map(resolveImageUrl),
+});
+
 const ProductContext = createContext();
 
 export const useProducts = () => useContext(ProductContext);
@@ -11,7 +33,7 @@ export const ProductProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const STORAGE_KEY = 'logo_energy_products_v7';
+    const STORAGE_KEY = 'logo_energy_products_v9';
 
     // Initial Load
     useEffect(() => {
@@ -20,7 +42,8 @@ export const ProductProvider = ({ children }) => {
             try {
                 const savedProducts = localStorage.getItem(STORAGE_KEY);
                 if (savedProducts && JSON.parse(savedProducts).length > 0) {
-                    setProducts(JSON.parse(savedProducts));
+                    // Always normalize on read — never store resolved URLs in localStorage
+                    setProducts(JSON.parse(savedProducts).map(normalizeProductImages));
                 } else {
                     // Check for old versions and migrate if needed
                     const oldVersions = ['logo_energy_products', 'logo_energy_products_v2'];
@@ -32,7 +55,6 @@ export const ProductProvider = ({ children }) => {
                             try {
                                 const parsed = JSON.parse(oldData);
                                 if (Array.isArray(parsed) && parsed.length > 0) {
-                                    // Migration logic: Map Spanish keys to English keys
                                     const migratedData = parsed.map(p => ({
                                         id: p.id,
                                         name: p.name || p.nombre,
@@ -50,8 +72,9 @@ export const ProductProvider = ({ children }) => {
                                         specifications: p.specifications || p.especificaciones || [],
                                         reviews: p.reviews || p.reseñas || []
                                     }));
-                                    setProducts(migratedData);
+                                    // Save raw (un-normalized) to localStorage, normalize in-memory
                                     localStorage.setItem(STORAGE_KEY, JSON.stringify(migratedData));
+                                    setProducts(migratedData.map(normalizeProductImages));
                                     migrated = true;
                                     break;
                                 }
@@ -62,13 +85,14 @@ export const ProductProvider = ({ children }) => {
                     }
 
                     if (!migrated) {
-                        setProducts(productsData);
+                        // productsData is already raw — save it as-is, normalize in-memory
                         localStorage.setItem(STORAGE_KEY, JSON.stringify(productsData));
+                        setProducts(productsData.map(normalizeProductImages));
                     }
                 }
             } catch (error) {
                 console.error("Error initializing products:", error);
-                setProducts(productsData);
+                setProducts(productsData.map(normalizeProductImages));
             } finally {
                 setLoading(false);
             }
@@ -77,10 +101,18 @@ export const ProductProvider = ({ children }) => {
         initProducts();
     }, []);
 
-    // Persistence Effect: Save to localStorage whenever products state changes
+    // Persistence Effect: Save to localStorage whenever products state changes.
+    // We de-normalize image URLs before saving so that the stored data is always
+    // in raw/relative form. This keeps the normalize-on-read cycle idempotent.
     useEffect(() => {
         if (!loading) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+            const rawProducts = products.map(p => ({
+                ...p,
+                images: (p.images || []).map(url =>
+                    url.startsWith(BASE) ? url.slice(BASE.length) : url
+                ),
+            }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(rawProducts));
         }
     }, [products, loading]);
 
